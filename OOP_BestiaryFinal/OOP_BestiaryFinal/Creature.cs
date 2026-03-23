@@ -16,10 +16,17 @@ namespace OOP_BestiaryFinal
         private int _maxHealth;
         private MonsterType _monsterType;
 
-
         public string Name { get { return _name; } }
         public string Description { get { return _description; } }
-        public int Level { get { return _level; } }
+        public int Level
+        { 
+            get { return _level; } 
+            set 
+            {
+                if (value >= 1 && value <= 20)
+                    _level = value;
+            }
+        }
         public int AC {  get { return _armorClass; } }
         public int CurrentHealth { get; set; }
         public MonsterType MonsterType { get { return _monsterType; } }
@@ -28,11 +35,11 @@ namespace OOP_BestiaryFinal
         {
             _name = inName;
             _description = inDesc;
-            _level = inLevel;
             _monsterType = inType;
+            Level = inLevel;
 
-            _maxHealth = 0;
-            _armorClass = 0;
+            GetACByLevel();
+            GetHealthByTypeAndLevel();
 
             CurrentHealth = _maxHealth;
 
@@ -43,7 +50,7 @@ namespace OOP_BestiaryFinal
         {
             _name = inName;
             _description = inDesc;
-            _level = inLevel;
+            Level = inLevel;
             _monsterType = inType;
 
             _maxHealth = inHP;
@@ -52,6 +59,51 @@ namespace OOP_BestiaryFinal
             CurrentHealth = _maxHealth;
         }
 
+        private void GetHealthByTypeAndLevel()
+        {
+            int hd = 0;
+            
+            switch (MonsterType)
+            {
+                case MonsterType.Animal:
+                case MonsterType.Alien:
+                case MonsterType.Humanoid:
+                case MonsterType.Ooze:
+                    hd = 8;
+                    break;
+
+                case MonsterType.Construct: 
+                case MonsterType.Dragon:
+                    hd = 12;
+                    break;
+
+                case MonsterType.Demon:
+                case MonsterType.Undead:
+                    hd = 10;
+                    break;
+
+                default:
+                    hd = 8;
+                    break;
+            }
+
+            System.Random rng = new System.Random();
+
+            for (int i = 0; i < Level; i++)
+            {
+                int newHP = rng.Next(1, hd + 1);
+                _maxHealth += newHP;
+            }
+        }
+
+        private void GetACByLevel()
+        {
+            _armorClass = 10 + (Level / 2);
+        }
+
         public abstract string Describe();
+
+        public override string ToString()
+            => $":{Name}:\n{Description}\nLEVEL: {Level}\nTYPE: {MonsterType}\nHP: {CurrentHealth}\nAC: {AC}";
     }
 }
