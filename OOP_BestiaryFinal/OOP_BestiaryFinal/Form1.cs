@@ -29,8 +29,13 @@ namespace OOP_BestiaryFinal
             //        MonsterType.Animal
             //    );
             //Debug.WriteLine(myCreature2.ToString());
-            Ability myMove = new Ability("Planet Buster", "A terrifying flying suplex that relies on the earth's gravity.", 1500, 45, DamageType.Force);
-            Debug.WriteLine(myMove.Describe());
+            //Ability myMove = new Ability("Planet Buster", "A terrifying flying suplex that relies on the earth's gravity.", 1500, 45, DamageType.Force);
+            //Debug.WriteLine(myMove.Describe());
+        }
+
+        private void grpMonsterDetails_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
