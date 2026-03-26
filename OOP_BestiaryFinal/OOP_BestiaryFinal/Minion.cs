@@ -16,6 +16,6 @@ namespace OOP_BestiaryFinal
             : base(inName, inDesc, inLevel, inAC, inHP, inType) { }
 
         public override string Describe()
-            => $"**MINION**\n{Description}";
+           => $"{Name} (MINION)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\n\nTYPE: {MonsterType.ToString()}\n********";
     }
 }

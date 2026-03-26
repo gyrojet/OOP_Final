@@ -23,6 +23,6 @@ namespace OOP_BestiaryFinal
         }
 
         public override string Describe()
-            => $"**WORLD BOSS**\n{Description}";
+            => $"{Name} (WORLD BOSS!)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\n\nTYPE: {MonsterType.ToString()}\n********";
     }
 }

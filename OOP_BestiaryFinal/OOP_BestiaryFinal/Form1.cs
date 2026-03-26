@@ -107,7 +107,7 @@ namespace OOP_BestiaryFinal
             lblHP.Text = monster.CurrentHealth.ToString();
             lblType.Text = monster.MonsterType.ToString();
 
-            rtbDescArea.Text = monster.Description;
+            rtbDescArea.Text = monster.Describe();
 
             // Ifmonster is specificaly an elite or world boss, display aditional info
 
