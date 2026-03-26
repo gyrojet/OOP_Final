@@ -59,8 +59,11 @@ namespace OOP_BestiaryFinal
 
         public string Describe()
         {
-            string desc = $"Ability NAME: {Name}\nDescription: {Description}\nPOWER: {Power}\nDAMAGE TYPE: {DamageType.ToString()}\nMANA COST: {Cost}";
+            string desc = $"NAME: {Name}\n********\nDescription: {Description}\n********\nPOWER: {Power}\n********\nDAMAGE TYPE: {DamageType.ToString()}\n********\nMANA COST: {Cost}";
             return desc;
         }
+
+        public override string ToString()
+            => Name;
     }
 }

@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    [JsonDerivedType(typeof(Minion))]
+    [JsonDerivedType(typeof(Elite))]
+    [JsonDerivedType(typeof(WorldBoss))]
     public abstract class Creature : IDescribable
     {
-        private string _name;
-        private string _description;
-        private int _level;
-        private int _armorClass;
+        [JsonInclude] private string _name;
+        [JsonInclude] private string _description;
+        [JsonInclude] private int _level;
+        [JsonInclude] private int _armorClass;
 
-        private int _maxHealth;
-        private MonsterType _monsterType;
+        [JsonInclude] private int _maxHealth;
+        [JsonInclude] private MonsterType _monsterType;
 
         public string Name { get { return _name; } }
         public string Description { get { return _description; } }
@@ -87,7 +92,7 @@ namespace OOP_BestiaryFinal
                     break;
             }
 
-            System.Random rng = new System.Random();
+            Random rng = new Random();
 
             for (int i = 0; i < Level; i++)
             {
@@ -104,6 +109,8 @@ namespace OOP_BestiaryFinal
         public abstract string Describe();
 
         public override string ToString()
-            => $":{Name}:\n{Description}\nLEVEL: {Level}\nTYPE: {MonsterType}\nHP: {CurrentHealth}\nAC: {AC}";
+        {
+            return $"{Name}";
+        }
     }
 }
