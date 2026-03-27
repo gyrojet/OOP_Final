@@ -2,83 +2,33 @@ using System.Diagnostics;
 
 namespace OOP_BestiaryFinal
 {
-    public partial class Form1 : Form
+    public partial class MonsterForm : Form
     {
-        public Form1()
+        List<Creature> creatureList;
+        public MonsterForm(List<Creature> chrLst)
         {
             InitializeComponent();
+
+            creatureList = new List<Creature>(chrLst);
+            ClearMonsterData();
+            PopulateList();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ClearMonsterData();
-            GenerateTestMonsters();
         }
 
-        // Test method that generates monsters for the list
-        private void GenerateTestMonsters()
+        private void PopulateList()
         {
-            Creature m1 = new Minion("Goblin Goon",
-                "A pittiful goon.\nDoes paltry damage when it isn't groveling.",
-                1,
-                MonsterType.Humanoid);
-
-            Creature m2 = new Elite(
-                    "Goblin Big-Boss",
-                    "Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon't let him poke you!",
-                    4,
-                    new Ability
-                    (
-                            "Pokin' Stick",
-                            "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
-                            5,
-                            2,
-                            DamageType.Physical
-                    ),
-                    MonsterType.Humanoid
-                );
-
-            Creature m3 = new WorldBoss(
-                    "Test Boss",
-                    "What do you want me to say? It's a test.",
-                    17,
-                    new List<Ability>
-                    {
-                        new Ability
-                        (
-                            "Rock Pounder",
-                            "A mighty slam that can smash through solid rock.",
-                            100,
-                            50,
-                            DamageType.Sonic
-                        ),
-                        new Ability
-                        (
-                            "Fire Breath",
-                            "Breathe a gout of flame.",
-                            75,
-                            25,
-                            DamageType.Fire
-                        )
-                    },
-                    MonsterType.Alien
-                );
-
-            lstMonsters.Items.Add(m1);
-            lstMonsters.Items.Add(m2);
-            lstMonsters.Items.Add(m3);
+            if (creatureList != null)
+                foreach (Creature creature in creatureList)
+                    lstMonsters.Items.Add(creature);
         }
 
         // How to display user data:
         // Get monster
         // Determine type
         // Set controls acordingly
-
-        private void grpMonsterDetails_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void lstMonsters_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Grab item, pass into function
@@ -193,6 +143,18 @@ namespace OOP_BestiaryFinal
 
                 rtbAbilityDesc.Text = ab.Describe();
             }
+        }
+
+        private void MonsterForm_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+
+        }
+
+        private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Save Json one last time before closing
+            // DataManager.SaveData(creatureList);
+            Application.Exit();
         }
     }
 }

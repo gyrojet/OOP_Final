@@ -1,6 +1,6 @@
 ﻿namespace OOP_BestiaryFinal
 {
-    partial class Form1
+    partial class MonsterForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -227,7 +227,6 @@
             grpMonsterDetails.TabIndex = 1;
             grpMonsterDetails.TabStop = false;
             grpMonsterDetails.Text = "Details";
-            grpMonsterDetails.Enter += grpMonsterDetails_Enter;
             // 
             // grpCombat
             // 
@@ -376,7 +375,7 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // Form1
+            // MonsterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -384,9 +383,11 @@
             Controls.Add(lblMessenger);
             Controls.Add(tabDisplay);
             Controls.Add(grpMonsterList);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "MonsterForm";
+            Text = "View a Monster";
+            FormClosing += MonsterForm_FormClosing;
             Load += Form1_Load;
+            GiveFeedback += MonsterForm_GiveFeedback;
             grpMonsterList.ResumeLayout(false);
             tabDisplay.ResumeLayout(false);
             tabMonsters.ResumeLayout(false);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -21,8 +22,8 @@ namespace OOP_BestiaryFinal
         [JsonInclude] private int _maxHealth;
         [JsonInclude] private MonsterType _monsterType;
 
-        public string Name { get { return _name; } }
-        public string Description { get { return _description; } }
+        public string Name { get { return _name; } set { _name = value; } }
+        public string Description { get { return _description; } set { _description = value; } }
         public int Level
         { 
             get { return _level; } 
@@ -32,36 +33,32 @@ namespace OOP_BestiaryFinal
                     _level = value;
             }
         }
-        public int AC {  get { return _armorClass; } }
-        public int CurrentHealth { get; set; }
-        public MonsterType MonsterType { get { return _monsterType; } }
+        public int AC {  get { return _armorClass; } set { _armorClass = value; } }
+        public int CurrentHealth { get { return _maxHealth; } set { if (value < 0) { value = 0; } _maxHealth = value; } }
+        public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
 
         public Creature(string inName, string inDesc, int inLevel, MonsterType inType)
         {
-            _name = inName;
-            _description = inDesc;
-            _monsterType = inType;
+            Name = inName;
+            Description = inDesc;
+            MonsterType = inType;
             Level = inLevel;
 
             GetACByLevel();
             GetHealthByTypeAndLevel();
-
-            CurrentHealth = _maxHealth;
-
             // Call get functions here
         }
 
         public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType)
         {
-            _name = inName;
-            _description = inDesc;
+            Name = inName;
+            Description = inDesc;
             Level = inLevel;
-            _monsterType = inType;
+            MonsterType = inType;
 
-            _maxHealth = inHP;
-            _armorClass = inAC;
+            CurrentHealth = inHP;
+            AC = inAC;
 
-            CurrentHealth = _maxHealth;
         }
 
         private void GetHealthByTypeAndLevel()
@@ -97,7 +94,7 @@ namespace OOP_BestiaryFinal
             for (int i = 0; i < Level; i++)
             {
                 int newHP = rng.Next(1, hd + 1);
-                _maxHealth += newHP;
+                CurrentHealth += newHP;
             }
         }
 
