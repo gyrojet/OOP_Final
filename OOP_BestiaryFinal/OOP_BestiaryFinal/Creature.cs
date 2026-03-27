@@ -14,13 +14,14 @@ namespace OOP_BestiaryFinal
     [JsonDerivedType(typeof(WorldBoss))]
     public abstract class Creature : IDescribable
     {
-        [JsonInclude] private string _name;
-        [JsonInclude] private string _description;
-        [JsonInclude] private int _level;
-        [JsonInclude] private int _armorClass;
+        private string _name;
+        private string _description;
+        private int _level;
+        private int _armorClass;
 
-        [JsonInclude] private int _maxHealth;
-        [JsonInclude] private MonsterType _monsterType;
+        private int _maxHealth;
+        private MonsterType _monsterType;
+        private DamageType _resists;
 
         public string Name { get { return _name; } set { _name = value; } }
         public string Description { get { return _description; } set { _description = value; } }
@@ -36,25 +37,28 @@ namespace OOP_BestiaryFinal
         public int AC {  get { return _armorClass; } set { _armorClass = value; } }
         public int CurrentHealth { get { return _maxHealth; } set { if (value < 0) { value = 0; } _maxHealth = value; } }
         public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
+        public DamageType Resists { get { return _resists; } set { _resists = value; } }
 
-        public Creature(string inName, string inDesc, int inLevel, MonsterType inType)
+        public Creature(string inName, string inDesc, int inLevel, MonsterType inType, DamageType inResists)
         {
             Name = inName;
             Description = inDesc;
             MonsterType = inType;
             Level = inLevel;
+            Resists = inResists;
 
             GetACByLevel();
             GetHealthByTypeAndLevel();
             // Call get functions here
         }
 
-        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType)
+        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType, DamageType inResists)
         {
             Name = inName;
             Description = inDesc;
             Level = inLevel;
             MonsterType = inType;
+            Resists = inResists;
 
             CurrentHealth = inHP;
             AC = inAC;

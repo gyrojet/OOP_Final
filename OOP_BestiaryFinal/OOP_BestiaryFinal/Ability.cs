@@ -59,7 +59,7 @@ namespace OOP_BestiaryFinal
 
         public string Describe()
         {
-            string desc = $"NAME: {Name}\n********\nDescription: {Description}\n********\nPOWER: {Power}\n********\nDAMAGE TYPE: {DamageType.ToString()}\n********\nMANA COST: {Cost}";
+            string desc = $"NAME: {Name}\n********\n{Description}\n********\nPOWER: {Power}\n********\nDAMAGE TYPE: {DamageType.ToString()}\n********\nMANA COST: {Cost}";
             return desc;
         }
 

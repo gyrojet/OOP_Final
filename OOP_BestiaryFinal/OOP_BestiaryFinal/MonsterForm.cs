@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace OOP_BestiaryFinal
 {
@@ -23,6 +24,13 @@ namespace OOP_BestiaryFinal
             if (creatureList != null)
                 foreach (Creature creature in creatureList)
                     lstMonsters.Items.Add(creature);
+
+            string n = JsonSerializer.Serialize(creatureList[2], new JsonSerializerOptions { WriteIndented = true });
+
+            Debug.WriteLine(n);
+
+            // Loot manager goldtest; continue here tommorow
+            lblGoldCount.Text = LootManager.GetGold(creatureList[2].Level, creatureList[2].MonsterType).ToString();
         }
 
         // How to display user data:
@@ -145,10 +153,7 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        private void MonsterForm_GiveFeedback(object sender, GiveFeedbackEventArgs e)
-        {
-
-        }
+        
 
         private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
         {

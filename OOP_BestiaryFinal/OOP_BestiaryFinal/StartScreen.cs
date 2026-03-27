@@ -24,7 +24,9 @@ namespace OOP_BestiaryFinal
             Creature m1 = new Minion("Goblin Goon",
                 "A pittiful goon.\nDoes paltry damage when it isn't groveling.",
                 1,
-                MonsterType.Humanoid);
+                MonsterType.Humanoid,
+                DamageType.None
+                );
 
             Creature m2 = new Elite(
                     "Goblin Big-Boss",
@@ -38,7 +40,8 @@ namespace OOP_BestiaryFinal
                             2,
                             DamageType.Physical
                     ),
-                    MonsterType.Humanoid
+                    MonsterType.Humanoid,
+                    DamageType.Physical
                 );
 
             Creature m3 = new WorldBoss(
@@ -64,7 +67,8 @@ namespace OOP_BestiaryFinal
                             DamageType.Fire
                         )
                     },
-                    MonsterType.Alien
+                    MonsterType.Alien,
+                    DamageType.Acid
                 );
 
             creatureList.Add(m1);

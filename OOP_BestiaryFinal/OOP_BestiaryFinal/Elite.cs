@@ -10,19 +10,19 @@ namespace OOP_BestiaryFinal
     {
         public Ability Ability { get; set; }
 
-        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, MonsterType inType)
-            : base(inName, inDesc, inLevel, inType)
+        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, MonsterType inType, DamageType inResists)
+            : base(inName, inDesc, inLevel, inType, inResists)
         {
             Ability = inAbility;
         }
 
-        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, int inAC, int inHP, MonsterType inType)
-            : base(inName, inDesc, inLevel, inAC, inHP, inType)
+        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, int inAC, int inHP, MonsterType inType, DamageType inResists)
+            : base(inName, inDesc, inLevel, inAC, inHP, inType, inResists)
         {
             Ability = inAbility;
         }
 
         public override string Describe()
-           => $"{Name} (ELITE)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\n\nTYPE: {MonsterType.ToString()}\n********";
+           => $"{Name} (ELITE)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\nRESISTS: {Resists}\n\nTYPE: {MonsterType.ToString()}\n********";
     }
 }
