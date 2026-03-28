@@ -53,7 +53,7 @@ namespace OOP_BestiaryFinal
             } 
             set 
             { 
-                if (value < 0) 
+                if (value > 0) 
                     _maxHealth = value;
                 else
                     _maxHealth = 0;
@@ -126,7 +126,7 @@ namespace OOP_BestiaryFinal
             {
                 int newHP = rng.Next(1, hd + 1);
                 // Add new hp to total
-                CurrentHealth += newHP;
+                CurrentHealth = CurrentHealth + newHP;
             }
         }
 

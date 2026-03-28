@@ -24,6 +24,13 @@ namespace OOP_BestiaryFinal
         static List<Loot> mundaneItems = new List<Loot>();
         static List<Loot> magicItems = new List<Loot>();
 
+        public static void LoadItemLists()
+        {
+            // Load item lists from DataManager,
+            // Assign to mundane and magic items
+            // Called on splash form load
+        }
+
         public static int GetGold(int level, MonsterType type)
         {
             int total = 0;
