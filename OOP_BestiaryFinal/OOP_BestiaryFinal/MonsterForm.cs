@@ -21,16 +21,19 @@ namespace OOP_BestiaryFinal
 
         private void PopulateList()
         {
+            DisplayBannerMessage("Welcome!");
+
+            // These are all tests that will be dealt with later
             if (creatureList != null)
                 foreach (Creature creature in creatureList)
                     lstMonsters.Items.Add(creature);
 
-            string n = JsonSerializer.Serialize(creatureList[2], new JsonSerializerOptions { WriteIndented = true });
+            string n = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
 
             Debug.WriteLine(n);
 
             // Loot manager goldtest; continue here tommorow
-            lblGoldCount.Text = LootManager.GetGold(creatureList[2].Level, creatureList[2].MonsterType).ToString();
+            PopulateTypeList();
         }
 
         // How to display user data:
@@ -45,10 +48,11 @@ namespace OOP_BestiaryFinal
             if (lstMonsters.SelectedIndex == -1)
                 return;
 
+            // If the creature is a Creature: display its data
             if (lstMonsters.SelectedItem is Creature c)
                 DisplayMonsterData(c);
             else
-                Debug.WriteLine("Wrond datatype");
+                Debug.WriteLine("Wrong datatype");
 
         }
 
@@ -67,7 +71,7 @@ namespace OOP_BestiaryFinal
 
             rtbDescArea.Text = monster.Describe();
 
-            // Ifmonster is specificaly an elite or world boss, display aditional info
+            // If monster is specificaly an elite or world boss, display aditional info
 
             if (monster is Elite || monster is WorldBoss)
             {
@@ -131,11 +135,16 @@ namespace OOP_BestiaryFinal
             lblAbilityPower.Text = string.Empty;
         }
 
-        private void grpAbilities_Enter(object sender, EventArgs e)
+        private void PopulateTypeList()
         {
-
+            cboType.DataSource = Enum.GetValues(typeof(MonsterType));
         }
 
+        private void DisplayBannerMessage(string msg)
+        {
+            lblMessenger.Text = msg;
+        }
+        
         private void lstAbilities_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstAbilities.SelectedIndex == -1)
@@ -153,13 +162,27 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        
+
 
         private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Save Json one last time before closing
             // DataManager.SaveData(creatureList);
             Application.Exit();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUseCurrentMonster.Checked)
+            {
+                cboType.Enabled = false;
+                nudLevel.Enabled = false;
+            }
+            else
+            {
+                cboType.Enabled = true;
+                nudLevel.Enabled = true;
+            }
         }
     }
 }

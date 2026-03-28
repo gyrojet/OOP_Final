@@ -13,17 +13,20 @@ namespace OOP_BestiaryFinal
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Value { get { return _value; } set { if (value < 0) value = 0; _value = value; } }
+        public int Value { get { return _value; } set { if (value < 0) value = 0; else _value = value; } }
 
-        public Loot(string inName, string inDesc, int inValue)
+        public bool IsMagical { get; set; }
+
+        public Loot(string inName, string inDesc, int inValue, bool isMagic)
         {
             Name = inName;
             Description = inDesc;
             Value = inValue;
+            IsMagical = isMagic;
         }
 
         public string Describe()
-            => $"NAME: {Name}\nVALUE: {Value}gp\n{Description}";
+            => $"NAME: {Name}\nVALUE: {Value}gp\n{(IsMagical == false ? "MUNDANE" : "MAGIC")} ITEM\n{Description}";
 
         public override string ToString()
             => Name;

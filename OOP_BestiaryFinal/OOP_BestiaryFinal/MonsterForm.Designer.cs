@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             grpMonsterList = new GroupBox();
             grpLootGen = new GroupBox();
+            lblItemTitle = new Label();
             lblCoinTitle = new Label();
             lstItems = new ListBox();
             rtbLootDescription = new RichTextBox();
@@ -39,8 +40,9 @@
             label4 = new Label();
             label1 = new Label();
             nudLevel = new NumericUpDown();
-            checkBox1 = new CheckBox();
+            chkUseCurrentMonster = new CheckBox();
             grpLootInfo = new GroupBox();
+            lblGoldCount = new Label();
             lstMonsters = new ListBox();
             tabDisplay = new TabControl();
             tabMonsters = new TabPage();
@@ -70,8 +72,6 @@
             tabCreate = new TabPage();
             lblMessenger = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            lblGoldCount = new Label();
-            lblItemTitle = new Label();
             grpMonsterList.SuspendLayout();
             grpLootGen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudLevel).BeginInit();
@@ -104,7 +104,7 @@
             grpLootGen.Controls.Add(label4);
             grpLootGen.Controls.Add(label1);
             grpLootGen.Controls.Add(nudLevel);
-            grpLootGen.Controls.Add(checkBox1);
+            grpLootGen.Controls.Add(chkUseCurrentMonster);
             grpLootGen.Controls.Add(grpLootInfo);
             grpLootGen.Location = new Point(0, 237);
             grpLootGen.Name = "grpLootGen";
@@ -112,6 +112,16 @@
             grpLootGen.TabIndex = 1;
             grpLootGen.TabStop = false;
             grpLootGen.Text = "Loot Generator";
+            // 
+            // lblItemTitle
+            // 
+            lblItemTitle.AutoSize = true;
+            lblItemTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblItemTitle.Location = new Point(3, 116);
+            lblItemTitle.Name = "lblItemTitle";
+            lblItemTitle.Size = new Size(75, 15);
+            lblItemTitle.TabIndex = 21;
+            lblItemTitle.Text = "ItemDetails:";
             // 
             // lblCoinTitle
             // 
@@ -187,15 +197,16 @@
             nudLevel.TabIndex = 1;
             nudLevel.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // checkBox1
+            // chkUseCurrentMonster
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(9, 17);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(144, 19);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "Use Selected Monster?";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkUseCurrentMonster.AutoSize = true;
+            chkUseCurrentMonster.Location = new Point(9, 17);
+            chkUseCurrentMonster.Name = "chkUseCurrentMonster";
+            chkUseCurrentMonster.Size = new Size(144, 19);
+            chkUseCurrentMonster.TabIndex = 0;
+            chkUseCurrentMonster.Text = "Use Selected Monster?";
+            chkUseCurrentMonster.UseVisualStyleBackColor = true;
+            chkUseCurrentMonster.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // grpLootInfo
             // 
@@ -206,6 +217,14 @@
             grpLootInfo.TabIndex = 20;
             grpLootInfo.TabStop = false;
             grpLootInfo.Text = "Loot Info";
+            // 
+            // lblGoldCount
+            // 
+            lblGoldCount.AutoSize = true;
+            lblGoldCount.Location = new Point(194, 24);
+            lblGoldCount.Name = "lblGoldCount";
+            lblGoldCount.Size = new Size(0, 15);
+            lblGoldCount.TabIndex = 21;
             // 
             // lstMonsters
             // 
@@ -256,7 +275,7 @@
             grpAbilities.TabIndex = 2;
             grpAbilities.TabStop = false;
             grpAbilities.Text = "Abilities";
-            grpAbilities.Enter += grpAbilities_Enter;
+            //grpAbilities.Enter += grpAbilities_Enter;
             // 
             // lblAbilityType
             // 
@@ -506,24 +525,6 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // lblGoldCount
-            // 
-            lblGoldCount.AutoSize = true;
-            lblGoldCount.Location = new Point(194, 24);
-            lblGoldCount.Name = "lblGoldCount";
-            lblGoldCount.Size = new Size(0, 15);
-            lblGoldCount.TabIndex = 21;
-            // 
-            // lblItemTitle
-            // 
-            lblItemTitle.AutoSize = true;
-            lblItemTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblItemTitle.Location = new Point(3, 116);
-            lblItemTitle.Name = "lblItemTitle";
-            lblItemTitle.Size = new Size(75, 15);
-            lblItemTitle.TabIndex = 21;
-            lblItemTitle.Text = "ItemDetails:";
-            // 
             // MonsterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -584,7 +585,7 @@
         private Label lblAbilityPower;
         private Label label6;
         private GroupBox grpLootGen;
-        private CheckBox checkBox1;
+        private CheckBox chkUseCurrentMonster;
         private ListBox lstItems;
         private RichTextBox rtbLootDescription;
         private Button btnGetLoot;

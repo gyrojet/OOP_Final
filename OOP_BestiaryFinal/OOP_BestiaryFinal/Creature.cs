@@ -34,8 +34,31 @@ namespace OOP_BestiaryFinal
                     _level = value;
             }
         }
-        public int AC {  get { return _armorClass; } set { _armorClass = value; } }
-        public int CurrentHealth { get { return _maxHealth; } set { if (value < 0) { value = 0; } _maxHealth = value; } }
+        public int AC 
+        {  
+            get { return _armorClass; }
+            set 
+            {
+                if (value >= 10)
+                    _armorClass = value;
+                else
+                    _armorClass = 10;
+            } 
+        }
+        public int CurrentHealth 
+        { 
+            get 
+            { 
+                return _maxHealth; 
+            } 
+            set 
+            { 
+                if (value < 0) 
+                    _maxHealth = value;
+                else
+                    _maxHealth = 0;
+            } 
+        }
         public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
         public DamageType Resists { get { return _resists; } set { _resists = value; } }
 
@@ -49,7 +72,7 @@ namespace OOP_BestiaryFinal
 
             GetACByLevel();
             GetHealthByTypeAndLevel();
-            // Call get functions here
+            
         }
 
         public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType, DamageType inResists)
@@ -67,8 +90,10 @@ namespace OOP_BestiaryFinal
 
         private void GetHealthByTypeAndLevel()
         {
+            // Hit dice; used to determine health
             int hd = 0;
             
+            // Get die size by type
             switch (MonsterType)
             {
                 case MonsterType.Animal:
@@ -87,31 +112,38 @@ namespace OOP_BestiaryFinal
                 case MonsterType.Undead:
                     hd = 10;
                     break;
-
+                // If none of the above: this shouldn't happen
                 default:
-                    hd = 8;
+                    hd = 4;
                     break;
             }
 
+            // Declare a random object
             Random rng = new Random();
 
+            // Generate a hit die of health per level: range 1-HD
             for (int i = 0; i < Level; i++)
             {
                 int newHP = rng.Next(1, hd + 1);
+                // Add new hp to total
                 CurrentHealth += newHP;
             }
         }
 
         private void GetACByLevel()
         {
+            // Ac increases by 1 for every 2 levels, to a max of 20
             _armorClass = 10 + (Level / 2);
         }
 
         public abstract string Describe();
 
+        //  Display the creature's name
         public override string ToString()
         {
             return $"{Name}";
         }
+
+        
     }
 }
