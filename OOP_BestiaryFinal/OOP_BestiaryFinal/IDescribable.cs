@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
-    internal interface IDescribable
+    public interface IDescribable
     {
         string Describe();
     }

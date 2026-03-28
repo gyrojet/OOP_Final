@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace OOP_BestiaryFinal
 {
@@ -51,8 +52,32 @@ namespace OOP_BestiaryFinal
                     break;
             }
 
-            total = ((rng.Next(1, baseAmt + 1)) * level) + (level * 5);
+            total = ((rng.Next(1, baseAmt + 1)) * level) + rng.Next(1, level + 1);
+            Debug.WriteLine($"level: {level} type: {type.ToString()} total: {total} base amt: {baseAmt}");
             return total;
+        }
+
+        // Gets a list of items based on level
+        // In an early stage
+        public static List<Loot> GetLootList(int level)
+        {
+            List<Loot> lootList = new List<Loot>()
+            {
+                new Loot(
+                        "Dirt Clump",
+                        "Exactly what it says.",
+                        -5,
+                        false
+                    ),
+                new Loot(
+                        "+1 Mace",
+                        "Enhanced with offensive magic.",
+                        20,
+                        true
+                    )
+            };
+
+            return lootList;
         }
     }
 }

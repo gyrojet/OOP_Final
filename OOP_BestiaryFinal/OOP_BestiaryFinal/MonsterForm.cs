@@ -135,31 +135,37 @@ namespace OOP_BestiaryFinal
             lblAbilityPower.Text = string.Empty;
         }
 
+        private void DisplayAbilityStats(Ability ab)
+        {
+            lblAbilityCost.Text = ab.Cost.ToString();
+            lblAbilityPower.Text = ab.Power.ToString();
+            lblAbilityType.Text = ab.DamageType.ToString();
+
+            rtbAbilityDesc.Text = ab.Describe();
+        }
+
         private void PopulateTypeList()
         {
+            // Fill the combo box with the monster type enum
             cboType.DataSource = Enum.GetValues(typeof(MonsterType));
         }
 
+
         private void DisplayBannerMessage(string msg)
-        {
+        {   // Display a message at the bottom of the screen
             lblMessenger.Text = msg;
         }
-        
+
         private void lstAbilities_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // If nothing is selected,
             if (lstAbilities.SelectedIndex == -1)
                 return;
 
             // Check to see if object is an ability, then fill in the data
             ClearAbilityStats();
             if (lstAbilities.SelectedItem is Ability ab)
-            {
-                lblAbilityCost.Text = ab.Cost.ToString();
-                lblAbilityPower.Text = ab.Power.ToString();
-                lblAbilityType.Text = ab.DamageType.ToString();
-
-                rtbAbilityDesc.Text = ab.Describe();
-            }
+                DisplayAbilityStats(ab);
         }
 
 
@@ -183,6 +189,105 @@ namespace OOP_BestiaryFinal
                 cboType.Enabled = true;
                 nudLevel.Enabled = true;
             }
+        }
+
+        private void btnGetLoot_Click(object sender, EventArgs e)
+        {
+            /*
+             *  PROCESS:
+             *  If checked, get data from selected monster, if one is selected
+             *  otherwise, use NUD and combo box
+             */
+            ClearLootList();
+            ClearLootData();
+
+            GetMonsterGold();
+            GetMonsterLootList();
+        }
+
+        private void ClearLootList()
+        {
+            lstItems.Items.Clear();
+        }
+
+        private void ClearLootData()
+        {
+            rtbLootDescription.Text = string.Empty;
+        }
+
+        private void GetMonsterGold()
+        {
+            // Use current monster's stats
+            if (chkUseCurrentMonster.Checked)
+            {
+                if (lstMonsters.SelectedIndex == -1)
+                    return;
+
+                // If the creature is a Creature: display its data
+                if (lstMonsters.SelectedItem is Creature c)
+                {
+                    int gold = LootManager.GetGold(c.Level, c.MonsterType);
+
+                    lblGoldCount.Text = gold.ToString();
+                }
+            }
+            else // Use custom stats
+            {
+                if (cboType.SelectedIndex == -1)
+                    return;
+
+                int level = (int)nudLevel.Value;
+                MonsterType type = (MonsterType)cboType.SelectedItem;
+
+                int gold = LootManager.GetGold(level, type);
+                lblGoldCount.Text = gold.ToString();
+            }
+        }
+
+        private void GetMonsterLootList()
+        {
+            List<Loot> monsterLoot = new List<Loot>();
+            if (chkUseCurrentMonster.Checked)
+            {
+                if (lstMonsters.SelectedIndex == -1)
+                    return;
+
+                // If the creature is a Creature: display its data
+                if (lstMonsters.SelectedItem is Creature c)
+                {
+                    List<Loot> loot = LootManager.GetLootList(c.Level);
+
+                    foreach (Loot l in loot)
+                        lstItems.Items.Add(l);
+                }
+
+            }
+            else // Use custom stats
+            {
+                int level = (int)nudLevel.Value;
+
+                List<Loot> loot = LootManager.GetLootList(level);
+
+                foreach (Loot l in loot)
+                    lstItems.Items.Add(l);
+            }
+        }
+
+        private void DisplayLootDetails()
+        {
+            if (lstItems.SelectedIndex == -1)
+                return;
+
+            if (lstItems.SelectedItem is Loot loot)
+            {
+                rtbLootDescription.Text = loot.Describe();
+            }
+        }
+
+        private void lstItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearLootData();
+            DisplayLootDetails();
         }
     }
 }

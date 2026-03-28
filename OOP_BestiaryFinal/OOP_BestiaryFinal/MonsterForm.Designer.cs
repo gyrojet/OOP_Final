@@ -141,6 +141,7 @@
             lstItems.Name = "lstItems";
             lstItems.Size = new Size(128, 154);
             lstItems.TabIndex = 18;
+            lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged;
             // 
             // rtbLootDescription
             // 
@@ -160,6 +161,7 @@
             btnGetLoot.TabIndex = 5;
             btnGetLoot.Text = "Get Loot";
             btnGetLoot.UseVisualStyleBackColor = true;
+            btnGetLoot.Click += btnGetLoot_Click;
             // 
             // cboType
             // 
@@ -275,7 +277,6 @@
             grpAbilities.TabIndex = 2;
             grpAbilities.TabStop = false;
             grpAbilities.Text = "Abilities";
-            //grpAbilities.Enter += grpAbilities_Enter;
             // 
             // lblAbilityType
             // 
