@@ -28,7 +28,7 @@ namespace OOP_BestiaryFinal
 
         private void StartScreen_Load(object sender, EventArgs e)
         {
-
+            Debug.WriteLine(Directory.GetCurrentDirectory());
         }
 
         private void button1_Click(object sender, EventArgs e)
