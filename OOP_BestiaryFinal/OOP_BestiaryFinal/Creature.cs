@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
-    [JsonDerivedType(typeof(Minion))]
-    [JsonDerivedType(typeof(Elite))]
-    [JsonDerivedType(typeof(WorldBoss))]
+    [JsonDerivedType(typeof(Minion), typeDiscriminator: "minion")]
+    [JsonDerivedType(typeof(Elite), typeDiscriminator: "elite")]
+    [JsonDerivedType(typeof(WorldBoss), typeDiscriminator: "worldBoss")]
     public abstract class Creature : IDescribable
     {
         [JsonInclude] private string _name;

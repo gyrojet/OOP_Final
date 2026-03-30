@@ -23,81 +23,9 @@ namespace OOP_BestiaryFinal
 
         private void PopulateCreatureList()
         {
-            string tempJSON = @"[
-  {
-    ""Name"": ""Goblin Goon"",
-    ""Description"": ""A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling."",
-    ""Level"": 1,
-    ""AC"": 10,
-    ""CurrentHealth"": 1,
-    ""MonsterType"": 5,
-    ""Resists"": 7,
-    ""_name"": ""Goblin Goon"",
-    ""_description"": ""A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling."",
-    ""_level"": 1,
-    ""_armorClass"": 10,
-    ""_maxHealth"": 1,
-    ""_monsterType"": 5,
-    ""_resists"": 7
-  },
-  {
-    ""Ability"": {
-      ""Name"": ""Pokin\u0027 Stick"",
-      ""Description"": ""Wait. This is just a rusty nail!\nHas a chance to give you tetanus."",
-      ""Power"": 5,
-      ""Cost"": 2,
-      ""DamageType"": 5
-    },
-    ""Name"": ""Goblin Big-Boss"",
-    ""Description"": ""Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!"",
-    ""Level"": 4,
-    ""AC"": 12,
-    ""CurrentHealth"": 25,
-    ""MonsterType"": 5,
-    ""Resists"": 5,
-    ""_name"": ""Goblin Big-Boss"",
-    ""_description"": ""Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!"",
-    ""_level"": 4,
-    ""_armorClass"": 12,
-    ""_maxHealth"": 25,
-    ""_monsterType"": 5,
-    ""_resists"": 5
-  },
-  {
-    ""AbilityList"": [
-      {
-        ""Name"": ""Rock Pounder"",
-        ""Description"": ""A mighty slam that can smash through solid rock."",
-        ""Power"": 100,
-        ""Cost"": 50,
-        ""DamageType"": 6
-      },
-      {
-        ""Name"": ""Fire Breath"",
-        ""Description"": ""Breathe a gout of flame."",
-        ""Power"": 75,
-        ""Cost"": 25,
-        ""DamageType"": 2
-      }
-    ],
-    ""Name"": ""Test Boss"",
-    ""Description"": ""What do you want me to say? It\u0027s a test."",
-    ""Level"": 17,
-    ""AC"": 18,
-    ""CurrentHealth"": 71,
-    ""MonsterType"": 1,
-    ""Resists"": 0,
-    ""_name"": ""Test Boss"",
-    ""_description"": ""What do you want me to say? It\u0027s a test."",
-    ""_level"": 17,
-    ""_armorClass"": 18,
-    ""_maxHealth"": 71,
-    ""_monsterType"": 1,
-    ""_resists"": 0
-  }
-]";
-            // System can't deserialize abstract classes: investigate!
-            creatureList = JsonSerializer.Deserialize<List<Creature>>(tempJSON);
+
+            //System can't deserialize abstract classes: investigate!
+
             //Creature m1 = new Minion("Goblin Goon",
             //    "A pittiful goon.\nDoes paltry damage when it isn't groveling.",
             //    1,
@@ -152,8 +80,91 @@ namespace OOP_BestiaryFinal
             //creatureList.Add(m2);
             //creatureList.Add(m3);
 
-            //string json = JsonSerializer.Serialize(creatureList);
+            //string json = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
             //Debug.WriteLine(json);
+
+            //Attempt number 2: Defining discriminator types!
+            string jsonTest = @"[
+              {
+                ""$type"": ""minion"",
+                ""Name"": ""Goblin Goon"",
+                ""Description"": ""A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling."",
+                ""Level"": 1,
+                ""AC"": 10,
+                ""CurrentHealth"": 3,
+                ""MonsterType"": 5,
+                ""Resists"": 7,
+                ""_name"": ""Goblin Goon"",
+                ""_description"": ""A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling."",
+                ""_level"": 1,
+                ""_armorClass"": 10,
+                ""_maxHealth"": 3,
+                ""_monsterType"": 5,
+                ""_resists"": 7
+              },
+              {
+                ""$type"": ""elite"",
+                ""Ability"": {
+                  ""Name"": ""Pokin\u0027 Stick"",
+                  ""Description"": ""Wait. This is just a rusty nail!\nHas a chance to give you tetanus."",
+                  ""Power"": 5,
+                  ""Cost"": 2,
+                  ""DamageType"": 5
+                },
+                ""Name"": ""Goblin Big-Boss"",
+                ""Description"": ""Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!"",
+                ""Level"": 4,
+                ""AC"": 12,
+                ""CurrentHealth"": 17,
+                ""MonsterType"": 5,
+                ""Resists"": 5,
+                ""_name"": ""Goblin Big-Boss"",
+                ""_description"": ""Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!"",
+                ""_level"": 4,
+                ""_armorClass"": 12,
+                ""_maxHealth"": 17,
+                ""_monsterType"": 5,
+                ""_resists"": 5
+              },
+              {
+                ""$type"": ""worldBoss"",
+                ""AbilityList"": [
+                  {
+                    ""Name"": ""Rock Pounder"",
+                    ""Description"": ""A mighty slam that can smash through solid rock."",
+                    ""Power"": 100,
+                    ""Cost"": 50,
+                    ""DamageType"": 6
+                  },
+                  {
+                    ""Name"": ""Fire Breath"",
+                    ""Description"": ""Breathe a gout of flame."",
+                    ""Power"": 75,
+                    ""Cost"": 25,
+                    ""DamageType"": 2
+                  }
+                ],
+                ""Name"": ""Test Boss"",
+                ""Description"": ""What do you want me to say? It\u0027s a test."",
+                ""Level"": 17,
+                ""AC"": 18,
+                ""CurrentHealth"": 67,
+                ""MonsterType"": 1,
+                ""Resists"": 0,
+                ""_name"": ""Test Boss"",
+                ""_description"": ""What do you want me to say? It\u0027s a test."",
+                ""_level"": 17,
+                ""_armorClass"": 18,
+                ""_maxHealth"": 67,
+                ""_monsterType"": 1,
+                ""_resists"": 0
+              }
+            ]";
+
+            JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions() { WriteIndented = true };
+            creatureList = JsonSerializer.Deserialize<List<Creature>>(jsonTest);
+
+            Debug.WriteLine("DESERIALIZED");
         }
 
         private void StartScreen_Load(object sender, EventArgs e)

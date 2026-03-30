@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
@@ -9,6 +10,9 @@ namespace OOP_BestiaryFinal
     public class Elite : Creature
     {
         public Ability Ability { get; set; }
+
+        [JsonConstructor]
+        public Elite() { }
 
         public Elite(string inName, string inDesc, int inLevel, Ability inAbility, MonsterType inType, DamageType inResists)
             : base(inName, inDesc, inLevel, inType, inResists)

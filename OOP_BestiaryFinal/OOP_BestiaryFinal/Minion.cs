@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -9,6 +10,9 @@ namespace OOP_BestiaryFinal
 {
     public class Minion : Creature
     {
+        [JsonConstructor]
+        public Minion() { }
+
         public Minion(string inName, string inDesc, int inLevel, MonsterType inType, DamageType inResists) 
             : base(inName, inDesc, inLevel, inType, inResists) { }
 
