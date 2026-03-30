@@ -30,7 +30,11 @@ namespace OOP_BestiaryFinal
             }
             set
             {
-                if (value >= minPow && value <= maxPow)
+                if (value > maxPow)
+                    _power = maxPow;
+                else if (value < minPow)
+                    _power = minCost;
+                else
                     _power = value;
             }
         }
@@ -42,10 +46,15 @@ namespace OOP_BestiaryFinal
             } 
             set
             {
-                if (value >= minCost && value <= maxCost)
+                if (value > maxCost)
+                    _cost = maxCost;
+                else if (value < minCost)
+                    _cost = minCost;
+                else
                     _cost = value;
             }
         }
+        [JsonConverter(typeof(JsonStringEnumConverter<DamageType>))]
         public DamageType DamageType { get; set; }
 
         [JsonConstructor]

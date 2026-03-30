@@ -59,7 +59,10 @@ namespace OOP_BestiaryFinal
                     _maxHealth = 0;
             } 
         }
+        [JsonConverter(typeof(JsonStringEnumConverter<MonsterType>))]
         public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
+
+        [JsonConverter(typeof(JsonStringEnumConverter<DamageType>))]
         public DamageType Resists { get { return _resists; } set { _resists = value; } }
 
 
