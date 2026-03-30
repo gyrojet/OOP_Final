@@ -9,16 +9,16 @@ namespace OOP_BestiaryFinal
 {
     public class Ability : IDescribable
     {
-        [JsonInclude] private string _name;
-        [JsonInclude] private string _description;
-        [JsonInclude] private int _power;
-        [JsonInclude] private int _cost;
+        private string _name;
+        private string _description;
+        private int _power;
+        private int _cost;
 
-        [JsonInclude] private int minPow = 0;
-        [JsonInclude] private int maxPow = 2000;
+        private int minPow = 0;
+        private int maxPow = 2000;
 
-        [JsonInclude] private int minCost = 0;
-        [JsonInclude] private int maxCost = 50;
+        private int minCost = 0;
+        private int maxCost = 50;
 
         public string Name { get { return _name; } set { _name = value; } }
         public string Description { get { return _description; } set { _description = value; } }

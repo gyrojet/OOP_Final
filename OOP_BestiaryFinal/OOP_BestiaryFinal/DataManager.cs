@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;\
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,7 @@ namespace OOP_BestiaryFinal
 {
     public static class DataManager
     {
-        public static string SavePath { get; }  
+        public static string MonsterSavePath { get; }
+        
     }
 }

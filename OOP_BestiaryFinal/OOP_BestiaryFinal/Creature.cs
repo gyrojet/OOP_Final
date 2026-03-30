@@ -14,14 +14,14 @@ namespace OOP_BestiaryFinal
     [JsonDerivedType(typeof(WorldBoss), typeDiscriminator: "worldBoss")]
     public abstract class Creature : IDescribable
     {
-        [JsonInclude] private string _name;
-        [JsonInclude] private string _description;
-        [JsonInclude] private int _level;
-        [JsonInclude] private int _armorClass;
+        private string _name;
+        private string _description;
+        private int _level;
+        private int _armorClass;
 
-        [JsonInclude] private int _maxHealth;
-        [JsonInclude] private MonsterType _monsterType;
-        [JsonInclude] private DamageType _resists;
+        private int _maxHealth;
+        private MonsterType _monsterType;
+        private DamageType _resists;
 
         public string Name { get { return _name; } set { _name = value; } }
         public string Description { get { return _description; } set { _description = value; } }
