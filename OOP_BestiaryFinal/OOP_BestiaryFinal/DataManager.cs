@@ -77,6 +77,8 @@ namespace OOP_BestiaryFinal
             {
                 string jsonFile = File.ReadAllText(MundaneItemSavePath);
 
+                mundaneItems = JsonSerializer.Deserialize<List<Loot>>(jsonFile);
+
                 wasLoadSuccessful = true;
             }
             catch (Exception e)
@@ -89,14 +91,40 @@ namespace OOP_BestiaryFinal
         }
 
         public static bool LoadMagicItems()
-        { 
-            throw new NotImplementedException();
+        {
+            bool wasLoadSuccessful;
+
+            try
+            {
+                string jsonFile = File.ReadAllText(MagicItemSavePath);
+
+                magicItems = JsonSerializer.Deserialize<List<Loot>>(jsonFile);
+
+                wasLoadSuccessful = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error: Loading Mundane Item File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                wasLoadSuccessful = false;
+            }
+
+            return wasLoadSuccessful;
         }
 
         // Return converted creature list
         public static List<Creature> GetCreatureList()
         {
            return creatures;
+        }
+
+        public static List<Loot> GetMundaneList()
+        {
+            return mundaneItems;
+        }
+
+        public static List<Loot> GetMagicList()
+        {
+            return magicItems;
         }
     }
 }

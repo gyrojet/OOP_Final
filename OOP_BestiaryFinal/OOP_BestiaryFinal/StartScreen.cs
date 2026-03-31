@@ -32,13 +32,16 @@ namespace OOP_BestiaryFinal
                 return false;
 
             // Load item data: if it fails, return false
-            /*
-             * if (DataManager.LoadMundaneItems() && DataManager.LoadMagicItems())
-             * {
-             *      
-             * }
-             */
-
+            
+             if (DataManager.LoadMundaneItems() && DataManager.LoadMagicItems())
+             {
+                LootManager.LoadMundaneItemList(DataManager.GetMundaneList());
+                LootManager.LoadMagicItemList(DataManager.GetMagicList());
+             }
+             else
+                return false;
+             
+             // Lists were loaded without issue
             return true;
         }
 

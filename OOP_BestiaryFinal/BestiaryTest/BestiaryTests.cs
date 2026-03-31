@@ -14,5 +14,25 @@ namespace BestiaryTest
 
             Assert.AreEqual(expectedHP, actualHP);
         }
+
+        [TestMethod]
+        public void TestItemCount()
+        {
+            int expected = 6;
+            int actual = LootManager.GetItemCount(20);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestItemChance()
+        {
+            MonsterType type = MonsterType.Alien;
+
+            int expected = 20;
+            int actual = LootManager.GetMagicItemChance(type);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

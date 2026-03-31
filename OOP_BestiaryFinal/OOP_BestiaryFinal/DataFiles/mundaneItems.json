@@ -13,13 +13,13 @@
   },
   {
     "Name": "Hardtack",
-    "Description": "A pack of survival food. Hard as a rock...",
+    "Description": "A piece of survival food. Hard as a rock...",
     "Value": 3,
     "IsMagical": false
   },
   {
     "Name": "Small Amber Gem",
-    "Description": "A brilliant gem. if you look closely, you can see an insect trapped inside...",
+    "Description": "A brilliant gem.\nIf you look closely, you can see an insect trapped inside...",
     "Value": 250,
     "IsMagical": false
   },
@@ -37,19 +37,19 @@
   },
   {
     "Name": "Silver Sword",
-    "Description": "A shining blade designed to slay werewolves.",
+    "Description": "A shining blade designed to slay werewolves.\nBeautiful, but not magical.",
     "Value": 500,
     "IsMagical": false
   },
   {
-    "Name": "Ogre\u0027s tooth",
+    "Name": "Ogre\u0027s Tooth",
     "Description": "You\u0027d hate to meet whatever this came off of.",
     "Value": 20,
     "IsMagical": false
   },
   {
     "Name": "Small Painting",
-    "Description": "A small portrait of a petty noble.",
+    "Description": "A small portrait of a petty noble. Smudged with fat fingerprints.",
     "Value": 75,
     "IsMagical": false
   },
@@ -61,7 +61,7 @@
   },
   {
     "Name": "Ivory Statuette",
-    "Description": "An intricately carved statuette in the shap of a dragon\nIt seems to glow in the sunlight.",
+    "Description": "An intricately carved statuette in the shape of a dragon.\nIt seems to glow in the sunlight.",
     "Value": 600,
     "IsMagical": false
   },

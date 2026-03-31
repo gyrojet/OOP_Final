@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
     // Class representing a loot item. Each item has a name, value in gold, and a description.
-    public class Loot : IDescribable
+    public class Loot : IDescribable, ICloneable
     {
         private int _value;
 
@@ -16,6 +17,9 @@ namespace OOP_BestiaryFinal
         public int Value { get { return _value; } set { if (value < 0) value = 0; else _value = value; } }
 
         public bool IsMagical { get; set; }
+
+        [JsonConstructor]
+        public Loot() { }
 
         public Loot(string inName, string inDesc, int inValue, bool isMagic)
         {
@@ -27,6 +31,17 @@ namespace OOP_BestiaryFinal
 
         public string Describe()
             => $"NAME: {Name}\nVALUE: {Value}gp\n{(IsMagical == false ? "MUNDANE" : "MAGIC")} ITEM\n{Description}";
+
+        public object Clone()
+        {
+            return new Loot()
+            {
+                Name = this.Name,
+                Description = this.Description,
+                Value = this.Value,
+                IsMagical = this.IsMagical
+            };
+        }
 
         public override string ToString()
             => Name;

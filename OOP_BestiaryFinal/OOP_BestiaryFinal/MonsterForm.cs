@@ -255,9 +255,9 @@ namespace OOP_BestiaryFinal
                 // If the creature is a Creature: display its data
                 if (lstMonsters.SelectedItem is Creature c)
                 {
-                    List<Loot> loot = LootManager.GetLootList(c.Level);
+                    monsterLoot = LootManager.GetLootList(c.Level, c.MonsterType);
 
-                    foreach (Loot l in loot)
+                    foreach (Loot l in monsterLoot)
                         lstItems.Items.Add(l);
                 }
 
@@ -265,10 +265,11 @@ namespace OOP_BestiaryFinal
             else // Use custom stats
             {
                 int level = (int)nudLevel.Value;
+                MonsterType type = (MonsterType)cboType.SelectedItem;
 
-                List<Loot> loot = LootManager.GetLootList(level);
+                monsterLoot = LootManager.GetLootList(level, type);
 
-                foreach (Loot l in loot)
+                foreach (Loot l in monsterLoot)
                     lstItems.Items.Add(l);
             }
         }
