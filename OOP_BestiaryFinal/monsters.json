@@ -1,0 +1,65 @@
+[
+  {
+    "$type": "minion",
+    "Name": "Rock Slug",
+    "Description": "Small, slimy, and hard to spot.\nDon\u0027t wear any of your good shirts around it!",
+    "Level": 3,
+    "AC": 11,
+    "CurrentHealth": 7,
+    "MonsterType": "Animal",
+    "Resists": "Acid"
+  },
+  {
+    "$type": "minion",
+    "Name": "Goblin Goon",
+    "Description": "A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling.",
+    "Level": 1,
+    "AC": 10,
+    "CurrentHealth": 3,
+    "MonsterType": "Humanoid",
+    "Resists": "None"
+  },
+  {
+    "$type": "elite",
+    "Ability": {
+      "Name": "Pokin\u0027 Stick",
+      "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
+      "Power": 5,
+      "Cost": 2,
+      "DamageType": "Physical"
+    },
+    "Name": "Goblin Big-Boss",
+    "Description": "Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!",
+    "Level": 4,
+    "AC": 12,
+    "CurrentHealth": 17,
+    "MonsterType": "Humanoid",
+    "Resists": "Physical"
+  },
+  {
+    "$type": "worldBoss",
+    "AbilityList": [
+      {
+        "Name": "Rock Pounder",
+        "Description": "A mighty slam that can smash through solid rock.",
+        "Power": 100,
+        "Cost": 50,
+        "DamageType": "Sonic"
+      },
+      {
+        "Name": "Fire Breath",
+        "Description": "Breathe a gout of flame.",
+        "Power": 75,
+        "Cost": 25,
+        "DamageType": "Fire"
+      }
+    ],
+    "Name": "Test Boss",
+    "Description": "What do you want me to say? It\u0027s a test.",
+    "Level": 17,
+    "AC": 18,
+    "CurrentHealth": 67,
+    "MonsterType": "Alien",
+    "Resists": "Acid"
+  }
+]

@@ -24,7 +24,7 @@ namespace OOP_BestiaryFinal
          *      - Load monster data: reads data from file, deserializes it and sends it back
          */
 
-        public static string MonsterSavePath { get; } = ConfigurationManager.AppSettings.Get("MonsterPath")!;
+        public static string MonsterSavePath { get; } = @"DataFiles\monsters.json";
 
         public static string ItemSavePath { get; } = ConfigurationManager.AppSettings.Get("LootPath")!;
         
