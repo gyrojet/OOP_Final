@@ -26,9 +26,10 @@ namespace OOP_BestiaryFinal
 
         public static void LoadItemLists()
         {
-            // Load item lists from DataManager,
-            // Assign to mundane and magic items
-            // Called on splash form load
+            /*
+             * mundaneItems = DataManager.LoadMundaneItemList();
+             * magicItems = DataManager.LoadMagicItemList();
+             */
         }
 
         public static int GetGold(int level, MonsterType type)
@@ -64,6 +65,16 @@ namespace OOP_BestiaryFinal
             return total;
         }
 
+        public static void LoadMundaneItemList()
+        {
+
+        }
+
+        public static void LoadMagicItemList()
+        {
+
+        }
+
         // Gets a list of items based on level
         // In an early stage
         public static List<Loot> GetLootList(int level)
@@ -83,6 +94,7 @@ namespace OOP_BestiaryFinal
                         true
                     )
             };
+            Debug.WriteLine(JsonSerializer.Serialize(lootList, new JsonSerializerOptions { WriteIndented = true }));
 
             return lootList;
         }

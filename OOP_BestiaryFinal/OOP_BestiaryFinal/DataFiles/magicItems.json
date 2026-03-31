@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "+1 Mace",
+    "Description": "Enhanced with offensive magic.",
+    "Value": 750,
+    "IsMagical": true
+  },
+  {
+    "Name": "Potion of Healing",
+    "Description": "A bitter red liquid that mends wounds.",
+    "Value": 450,
+    "IsMagical": true
+  },
+  {
+    "Name": "Boots of Speed",
+    "Description": "Put these on and run for the hills.",
+    "Value": 500,
+    "IsMagical": true
+  },
+  {
+    "Name": "+2 Armor",
+    "Description": "Arrows bounce right off you.",
+    "Value": 1000,
+    "IsMagical": true
+  },
+  {
+    "Name": "Choking Dust",
+    "Description": "One pinch of this will knock anyone out.",
+    "Value": 200,
+    "IsMagical": true
+  },
+  {
+    "Name": "Medal of Fire",
+    "Description": "A golden medal with a fiery crest.\nGrants the wearer immunity to fire.",
+    "Value": 750,
+    "IsMagical": true
+  },
+  {
+    "Name": "Bloody Hand",
+    "Description": "A living gauntlet that rends flesh.",
+    "Value": 2000,
+    "IsMagical": true
+  },
+  {
+    "Name": "Wand of Light",
+    "Description": "This this wand emits a bright light.",
+    "Value": 300,
+    "IsMagical": true
+  },
+  {
+    "Name": "-2 Dagger",
+    "Description": "This cursed weapon makes it\u0027s weilder clumsy and slow.",
+    "Value": 50,
+    "IsMagical": true
+  },
+  {
+    "Name": "Slaying Arrow",
+    "Description": "One prick from this arrow is enough to fell a giant.",
+    "Value": 1500,
+    "IsMagical": true
+  },
+  {
+    "Name": "",
+    "Description": "Enhanced with offensive magic.",
+    "Value": 750,
+    "IsMagical": true
+  },
+  {
+    "Name": "+1 Mace",
+    "Description": "Enhanced with offensive magic.",
+    "Value": 750,
+    "IsMagical": true
+  }
+]

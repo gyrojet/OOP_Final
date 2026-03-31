@@ -21,25 +21,42 @@ namespace OOP_BestiaryFinal
             InitializeComponent();
         }
 
-        private void PopulateCreatureList()
-        {
-            creatureList = DataManager.LoadMonsterData();
+        private bool PopulateLists()
+        { 
+            // If monster list is successfuly loaded, grab it from class
+            if (DataManager.LoadMonsterData())
+            {
+                creatureList = DataManager.GetCreatureList();
+            }
+            else // If load fails, return false
+                return false;
+
+            // Load item data: if it fails, return false
+            /*
+             * if (DataManager.LoadMundaneItems() && DataManager.LoadMagicItems())
+             * {
+             *      
+             * }
+             */
+
+            return true;
         }
 
         private void StartScreen_Load(object sender, EventArgs e)
         {
-            Debug.WriteLine(Directory.GetCurrentDirectory());
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Get monsters from json file, add to global list
-            PopulateCreatureList();
-
-            // Initialize new main form with list
-            MonsterForm frm = new MonsterForm(creatureList);
-            frm.Show();
-            this.Visible = false;
+            if (PopulateLists())
+            {
+                MonsterForm frm = new MonsterForm(creatureList);
+                frm.Show();
+                this.Visible = false;
+            }
+            else
+                MessageBox.Show("ERROR: One or more lists failed to load.", "Error: Loading Lists", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void StartScreen_FormClosing(object sender, FormClosingEventArgs e)

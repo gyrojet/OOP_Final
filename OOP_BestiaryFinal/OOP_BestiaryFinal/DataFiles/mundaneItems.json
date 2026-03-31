@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "Silver Plate",
+    "Description": "A gleaming piece of tableware. Clean enough to eat off of.",
+    "Value": 100,
+    "IsMagical": false
+  },
+  {
+    "Name": "Worn Dagger",
+    "Description": "A worn knife with a dull blade. Might be worth a few pennies.",
+    "Value": 5,
+    "IsMagical": false
+  },
+  {
+    "Name": "Hardtack",
+    "Description": "A pack of survival food. Hard as a rock...",
+    "Value": 3,
+    "IsMagical": false
+  },
+  {
+    "Name": "Small Amber Gem",
+    "Description": "A brilliant gem. if you look closely, you can see an insect trapped inside...",
+    "Value": 250,
+    "IsMagical": false
+  },
+  {
+    "Name": "Tattered Flag",
+    "Description": "A rolled flag depicting the heraldry of a long dead knight.",
+    "Value": 25,
+    "IsMagical": false
+  },
+  {
+    "Name": "Whole Chicken",
+    "Description": "How the heck did this get here?",
+    "Value": 15,
+    "IsMagical": false
+  },
+  {
+    "Name": "Silver Sword",
+    "Description": "A shining blade designed to slay werewolves.",
+    "Value": 500,
+    "IsMagical": false
+  },
+  {
+    "Name": "Ogre\u0027s tooth",
+    "Description": "You\u0027d hate to meet whatever this came off of.",
+    "Value": 20,
+    "IsMagical": false
+  },
+  {
+    "Name": "Small Painting",
+    "Description": "A small portrait of a petty noble.",
+    "Value": 75,
+    "IsMagical": false
+  },
+  {
+    "Name": "Pouch of Charcoal",
+    "Description": "Useful for starting fires.",
+    "Value": 20,
+    "IsMagical": false
+  },
+  {
+    "Name": "Ivory Statuette",
+    "Description": "An intricately carved statuette in the shap of a dragon\nIt seems to glow in the sunlight.",
+    "Value": 600,
+    "IsMagical": false
+  },
+  {
+    "Name": "Worg Paw",
+    "Description": "A trophy from a vicious beast.\nThere are bite marks on it.",
+    "Value": 8,
+    "IsMagical": false
+  }
+]
