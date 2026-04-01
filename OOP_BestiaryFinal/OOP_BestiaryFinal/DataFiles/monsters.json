@@ -1,6 +1,8 @@
 [
   {
     "$type": "minion",
+    "MinAppearing": 2,
+    "MaxAppearing": 12,
     "Name": "Rock Slug",
     "Description": "Small, slimy, and hard to spot.\nDon\u0027t wear any of your good shirts around it!",
     "Level": 3,
@@ -12,6 +14,8 @@
   },
   {
     "$type": "minion",
+    "MinAppearing": 4,
+    "MaxAppearing": 40,
     "Name": "Goblin Goon",
     "Description": "A pittiful goon.\nDoes paltry damage when it isn\u0027t groveling.",
     "Level": 1,
