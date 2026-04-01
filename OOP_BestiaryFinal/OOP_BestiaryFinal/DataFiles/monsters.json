@@ -10,7 +10,8 @@
     "CurrentHealth": 7,
     "MonsterType": "Animal",
     "Resists": "Acid",
-    "MonsterClass": "Minion"
+    "MonsterClass": "Minion",
+    "Randomize": true
   },
   {
     "$type": "minion",
@@ -23,7 +24,8 @@
     "CurrentHealth": 3,
     "MonsterType": "Humanoid",
     "Resists": "None",
-    "MonsterClass": "Minion"
+    "MonsterClass": "Minion",
+    "Randomize": false
   },
   {
     "$type": "elite",
@@ -41,7 +43,8 @@
     "CurrentHealth": 17,
     "MonsterType": "Humanoid",
     "Resists": "Physical",
-    "MonsterClass": "Elite"
+    "MonsterClass": "Elite",
+    "Randomize": true
   },
   {
     "$type": "worldBoss",
@@ -68,6 +71,7 @@
     "CurrentHealth": 67,
     "MonsterType": "Alien",
     "Resists": "Acid",
-    "MonsterClass": "WorldBoss"
+    "MonsterClass": "WorldBoss",
+    "Randomize": false
   }
 ]

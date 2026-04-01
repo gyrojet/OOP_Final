@@ -26,7 +26,12 @@ namespace OOP_BestiaryFinal
             // These are all tests that will be dealt with later
             if (creatureList != null)
                 foreach (Creature creature in creatureList)
+                {
+                    if (creature.Randomize)
+                        creature.ApplyRandomGen();
+
                     lstMonsters.Items.Add(creature);
+                }
 
             PopulateComboBoxes();
         }

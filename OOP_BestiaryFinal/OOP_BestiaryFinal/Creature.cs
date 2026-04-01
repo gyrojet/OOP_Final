@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -61,6 +62,7 @@ namespace OOP_BestiaryFinal
             } 
         }
 
+
         [JsonConverter(typeof(JsonStringEnumConverter<Classification>))]
         public Classification MonsterClass { get { return _class; } set { _class = value; } }
 
@@ -69,6 +71,8 @@ namespace OOP_BestiaryFinal
 
         [JsonConverter(typeof(JsonStringEnumConverter<DamageType>))]
         public DamageType Resists { get { return _resists; } set { _resists = value; } }
+
+        public bool Randomize { get; set; }
 
         [JsonConstructor]
         public Creature()
@@ -85,8 +89,7 @@ namespace OOP_BestiaryFinal
             Resists = inResists;
             MonsterClass = inClass;
 
-            GetACByLevel();
-            GetHealthByTypeAndLevel();
+            ApplyRandomGen();
             
         }
         
@@ -160,6 +163,12 @@ namespace OOP_BestiaryFinal
             return $"{Name}";
         }
 
+        // An attempt to maintain randomness when loading
         
+        public void ApplyRandomGen()
+        {
+            GetACByLevel();
+            GetHealthByTypeAndLevel();
+        }
     }
 }

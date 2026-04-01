@@ -576,9 +576,9 @@
             // 
             // rtbCreate_Desc
             // 
-            rtbCreate_Desc.Location = new Point(204, 38);
+            rtbCreate_Desc.Location = new Point(221, 38);
             rtbCreate_Desc.Name = "rtbCreate_Desc";
-            rtbCreate_Desc.Size = new Size(298, 203);
+            rtbCreate_Desc.Size = new Size(281, 203);
             rtbCreate_Desc.TabIndex = 31;
             rtbCreate_Desc.Text = "";
             // 
@@ -586,7 +586,7 @@
             // 
             Description.AutoSize = true;
             Description.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Description.Location = new Point(200, 18);
+            Description.Location = new Point(221, 18);
             Description.Name = "Description";
             Description.Size = new Size(83, 17);
             Description.TabIndex = 30;
@@ -672,9 +672,9 @@
             chkGenerateACHP.AutoSize = true;
             chkGenerateACHP.Location = new Point(6, 136);
             chkGenerateACHP.Name = "chkGenerateACHP";
-            chkGenerateACHP.Size = new Size(191, 19);
+            chkGenerateACHP.Size = new Size(209, 19);
             chkGenerateACHP.TabIndex = 22;
-            chkGenerateACHP.Text = "Calculate AC/HP by Level/Type";
+            chkGenerateACHP.Text = "Randomly Calculate w/ Level/Type\r\n";
             chkGenerateACHP.UseVisualStyleBackColor = true;
             chkGenerateACHP.CheckedChanged += chkGenerateACHP_CheckedChanged;
             // 
