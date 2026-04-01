@@ -80,7 +80,7 @@ namespace OOP_BestiaryFinal
             
         }
 
-        public Creature(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists)
+        public Creature(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
         {
             Name = inName;
             Description = inDesc;
@@ -88,12 +88,13 @@ namespace OOP_BestiaryFinal
             Level = inLevel;
             Resists = inResists;
             MonsterClass = inClass;
+            Randomize = inRand;
 
             ApplyRandomGen();
             
         }
         
-        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists)
+        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
         {
             Name = inName;
             Description = inDesc;
@@ -101,6 +102,7 @@ namespace OOP_BestiaryFinal
             MonsterType = inType;
             Resists = inResists;
             MonsterClass = inClass;
+            Randomize = inRand;
 
             CurrentHealth = inHP;
             AC = inAC;

@@ -70,8 +70,16 @@
             lblName = new Label();
             lblNameTitle = new Label();
             tabCreate = new TabPage();
+            btnCreate_CreateMonster = new Button();
             grpCreateMonsterAbilities = new GroupBox();
             grpCreateMonsterStats = new GroupBox();
+            btnCreate_ClearTop = new Button();
+            cboCreate_Resists = new ComboBox();
+            nudCreate_MinionMax = new NumericUpDown();
+            lblCreateTitle_Max = new Label();
+            nudCreate_MinionMin = new NumericUpDown();
+            lblCreateTitle_Min = new Label();
+            label12 = new Label();
             rtbCreate_Desc = new RichTextBox();
             Description = new Label();
             nudCreate_HP = new NumericUpDown();
@@ -99,6 +107,8 @@
             grpMonsterDetails.SuspendLayout();
             tabCreate.SuspendLayout();
             grpCreateMonsterStats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMax).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_HP).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_AC).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_Level).BeginInit();
@@ -531,6 +541,7 @@
             // 
             // tabCreate
             // 
+            tabCreate.Controls.Add(btnCreate_CreateMonster);
             tabCreate.Controls.Add(grpCreateMonsterAbilities);
             tabCreate.Controls.Add(grpCreateMonsterStats);
             tabCreate.Location = new Point(4, 24);
@@ -541,17 +552,34 @@
             tabCreate.Text = "Create Monster";
             tabCreate.UseVisualStyleBackColor = true;
             // 
+            // btnCreate_CreateMonster
+            // 
+            btnCreate_CreateMonster.Location = new Point(383, 483);
+            btnCreate_CreateMonster.Name = "btnCreate_CreateMonster";
+            btnCreate_CreateMonster.Size = new Size(128, 23);
+            btnCreate_CreateMonster.TabIndex = 2;
+            btnCreate_CreateMonster.Text = "Create New Monster";
+            btnCreate_CreateMonster.UseVisualStyleBackColor = true;
+            btnCreate_CreateMonster.Click += btnCreate_CreateMonster_Click;
+            // 
             // grpCreateMonsterAbilities
             // 
             grpCreateMonsterAbilities.Location = new Point(6, 255);
             grpCreateMonsterAbilities.Name = "grpCreateMonsterAbilities";
-            grpCreateMonsterAbilities.Size = new Size(508, 251);
+            grpCreateMonsterAbilities.Size = new Size(508, 223);
             grpCreateMonsterAbilities.TabIndex = 1;
             grpCreateMonsterAbilities.TabStop = false;
             grpCreateMonsterAbilities.Text = "Monster Abilities";
             // 
             // grpCreateMonsterStats
             // 
+            grpCreateMonsterStats.Controls.Add(btnCreate_ClearTop);
+            grpCreateMonsterStats.Controls.Add(cboCreate_Resists);
+            grpCreateMonsterStats.Controls.Add(nudCreate_MinionMax);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Max);
+            grpCreateMonsterStats.Controls.Add(nudCreate_MinionMin);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Min);
+            grpCreateMonsterStats.Controls.Add(label12);
             grpCreateMonsterStats.Controls.Add(rtbCreate_Desc);
             grpCreateMonsterStats.Controls.Add(Description);
             grpCreateMonsterStats.Controls.Add(nudCreate_HP);
@@ -574,11 +602,79 @@
             grpCreateMonsterStats.TabStop = false;
             grpCreateMonsterStats.Text = "Monster Stats";
             // 
+            // btnCreate_ClearTop
+            // 
+            btnCreate_ClearTop.Location = new Point(403, 194);
+            btnCreate_ClearTop.Name = "btnCreate_ClearTop";
+            btnCreate_ClearTop.Size = new Size(90, 23);
+            btnCreate_ClearTop.TabIndex = 37;
+            btnCreate_ClearTop.Text = "Clear Top";
+            btnCreate_ClearTop.UseVisualStyleBackColor = true;
+            btnCreate_ClearTop.Click += btnCreate_ClearTop_Click;
+            // 
+            // cboCreate_Resists
+            // 
+            cboCreate_Resists.FormattingEnabled = true;
+            cboCreate_Resists.Location = new Point(221, 157);
+            cboCreate_Resists.Name = "cboCreate_Resists";
+            cboCreate_Resists.Size = new Size(161, 23);
+            cboCreate_Resists.TabIndex = 22;
+            // 
+            // nudCreate_MinionMax
+            // 
+            nudCreate_MinionMax.Location = new Point(341, 193);
+            nudCreate_MinionMax.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            nudCreate_MinionMax.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudCreate_MinionMax.Name = "nudCreate_MinionMax";
+            nudCreate_MinionMax.Size = new Size(41, 23);
+            nudCreate_MinionMax.TabIndex = 36;
+            nudCreate_MinionMax.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // lblCreateTitle_Max
+            // 
+            lblCreateTitle_Max.AutoSize = true;
+            lblCreateTitle_Max.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Max.Location = new Point(281, 196);
+            lblCreateTitle_Max.Name = "lblCreateTitle_Max";
+            lblCreateTitle_Max.Size = new Size(38, 17);
+            lblCreateTitle_Max.TabIndex = 35;
+            lblCreateTitle_Max.Text = "Max:";
+            // 
+            // nudCreate_MinionMin
+            // 
+            nudCreate_MinionMin.Location = new Point(221, 193);
+            nudCreate_MinionMin.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            nudCreate_MinionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudCreate_MinionMin.Name = "nudCreate_MinionMin";
+            nudCreate_MinionMin.Size = new Size(41, 23);
+            nudCreate_MinionMin.TabIndex = 34;
+            nudCreate_MinionMin.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // lblCreateTitle_Min
+            // 
+            lblCreateTitle_Min.AutoSize = true;
+            lblCreateTitle_Min.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Min.Location = new Point(161, 196);
+            lblCreateTitle_Min.Name = "lblCreateTitle_Min";
+            lblCreateTitle_Min.Size = new Size(36, 17);
+            lblCreateTitle_Min.TabIndex = 33;
+            lblCreateTitle_Min.Text = "Min:";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Location = new Point(161, 158);
+            label12.Name = "label12";
+            label12.Size = new Size(54, 17);
+            label12.TabIndex = 32;
+            label12.Text = "Resists:";
+            // 
             // rtbCreate_Desc
             // 
             rtbCreate_Desc.Location = new Point(221, 38);
             rtbCreate_Desc.Name = "rtbCreate_Desc";
-            rtbCreate_Desc.Size = new Size(281, 203);
+            rtbCreate_Desc.Size = new Size(281, 92);
             rtbCreate_Desc.TabIndex = 31;
             rtbCreate_Desc.Text = "";
             // 
@@ -646,6 +742,7 @@
             cboCreate_Class.Name = "cboCreate_Class";
             cboCreate_Class.Size = new Size(104, 23);
             cboCreate_Class.TabIndex = 22;
+            cboCreate_Class.SelectedIndexChanged += cboCreate_Class_SelectedIndexChanged;
             // 
             // label11
             // 
@@ -757,6 +854,8 @@
             tabCreate.ResumeLayout(false);
             grpCreateMonsterStats.ResumeLayout(false);
             grpCreateMonsterStats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMax).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMin).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_HP).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_AC).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_Level).EndInit();
@@ -825,5 +924,13 @@
         private NumericUpDown nudCreate_AC;
         private Label Description;
         private RichTextBox rtbCreate_Desc;
+        private Label label12;
+        private NumericUpDown nudCreate_MinionMin;
+        private Label lblCreateTitle_Min;
+        private Button btnCreate_ClearTop;
+        private ComboBox cboCreate_Resists;
+        private NumericUpDown nudCreate_MinionMax;
+        private Label lblCreateTitle_Max;
+        private Button btnCreate_CreateMonster;
     }
 }

@@ -61,6 +61,7 @@ namespace OOP_BestiaryFinal
         {
             ClearMonsterData();
             ClearAbilityData();
+            lblName.ForeColor = Color.Black;
 
             // monster is a Creature: display vital data
             lblName.Text = monster.Name;
@@ -82,6 +83,9 @@ namespace OOP_BestiaryFinal
             {
                 grpAbilities.Enabled = false;
             }
+
+            if (monster.Randomize)
+                lblName.ForeColor = Color.Red;
         }
 
         private void ClearMonsterData()
@@ -150,6 +154,7 @@ namespace OOP_BestiaryFinal
             cboType.DataSource = Enum.GetValues(typeof(MonsterType));
             cboCreate_Type.DataSource = Enum.GetValues(typeof(MonsterType));
             cboCreate_Class.DataSource = Enum.GetValues(typeof(Classification));
+            cboCreate_Resists.DataSource = Enum.GetValues(typeof(DamageType));
         }
 
 
@@ -305,6 +310,43 @@ namespace OOP_BestiaryFinal
                 nudCreate_AC.Enabled = true;
                 nudCreate_HP.Enabled = true;
             }
+        }
+
+        private void btnCreate_ClearTop_Click(object sender, EventArgs e)
+        {
+            // Clear all controls on the top panel
+            txtCreate_Name.Text = string.Empty;
+            rtbCreate_Desc.Text = string.Empty;
+
+            // Set NUDs
+            nudCreate_AC.Value = nudCreate_AC.Minimum;
+            nudCreate_HP.Value = nudCreate_HP.Minimum;
+            nudCreate_Level.Value = nudCreate_Level.Minimum;
+            nudCreate_MinionMin.Value = nudCreate_MinionMin.Minimum;
+            nudCreate_MinionMax.Value = nudCreate_MinionMax.Minimum;
+
+            chkGenerateACHP.Checked = false;
+
+            cboCreate_Resists.SelectedIndex = 0;
+            cboCreate_Type.SelectedIndex = 0;
+        }
+
+        private void cboCreate_Class_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboCreate_Class.SelectedItem is Classification c)
+            {
+                if (c == Classification.Minion)
+                    grpCreateMonsterAbilities.Enabled = false;
+                else
+                    grpCreateMonsterAbilities.Enabled = true;
+            }
+            else
+                return;
+        }
+
+        private void btnCreate_CreateMonster_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("There's nothing here dipshit!");
         }
     }
 }

@@ -19,15 +19,15 @@ namespace OOP_BestiaryFinal
         [JsonConstructor]
         public Minion() { }
 
-        public Minion(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists, int inMin, int inMax) 
-            : base(inName, inDesc, inLevel, inClass, inType, inResists)
+        public Minion(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists, bool inRand,int inMin, int inMax) 
+            : base(inName, inDesc, inLevel, inClass, inType, inResists, inRand)
         {
             MinAppearing = inMin;
             MaxAppearing = inMax;
         }
 
-        public Minion(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists, int inMin, int inMax)
-            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists)
+        public Minion(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists, bool inRand, int inMin, int inMax)
+            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists, inRand)
         {
             MinAppearing = inMin;
             MaxAppearing = inMax;

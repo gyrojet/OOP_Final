@@ -16,14 +16,14 @@ namespace OOP_BestiaryFinal
         [JsonConstructor]
         public WorldBoss() { }
 
-        public WorldBoss(string inName, string inDesc, int inLevel, List<Ability> inAbility, Classification inClass, MonsterType inType, DamageType inResists)
-            : base(inName, inDesc, inLevel, inClass, inType, inResists)
+        public WorldBoss(string inName, string inDesc, int inLevel, List<Ability> inAbility, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
+            : base(inName, inDesc, inLevel, inClass, inType, inResists, inRand)
         {
             AbilityList = inAbility;
         }
 
-        public WorldBoss(string inName, string inDesc, int inLevel, List<Ability> inAbility, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists)
-            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists)
+        public WorldBoss(string inName, string inDesc, int inLevel, List<Ability> inAbility, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
+            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists, inRand)
         {
             AbilityList = inAbility;
         }
