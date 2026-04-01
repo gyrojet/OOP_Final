@@ -22,6 +22,7 @@ namespace OOP_BestiaryFinal
         private int _maxHealth;
         private MonsterType _monsterType;
         private DamageType _resists;
+        private Classification _class;
 
         public string Name { get { return _name; } set { _name = value; } }
         public string Description { get { return _description; } set { _description = value; } }
@@ -59,12 +60,15 @@ namespace OOP_BestiaryFinal
                     _maxHealth = 0;
             } 
         }
+
+        [JsonConverter(typeof(JsonStringEnumConverter<Classification>))]
+        public Classification MonsterClass { get { return _class; } set { _class = value; } }
+
         [JsonConverter(typeof(JsonStringEnumConverter<MonsterType>))]
         public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
 
         [JsonConverter(typeof(JsonStringEnumConverter<DamageType>))]
         public DamageType Resists { get { return _resists; } set { _resists = value; } }
-
 
         [JsonConstructor]
         public Creature()
@@ -72,26 +76,28 @@ namespace OOP_BestiaryFinal
             
         }
 
-        public Creature(string inName, string inDesc, int inLevel, MonsterType inType, DamageType inResists)
+        public Creature(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists)
         {
             Name = inName;
             Description = inDesc;
             MonsterType = inType;
             Level = inLevel;
             Resists = inResists;
+            MonsterClass = inClass;
 
             GetACByLevel();
             GetHealthByTypeAndLevel();
             
         }
         
-        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType, DamageType inResists)
+        public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists)
         {
             Name = inName;
             Description = inDesc;
             Level = inLevel;
             MonsterType = inType;
             Resists = inResists;
+            MonsterClass = inClass;
 
             CurrentHealth = inHP;
             AC = inAC;

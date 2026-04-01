@@ -13,11 +13,11 @@ namespace OOP_BestiaryFinal
         [JsonConstructor]
         public Minion() { }
 
-        public Minion(string inName, string inDesc, int inLevel, MonsterType inType, DamageType inResists) 
-            : base(inName, inDesc, inLevel, inType, inResists) { }
+        public Minion(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists) 
+            : base(inName, inDesc, inLevel, inClass, inType, inResists) { }
 
-        public Minion(string inName, string inDesc, int inLevel, int inAC, int inHP, MonsterType inType, DamageType inResists)
-            : base(inName, inDesc, inLevel, inAC, inHP, inType, inResists) { }
+        public Minion(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists)
+            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists) { }
 
         public override string Describe()
            => $"{Name} (MINION)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\nRESISTS: {Resists}\n\nTYPE: {MonsterType.ToString()}\n********";

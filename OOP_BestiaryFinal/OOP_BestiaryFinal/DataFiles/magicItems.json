@@ -60,15 +60,15 @@
     "IsMagical": true
   },
   {
-    "Name": "",
-    "Description": "Enhanced with offensive magic.",
-    "Value": 750,
+    "Name": "Screaming Bolt",
+    "Description": "Lets out a horrible yell as it flies.",
+    "Value": 300,
     "IsMagical": true
   },
   {
-    "Name": "+1 Mace",
-    "Description": "Enhanced with offensive magic.",
-    "Value": 750,
+    "Name": "Le Excuse",
+    "Description": "A long, flat playing card depicting a wandering minstrel.\nSomething about this is magical, but you can\u0027t put your finger on it.",
+    "Value": 600,
     "IsMagical": true
   }
 ]

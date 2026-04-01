@@ -82,31 +82,42 @@ namespace OOP_BestiaryFinal
              *      
              *  - Once everything has been added, return the list
              */
+
+            // Create temp lootlist
             List<Loot> lootList = new List<Loot>();
 
+            // Create temp lists for mundane, magic items
             List<Loot> tempMundaneList = new List<Loot>();
             List<Loot> tempMagicList = new List<Loot>();
 
+            // Get number of items to retrieve
             int itemCount = GetItemCount(level);
+
+            // Get percentage of a magic item appearing
             int magicItemChance = GetMagicItemChance(type);
 
+            // Populate temporary lists with cloned items from mundane, magic lists
             foreach (Loot item in mundaneItems)
                 tempMundaneList.Add((Loot)item.Clone());
 
             foreach (Loot item in magicItems)
                 tempMagicList.Add((Loot)item.Clone());
 
+            // For each item that is required:
             for (int i = 0; i < itemCount; i++)
             {
+                // Roll a chance for a magic item
                 int result = rng.Next(0, 101);
 
+                // If result is less than or equal to percentage:
                 if (result <= magicItemChance)
                 {
-                    // Get magic item
+                    // Get magic item from temp list
                     int length = tempMagicList.Count;
                     Loot newItem = tempMagicList[rng.Next(0, length)];
 
-                    lootList.Add((Loot)newItem.Clone());
+                    // Add item to list
+                    lootList.Add(newItem);
                     tempMagicList.Remove(newItem);
                 }
                 else
@@ -114,18 +125,18 @@ namespace OOP_BestiaryFinal
                     int length = tempMundaneList.Count;
                     Loot newItem = tempMundaneList[rng.Next(0, length)];
 
-                    lootList.Add((Loot)newItem.Clone());
+                    lootList.Add(newItem);
                     tempMundaneList.Remove(newItem);
                 }
             }
             
-            // Return new list of items
-
+            // Sort list by magical state, then by name
             List<Loot> sortedList = lootList
                                     .OrderByDescending(l => l.IsMagical)
                                     .ThenBy(l => l.Name)
                                     .ToList();
 
+            // Send back sorted list of loot
             return sortedList;
         }
 

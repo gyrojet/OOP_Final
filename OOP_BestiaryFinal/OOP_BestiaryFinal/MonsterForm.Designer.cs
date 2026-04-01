@@ -70,8 +70,25 @@
             lblName = new Label();
             lblNameTitle = new Label();
             tabCreate = new TabPage();
-            lblMessenger = new Label();
+            grpCreateMonsterAbilities = new GroupBox();
+            grpCreateMonsterStats = new GroupBox();
+            rtbCreate_Desc = new RichTextBox();
+            Description = new Label();
+            nudCreate_HP = new NumericUpDown();
+            nudCreate_AC = new NumericUpDown();
+            lblCreateTitle_HP = new Label();
+            lblCreateTitle_AC = new Label();
+            cboCreate_Type = new ComboBox();
+            cboCreate_Class = new ComboBox();
+            label11 = new Label();
+            label8 = new Label();
+            chkGenerateACHP = new CheckBox();
+            nudCreate_Level = new NumericUpDown();
+            txtCreate_Name = new TextBox();
+            lblCreateTitle_Level = new Label();
+            lblCreateTitle_Name = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            lblMessenger = new Label();
             grpMonsterList.SuspendLayout();
             grpLootGen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudLevel).BeginInit();
@@ -80,6 +97,11 @@
             tabMonsters.SuspendLayout();
             grpAbilities.SuspendLayout();
             grpMonsterDetails.SuspendLayout();
+            tabCreate.SuspendLayout();
+            grpCreateMonsterStats.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_HP).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_AC).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_Level).BeginInit();
             SuspendLayout();
             // 
             // grpMonsterList
@@ -148,9 +170,11 @@
             rtbLootDescription.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rtbLootDescription.Location = new Point(152, 140);
             rtbLootDescription.Name = "rtbLootDescription";
+            rtbLootDescription.ReadOnly = true;
             rtbLootDescription.Size = new Size(124, 155);
             rtbLootDescription.TabIndex = 17;
             rtbLootDescription.Text = "";
+            rtbLootDescription.ZoomFactor = 0.9F;
             // 
             // btnGetLoot
             // 
@@ -333,9 +357,11 @@
             rtbAbilityDesc.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rtbAbilityDesc.Location = new Point(300, 14);
             rtbAbilityDesc.Name = "rtbAbilityDesc";
+            rtbAbilityDesc.ReadOnly = true;
             rtbAbilityDesc.Size = new Size(202, 199);
             rtbAbilityDesc.TabIndex = 0;
             rtbAbilityDesc.Text = "Hello\nHello\nHelloHello\n\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello";
+            rtbAbilityDesc.ZoomFactor = 0.9F;
             // 
             // lblAbilityPower
             // 
@@ -421,9 +447,11 @@
             rtbDescArea.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             rtbDescArea.Location = new Point(196, 24);
             rtbDescArea.Name = "rtbDescArea";
+            rtbDescArea.ReadOnly = true;
             rtbDescArea.Size = new Size(306, 139);
             rtbDescArea.TabIndex = 8;
             rtbDescArea.Text = "";
+            rtbDescArea.ZoomFactor = 0.9F;
             // 
             // lblHP
             // 
@@ -503,6 +531,8 @@
             // 
             // tabCreate
             // 
+            tabCreate.Controls.Add(grpCreateMonsterAbilities);
+            tabCreate.Controls.Add(grpCreateMonsterStats);
             tabCreate.Location = new Point(4, 24);
             tabCreate.Name = "tabCreate";
             tabCreate.Padding = new Padding(3);
@@ -510,6 +540,185 @@
             tabCreate.TabIndex = 1;
             tabCreate.Text = "Create Monster";
             tabCreate.UseVisualStyleBackColor = true;
+            // 
+            // grpCreateMonsterAbilities
+            // 
+            grpCreateMonsterAbilities.Location = new Point(6, 255);
+            grpCreateMonsterAbilities.Name = "grpCreateMonsterAbilities";
+            grpCreateMonsterAbilities.Size = new Size(508, 251);
+            grpCreateMonsterAbilities.TabIndex = 1;
+            grpCreateMonsterAbilities.TabStop = false;
+            grpCreateMonsterAbilities.Text = "Monster Abilities";
+            // 
+            // grpCreateMonsterStats
+            // 
+            grpCreateMonsterStats.Controls.Add(rtbCreate_Desc);
+            grpCreateMonsterStats.Controls.Add(Description);
+            grpCreateMonsterStats.Controls.Add(nudCreate_HP);
+            grpCreateMonsterStats.Controls.Add(nudCreate_AC);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_HP);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_AC);
+            grpCreateMonsterStats.Controls.Add(cboCreate_Type);
+            grpCreateMonsterStats.Controls.Add(cboCreate_Class);
+            grpCreateMonsterStats.Controls.Add(label11);
+            grpCreateMonsterStats.Controls.Add(label8);
+            grpCreateMonsterStats.Controls.Add(chkGenerateACHP);
+            grpCreateMonsterStats.Controls.Add(nudCreate_Level);
+            grpCreateMonsterStats.Controls.Add(txtCreate_Name);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Level);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Name);
+            grpCreateMonsterStats.Location = new Point(6, 3);
+            grpCreateMonsterStats.Name = "grpCreateMonsterStats";
+            grpCreateMonsterStats.Size = new Size(508, 247);
+            grpCreateMonsterStats.TabIndex = 0;
+            grpCreateMonsterStats.TabStop = false;
+            grpCreateMonsterStats.Text = "Monster Stats";
+            // 
+            // rtbCreate_Desc
+            // 
+            rtbCreate_Desc.Location = new Point(204, 38);
+            rtbCreate_Desc.Name = "rtbCreate_Desc";
+            rtbCreate_Desc.Size = new Size(298, 203);
+            rtbCreate_Desc.TabIndex = 31;
+            rtbCreate_Desc.Text = "";
+            // 
+            // Description
+            // 
+            Description.AutoSize = true;
+            Description.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Description.Location = new Point(200, 18);
+            Description.Name = "Description";
+            Description.Size = new Size(83, 17);
+            Description.TabIndex = 30;
+            Description.Text = "Description:";
+            // 
+            // nudCreate_HP
+            // 
+            nudCreate_HP.Location = new Point(60, 190);
+            nudCreate_HP.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            nudCreate_HP.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudCreate_HP.Name = "nudCreate_HP";
+            nudCreate_HP.Size = new Size(41, 23);
+            nudCreate_HP.TabIndex = 29;
+            nudCreate_HP.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // nudCreate_AC
+            // 
+            nudCreate_AC.Location = new Point(60, 161);
+            nudCreate_AC.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            nudCreate_AC.Name = "nudCreate_AC";
+            nudCreate_AC.Size = new Size(41, 23);
+            nudCreate_AC.TabIndex = 28;
+            nudCreate_AC.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
+            // lblCreateTitle_HP
+            // 
+            lblCreateTitle_HP.AutoSize = true;
+            lblCreateTitle_HP.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_HP.Location = new Point(6, 193);
+            lblCreateTitle_HP.Name = "lblCreateTitle_HP";
+            lblCreateTitle_HP.Size = new Size(30, 17);
+            lblCreateTitle_HP.TabIndex = 27;
+            lblCreateTitle_HP.Text = "HP:";
+            // 
+            // lblCreateTitle_AC
+            // 
+            lblCreateTitle_AC.AutoSize = true;
+            lblCreateTitle_AC.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_AC.Location = new Point(7, 164);
+            lblCreateTitle_AC.Name = "lblCreateTitle_AC";
+            lblCreateTitle_AC.Size = new Size(29, 17);
+            lblCreateTitle_AC.TabIndex = 26;
+            lblCreateTitle_AC.Text = "AC:";
+            // 
+            // cboCreate_Type
+            // 
+            cboCreate_Type.FormattingEnabled = true;
+            cboCreate_Type.Location = new Point(60, 107);
+            cboCreate_Type.Name = "cboCreate_Type";
+            cboCreate_Type.Size = new Size(104, 23);
+            cboCreate_Type.TabIndex = 25;
+            // 
+            // cboCreate_Class
+            // 
+            cboCreate_Class.FormattingEnabled = true;
+            cboCreate_Class.Location = new Point(60, 79);
+            cboCreate_Class.Name = "cboCreate_Class";
+            cboCreate_Class.Size = new Size(104, 23);
+            cboCreate_Class.TabIndex = 22;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(6, 109);
+            label11.Name = "label11";
+            label11.Size = new Size(41, 17);
+            label11.TabIndex = 24;
+            label11.Text = "Type:";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(6, 80);
+            label8.Name = "label8";
+            label8.Size = new Size(43, 17);
+            label8.TabIndex = 23;
+            label8.Text = "Class:";
+            // 
+            // chkGenerateACHP
+            // 
+            chkGenerateACHP.AutoSize = true;
+            chkGenerateACHP.Location = new Point(6, 136);
+            chkGenerateACHP.Name = "chkGenerateACHP";
+            chkGenerateACHP.Size = new Size(191, 19);
+            chkGenerateACHP.TabIndex = 22;
+            chkGenerateACHP.Text = "Calculate AC/HP by Level/Type";
+            chkGenerateACHP.UseVisualStyleBackColor = true;
+            chkGenerateACHP.CheckedChanged += chkGenerateACHP_CheckedChanged;
+            // 
+            // nudCreate_Level
+            // 
+            nudCreate_Level.Location = new Point(60, 49);
+            nudCreate_Level.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            nudCreate_Level.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudCreate_Level.Name = "nudCreate_Level";
+            nudCreate_Level.Size = new Size(41, 23);
+            nudCreate_Level.TabIndex = 6;
+            nudCreate_Level.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // txtCreate_Name
+            // 
+            txtCreate_Name.Location = new Point(60, 18);
+            txtCreate_Name.Name = "txtCreate_Name";
+            txtCreate_Name.Size = new Size(100, 23);
+            txtCreate_Name.TabIndex = 5;
+            // 
+            // lblCreateTitle_Level
+            // 
+            lblCreateTitle_Level.AutoSize = true;
+            lblCreateTitle_Level.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Level.Location = new Point(6, 51);
+            lblCreateTitle_Level.Name = "lblCreateTitle_Level";
+            lblCreateTitle_Level.Size = new Size(44, 17);
+            lblCreateTitle_Level.TabIndex = 4;
+            lblCreateTitle_Level.Text = "Level:";
+            // 
+            // lblCreateTitle_Name
+            // 
+            lblCreateTitle_Name.AutoSize = true;
+            lblCreateTitle_Name.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Name.Location = new Point(6, 19);
+            lblCreateTitle_Name.Name = "lblCreateTitle_Name";
+            lblCreateTitle_Name.Size = new Size(48, 17);
+            lblCreateTitle_Name.TabIndex = 3;
+            lblCreateTitle_Name.Text = "Name:";
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // lblMessenger
             // 
@@ -520,11 +729,6 @@
             lblMessenger.Size = new Size(804, 17);
             lblMessenger.TabIndex = 1;
             lblMessenger.Text = "uh";
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // MonsterForm
             // 
@@ -550,6 +754,12 @@
             grpAbilities.PerformLayout();
             grpMonsterDetails.ResumeLayout(false);
             grpMonsterDetails.PerformLayout();
+            tabCreate.ResumeLayout(false);
+            grpCreateMonsterStats.ResumeLayout(false);
+            grpCreateMonsterStats.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_HP).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_AC).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreate_Level).EndInit();
             ResumeLayout(false);
         }
 
@@ -560,7 +770,6 @@
         private TabPage tabMonsters;
         private TabPage tabCreate;
         private ListBox lstMonsters;
-        private Label lblMessenger;
         private GroupBox grpAbilities;
         private GroupBox grpMonsterDetails;
         private ListBox lstAbilities;
@@ -598,5 +807,23 @@
         private GroupBox grpLootInfo;
         private Label lblItemTitle;
         private Label lblGoldCount;
+        private GroupBox grpCreateMonsterAbilities;
+        private GroupBox grpCreateMonsterStats;
+        private Label lblMessenger;
+        private NumericUpDown nudCreate_Level;
+        private TextBox txtCreate_Name;
+        private Label lblCreateTitle_Level;
+        private Label lblCreateTitle_Name;
+        private CheckBox chkGenerateACHP;
+        private Label lblCreateTitle_HP;
+        private Label lblCreateTitle_AC;
+        private ComboBox cboCreate_Type;
+        private ComboBox cboCreate_Class;
+        private Label label11;
+        private Label label8;
+        private NumericUpDown nudCreate_HP;
+        private NumericUpDown nudCreate_AC;
+        private Label Description;
+        private RichTextBox rtbCreate_Desc;
     }
 }

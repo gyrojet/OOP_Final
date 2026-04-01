@@ -28,12 +28,7 @@ namespace OOP_BestiaryFinal
                 foreach (Creature creature in creatureList)
                     lstMonsters.Items.Add(creature);
 
-            string n = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
-
-            Debug.WriteLine(n);
-
-            // Loot manager goldtest; continue here tommorow
-            PopulateTypeList();
+            PopulateComboBoxes();
         }
 
         // How to display user data:
@@ -144,10 +139,12 @@ namespace OOP_BestiaryFinal
             rtbAbilityDesc.Text = ab.Describe();
         }
 
-        private void PopulateTypeList()
+        private void PopulateComboBoxes()
         {
             // Fill the combo box with the monster type enum
             cboType.DataSource = Enum.GetValues(typeof(MonsterType));
+            cboCreate_Type.DataSource = Enum.GetValues(typeof(MonsterType));
+            cboCreate_Class.DataSource = Enum.GetValues(typeof(Classification));
         }
 
 
@@ -289,6 +286,20 @@ namespace OOP_BestiaryFinal
         {
             ClearLootData();
             DisplayLootDetails();
+        }
+
+        private void chkGenerateACHP_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkGenerateACHP.Checked)
+            {
+                nudCreate_AC.Enabled = false;
+                nudCreate_HP.Enabled = false;
+            }
+            else
+            {
+                nudCreate_AC.Enabled = true;
+                nudCreate_HP.Enabled = true;
+            }
         }
     }
 }

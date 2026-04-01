@@ -14,14 +14,14 @@ namespace OOP_BestiaryFinal
         [JsonConstructor]
         public Elite() { }
 
-        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, MonsterType inType, DamageType inResists)
-            : base(inName, inDesc, inLevel, inType, inResists)
+        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, Classification inClass, MonsterType inType, DamageType inResists)
+            : base(inName, inDesc, inLevel, inClass, inType, inResists)
         {
             Ability = inAbility;
         }
 
-        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, int inAC, int inHP, MonsterType inType, DamageType inResists)
-            : base(inName, inDesc, inLevel, inAC, inHP, inType, inResists)
+        public Elite(string inName, string inDesc, int inLevel, Ability inAbility, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists)
+            : base(inName, inDesc, inLevel, inAC, inHP, inClass, inType, inResists)
         {
             Ability = inAbility;
         }
