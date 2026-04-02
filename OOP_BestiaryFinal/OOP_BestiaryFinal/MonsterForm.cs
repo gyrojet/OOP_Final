@@ -25,15 +25,22 @@ namespace OOP_BestiaryFinal
 
             // These are all tests that will be dealt with later
             if (creatureList != null)
-                foreach (Creature creature in creatureList)
-                {
-                    if (creature.Randomize)
-                        creature.ApplyRandomGen();
-
-                    lstMonsters.Items.Add(creature);
-                }
+                DisplayMonsterList();
 
             PopulateComboBoxes();
+        }
+
+        private void DisplayMonsterList()
+        {
+            lstMonsters.Items.Clear();
+
+            foreach (Creature creature in creatureList)
+            {
+                if (creature.Randomize)
+                    creature.ApplyRandomGen();
+
+                lstMonsters.Items.Add(creature);
+            }
         }
 
         // How to display user data:
@@ -336,9 +343,17 @@ namespace OOP_BestiaryFinal
             if (cboCreate_Class.SelectedItem is Classification c)
             {
                 if (c == Classification.Minion)
+                {
                     grpCreateMonsterAbilities.Enabled = false;
+                    nudCreate_MinionMin.Enabled = true;
+                    nudCreate_MinionMax.Enabled = true;
+                }
                 else
+                {
                     grpCreateMonsterAbilities.Enabled = true;
+                    nudCreate_MinionMin.Enabled = false;
+                    nudCreate_MinionMax.Enabled = false;
+                }
             }
             else
                 return;
@@ -346,7 +361,87 @@ namespace OOP_BestiaryFinal
 
         private void btnCreate_CreateMonster_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("There's nothing here dipshit!");
+            /*
+             * Create Monsters,Pass One:
+             * - Get all required information:
+             *      - Name
+             *      - Description
+             *      - Type
+             *      - Level
+             *      - Resistances
+             *      - Monster Class
+             *      - Randomize
+             *      
+             *  This is an early pass: here, we assume that 
+             *  the monster is a minion
+             *  
+             *  Step by step:
+             *  - get universal attributes (attributes of creature class)
+             *  - keep not of Randomize (If true, use alternate constructor
+             *  - get class specific attributes(minion's min-max appearing, 
+             */
+            
+            // Get monster's statistics
+            bool isRandom = chkGenerateACHP.Checked;
+            int monsterHP = 0;
+            int monsterAC = 0;
+
+            string monsterName = txtCreate_Name.Text;
+            string monsterDesc = rtbCreate_Desc.Text;
+            MonsterType monsterType = (MonsterType)cboCreate_Type.SelectedItem;
+            int monsterLevel = (int)nudCreate_Level.Value;
+            DamageType monsterResists = (DamageType)cboCreate_Resists.SelectedItem;
+            Classification monsterClass = (Classification)cboCreate_Class.SelectedItem;
+
+            // Grab class specific stuff (only minion for now)
+
+            if (monsterClass == Classification.Minion)
+            {
+                int monsterMin = (int)nudCreate_MinionMin.Value;
+                int monsterMax = (int)nudCreate_MinionMax.Value;
+
+                if (!isRandom)
+                {
+                    // Create monster with normal construstor
+                    monsterHP = (int)nudCreate_HP.Value;
+                    monsterAC = (int)nudCreate_AC.Value;
+
+                    Minion myMinion = new Minion(
+                            monsterName,
+                            monsterDesc,
+                            monsterLevel,
+                            monsterAC,
+                            monsterHP,
+                            monsterClass,
+                            monsterType,
+                            monsterResists,
+                            isRandom,
+                            monsterMin,
+                            monsterMax
+                        );
+
+                    creatureList.Add(myMinion);
+                    DisplayMonsterList();
+                }
+                else
+                {
+                    // Create minion w/o set hp/ac
+                    Minion myMinion = new Minion(
+                            monsterName,
+                            monsterDesc,
+                            monsterLevel,
+                            monsterClass,
+                            monsterType,
+                            monsterResists,
+                            isRandom,
+                            monsterMin,
+                            monsterMax
+                        );
+
+                    creatureList.Add(myMinion);
+                    DisplayMonsterList();
+                }
+            }
         }
     }
 }
