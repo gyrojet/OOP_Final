@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
 
 namespace OOP_BestiaryFinal
@@ -162,6 +163,8 @@ namespace OOP_BestiaryFinal
             cboCreate_Type.DataSource = Enum.GetValues(typeof(MonsterType));
             cboCreate_Class.DataSource = Enum.GetValues(typeof(Classification));
             cboCreate_Resists.DataSource = Enum.GetValues(typeof(DamageType));
+
+            cboCreateAbility_DamageType.DataSource = Enum.GetValues(typeof(DamageType));
         }
 
 
@@ -380,12 +383,13 @@ namespace OOP_BestiaryFinal
              *  - keep not of Randomize (If true, use alternate constructor
              *  - get class specific attributes(minion's min-max appearing, 
              */
-            
+
             // Get monster's statistics
             bool isRandom = chkGenerateACHP.Checked;
             int monsterHP = 0;
             int monsterAC = 0;
 
+            //Get all properties 
             string monsterName = txtCreate_Name.Text;
             string monsterDesc = rtbCreate_Desc.Text;
             MonsterType monsterType = (MonsterType)cboCreate_Type.SelectedItem;
@@ -394,6 +398,13 @@ namespace OOP_BestiaryFinal
             Classification monsterClass = (Classification)cboCreate_Class.SelectedItem;
 
             // Grab class specific stuff (only minion for now)
+
+            // Need to check for empty controls
+
+            if (true)
+            {
+
+            }
 
             if (monsterClass == Classification.Minion)
             {
@@ -442,6 +453,123 @@ namespace OOP_BestiaryFinal
                     DisplayMonsterList();
                 }
             }
+            else
+            {
+                if (lstCreateAbility_List.Items.Count <= 0)
+                {
+                    MessageBox.Show("Please create 1 or more abilities.", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (monsterClass == Classification.Elite)
+                {
+                    // Check to see if an ability is selected
+                    if (lstCreateAbility_List.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Please select an ability from the list.", "Error: No Ability selected", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+                    else
+                    {
+                        if (lstCreateAbility_List.SelectedItem is Ability newAbility)
+                        {
+                            // Get item, create new elite
+
+                            if (!isRandom)
+                            {
+                                // Get fixed hp/ac
+                                monsterHP = (int)nudCreate_HP.Value;
+                                monsterAC = (int)nudCreate_AC.Value;
+
+                                // Create elite with fixed hp/ac
+                                Elite myElite = new Elite(
+                                        monsterName,
+                                        monsterDesc,
+                                        monsterLevel,
+                                        newAbility,
+                                        monsterAC,
+                                        monsterHP,
+                                        monsterClass,
+                                        monsterType,
+                                        monsterResists,
+                                        isRandom
+                                    );
+
+                                creatureList.Add(myElite);
+                                DisplayMonsterList();
+                            }
+                            else
+                            {
+                                Elite myElite = new Elite(
+                                        monsterName,
+                                        monsterDesc,
+                                        monsterLevel,
+                                        newAbility,
+                                        monsterClass,
+                                        monsterType,
+                                        monsterResists,
+                                        isRandom
+                                    );
+
+                                creatureList.Add(myElite);
+                                DisplayMonsterList();
+                            }
+                        }
+                    }
+                }
+                else if (monsterClass == Classification.WorldBoss)
+                {
+
+                }
+            }
+        }
+
+        private void CreateAbility()
+        {
+            // Create an ability
+
+            string abilityName = txtCreateAbility_Name.Text;
+            int abilityCost = (int)nudCreateAbility_Cost.Value;
+            int abilityPower = (int)nudCreateAbility_Power.Value;
+            DamageType abilityDT = (DamageType)cboCreateAbility_DamageType.SelectedItem;
+            string abilityDesc = rtbCreateAbility_Desc.Text;
+
+            if (!string.IsNullOrEmpty(abilityName) &&
+                !string.IsNullOrEmpty(abilityDesc))
+            {
+                Ability newAbility = new Ability(
+                        abilityName,
+                        abilityDesc,
+                        abilityPower,
+                        abilityCost,
+                        abilityDT
+                    );
+
+                lstCreateAbility_List.Items.Add(newAbility);
+            }
+            else
+            {
+                MessageBox.Show("One or more properties of your ability are invalid.", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void btnCreateControls_ClearList_Click(object sender, EventArgs e)
+        {
+            lstCreateAbility_List.Items.Clear();
+        }
+
+        private void btnCreateAbility_ClearBottom_Click(object sender, EventArgs e)
+        {
+            txtCreateAbility_Name.Text = string.Empty;
+            rtbCreateAbility_Desc.Text = string.Empty;
+
+            nudCreateAbility_Cost.Value = nudCreateAbility_Cost.Minimum;
+            nudCreateAbility_Power.Value = nudCreateAbility_Power.Minimum;
+        }
+
+        private void btnCreateAbility_Create_Click(object sender, EventArgs e)
+        {
+            CreateAbility();
         }
     }
 }

@@ -72,6 +72,20 @@
             tabCreate = new TabPage();
             btnCreate_CreateMonster = new Button();
             grpCreateMonsterAbilities = new GroupBox();
+            btnCreateControls_ClearList = new Button();
+            btnCreateAbility_Create = new Button();
+            btnCreateAbility_ClearBottom = new Button();
+            cboCreateAbility_DamageType = new ComboBox();
+            nudCreateAbility_Cost = new NumericUpDown();
+            lblCreateAbilityTitle_DamageType = new Label();
+            lblCreateAbilityTitle_Cost = new Label();
+            nudCreateAbility_Power = new NumericUpDown();
+            rtbCreateAbility_Desc = new RichTextBox();
+            lblCreateAbilityTitle_Power = new Label();
+            lblCreateAbilityTitle_Desc = new Label();
+            txtCreateAbility_Name = new TextBox();
+            lstCreateAbility_List = new ListBox();
+            lblCreateAbilityTitle_Name = new Label();
             grpCreateMonsterStats = new GroupBox();
             btnCreate_ClearTop = new Button();
             cboCreate_Resists = new ComboBox();
@@ -106,6 +120,9 @@
             grpAbilities.SuspendLayout();
             grpMonsterDetails.SuspendLayout();
             tabCreate.SuspendLayout();
+            grpCreateMonsterAbilities.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreateAbility_Cost).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreateAbility_Power).BeginInit();
             grpCreateMonsterStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMax).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMin).BeginInit();
@@ -564,12 +581,157 @@
             // 
             // grpCreateMonsterAbilities
             // 
+            grpCreateMonsterAbilities.Controls.Add(btnCreateControls_ClearList);
+            grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_Create);
+            grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_ClearBottom);
+            grpCreateMonsterAbilities.Controls.Add(cboCreateAbility_DamageType);
+            grpCreateMonsterAbilities.Controls.Add(nudCreateAbility_Cost);
+            grpCreateMonsterAbilities.Controls.Add(lblCreateAbilityTitle_DamageType);
+            grpCreateMonsterAbilities.Controls.Add(lblCreateAbilityTitle_Cost);
+            grpCreateMonsterAbilities.Controls.Add(nudCreateAbility_Power);
+            grpCreateMonsterAbilities.Controls.Add(rtbCreateAbility_Desc);
+            grpCreateMonsterAbilities.Controls.Add(lblCreateAbilityTitle_Power);
+            grpCreateMonsterAbilities.Controls.Add(lblCreateAbilityTitle_Desc);
+            grpCreateMonsterAbilities.Controls.Add(txtCreateAbility_Name);
+            grpCreateMonsterAbilities.Controls.Add(lstCreateAbility_List);
+            grpCreateMonsterAbilities.Controls.Add(lblCreateAbilityTitle_Name);
             grpCreateMonsterAbilities.Location = new Point(6, 255);
             grpCreateMonsterAbilities.Name = "grpCreateMonsterAbilities";
             grpCreateMonsterAbilities.Size = new Size(508, 223);
             grpCreateMonsterAbilities.TabIndex = 1;
             grpCreateMonsterAbilities.TabStop = false;
             grpCreateMonsterAbilities.Text = "Monster Abilities";
+            // 
+            // btnCreateControls_ClearList
+            // 
+            btnCreateControls_ClearList.Location = new Point(6, 194);
+            btnCreateControls_ClearList.Name = "btnCreateControls_ClearList";
+            btnCreateControls_ClearList.Size = new Size(144, 23);
+            btnCreateControls_ClearList.TabIndex = 42;
+            btnCreateControls_ClearList.Text = "Clear List";
+            btnCreateControls_ClearList.UseVisualStyleBackColor = true;
+            btnCreateControls_ClearList.Click += btnCreateControls_ClearList_Click;
+            // 
+            // btnCreateAbility_Create
+            // 
+            btnCreateAbility_Create.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreateAbility_Create.Location = new Point(321, 195);
+            btnCreateAbility_Create.Name = "btnCreateAbility_Create";
+            btnCreateAbility_Create.Size = new Size(90, 23);
+            btnCreateAbility_Create.TabIndex = 38;
+            btnCreateAbility_Create.Text = "Create Ability";
+            btnCreateAbility_Create.UseVisualStyleBackColor = true;
+            btnCreateAbility_Create.Click += btnCreateAbility_Create_Click;
+            // 
+            // btnCreateAbility_ClearBottom
+            // 
+            btnCreateAbility_ClearBottom.Location = new Point(412, 195);
+            btnCreateAbility_ClearBottom.Name = "btnCreateAbility_ClearBottom";
+            btnCreateAbility_ClearBottom.Size = new Size(90, 23);
+            btnCreateAbility_ClearBottom.TabIndex = 39;
+            btnCreateAbility_ClearBottom.Text = "Clear Controls";
+            btnCreateAbility_ClearBottom.UseVisualStyleBackColor = true;
+            btnCreateAbility_ClearBottom.Click += btnCreateAbility_ClearBottom_Click;
+            // 
+            // cboCreateAbility_DamageType
+            // 
+            cboCreateAbility_DamageType.FormattingEnabled = true;
+            cboCreateAbility_DamageType.Location = new Point(211, 132);
+            cboCreateAbility_DamageType.Name = "cboCreateAbility_DamageType";
+            cboCreateAbility_DamageType.Size = new Size(104, 23);
+            cboCreateAbility_DamageType.TabIndex = 39;
+            // 
+            // nudCreateAbility_Cost
+            // 
+            nudCreateAbility_Cost.Location = new Point(215, 82);
+            nudCreateAbility_Cost.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            nudCreateAbility_Cost.Name = "nudCreateAbility_Cost";
+            nudCreateAbility_Cost.Size = new Size(100, 23);
+            nudCreateAbility_Cost.TabIndex = 41;
+            nudCreateAbility_Cost.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // lblCreateAbilityTitle_DamageType
+            // 
+            lblCreateAbilityTitle_DamageType.AutoSize = true;
+            lblCreateAbilityTitle_DamageType.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateAbilityTitle_DamageType.Location = new Point(159, 116);
+            lblCreateAbilityTitle_DamageType.Name = "lblCreateAbilityTitle_DamageType";
+            lblCreateAbilityTitle_DamageType.Size = new Size(63, 34);
+            lblCreateAbilityTitle_DamageType.TabIndex = 38;
+            lblCreateAbilityTitle_DamageType.Text = "Damage \r\nType:";
+            // 
+            // lblCreateAbilityTitle_Cost
+            // 
+            lblCreateAbilityTitle_Cost.AutoSize = true;
+            lblCreateAbilityTitle_Cost.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateAbilityTitle_Cost.Location = new Point(161, 84);
+            lblCreateAbilityTitle_Cost.Name = "lblCreateAbilityTitle_Cost";
+            lblCreateAbilityTitle_Cost.Size = new Size(39, 17);
+            lblCreateAbilityTitle_Cost.TabIndex = 40;
+            lblCreateAbilityTitle_Cost.Text = "Cost:";
+            // 
+            // nudCreateAbility_Power
+            // 
+            nudCreateAbility_Power.Location = new Point(215, 48);
+            nudCreateAbility_Power.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            nudCreateAbility_Power.Name = "nudCreateAbility_Power";
+            nudCreateAbility_Power.Size = new Size(100, 23);
+            nudCreateAbility_Power.TabIndex = 39;
+            nudCreateAbility_Power.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // rtbCreateAbility_Desc
+            // 
+            rtbCreateAbility_Desc.Location = new Point(321, 40);
+            rtbCreateAbility_Desc.Name = "rtbCreateAbility_Desc";
+            rtbCreateAbility_Desc.Size = new Size(181, 149);
+            rtbCreateAbility_Desc.TabIndex = 39;
+            rtbCreateAbility_Desc.Text = "";
+            // 
+            // lblCreateAbilityTitle_Power
+            // 
+            lblCreateAbilityTitle_Power.AutoSize = true;
+            lblCreateAbilityTitle_Power.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateAbilityTitle_Power.Location = new Point(161, 50);
+            lblCreateAbilityTitle_Power.Name = "lblCreateAbilityTitle_Power";
+            lblCreateAbilityTitle_Power.Size = new Size(51, 17);
+            lblCreateAbilityTitle_Power.TabIndex = 38;
+            lblCreateAbilityTitle_Power.Text = "Power:";
+            // 
+            // lblCreateAbilityTitle_Desc
+            // 
+            lblCreateAbilityTitle_Desc.AutoSize = true;
+            lblCreateAbilityTitle_Desc.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateAbilityTitle_Desc.Location = new Point(321, 20);
+            lblCreateAbilityTitle_Desc.Name = "lblCreateAbilityTitle_Desc";
+            lblCreateAbilityTitle_Desc.Size = new Size(83, 17);
+            lblCreateAbilityTitle_Desc.TabIndex = 38;
+            lblCreateAbilityTitle_Desc.Text = "Description:";
+            // 
+            // txtCreateAbility_Name
+            // 
+            txtCreateAbility_Name.Location = new Point(215, 18);
+            txtCreateAbility_Name.Name = "txtCreateAbility_Name";
+            txtCreateAbility_Name.Size = new Size(100, 23);
+            txtCreateAbility_Name.TabIndex = 39;
+            // 
+            // lstCreateAbility_List
+            // 
+            lstCreateAbility_List.FormattingEnabled = true;
+            lstCreateAbility_List.ItemHeight = 15;
+            lstCreateAbility_List.Location = new Point(7, 18);
+            lstCreateAbility_List.Name = "lstCreateAbility_List";
+            lstCreateAbility_List.Size = new Size(143, 169);
+            lstCreateAbility_List.TabIndex = 2;
+            // 
+            // lblCreateAbilityTitle_Name
+            // 
+            lblCreateAbilityTitle_Name.AutoSize = true;
+            lblCreateAbilityTitle_Name.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateAbilityTitle_Name.Location = new Point(161, 19);
+            lblCreateAbilityTitle_Name.Name = "lblCreateAbilityTitle_Name";
+            lblCreateAbilityTitle_Name.Size = new Size(48, 17);
+            lblCreateAbilityTitle_Name.TabIndex = 38;
+            lblCreateAbilityTitle_Name.Text = "Name:";
             // 
             // grpCreateMonsterStats
             // 
@@ -608,7 +770,7 @@
             btnCreate_ClearTop.Name = "btnCreate_ClearTop";
             btnCreate_ClearTop.Size = new Size(90, 23);
             btnCreate_ClearTop.TabIndex = 37;
-            btnCreate_ClearTop.Text = "Clear Top";
+            btnCreate_ClearTop.Text = "Clear Controls";
             btnCreate_ClearTop.UseVisualStyleBackColor = true;
             btnCreate_ClearTop.Click += btnCreate_ClearTop_Click;
             // 
@@ -852,6 +1014,10 @@
             grpMonsterDetails.ResumeLayout(false);
             grpMonsterDetails.PerformLayout();
             tabCreate.ResumeLayout(false);
+            grpCreateMonsterAbilities.ResumeLayout(false);
+            grpCreateMonsterAbilities.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreateAbility_Cost).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudCreateAbility_Power).EndInit();
             grpCreateMonsterStats.ResumeLayout(false);
             grpCreateMonsterStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudCreate_MinionMax).EndInit();
@@ -932,5 +1098,19 @@
         private NumericUpDown nudCreate_MinionMax;
         private Label lblCreateTitle_Max;
         private Button btnCreate_CreateMonster;
+        private ListBox lstCreateAbility_List;
+        private RichTextBox rtbCreateAbility_Desc;
+        private Label lblCreateAbilityTitle_Desc;
+        private TextBox txtCreateAbility_Name;
+        private Label lblCreateAbilityTitle_Name;
+        private NumericUpDown nudCreateAbility_Power;
+        private Label lblCreateAbilityTitle_Power;
+        private NumericUpDown nudCreateAbility_Cost;
+        private Label lblCreateAbilityTitle_Cost;
+        private ComboBox cboCreateAbility_DamageType;
+        private Label lblCreateAbilityTitle_DamageType;
+        private Button btnCreateAbility_Create;
+        private Button btnCreateAbility_ClearBottom;
+        private Button btnCreateControls_ClearList;
     }
 }
