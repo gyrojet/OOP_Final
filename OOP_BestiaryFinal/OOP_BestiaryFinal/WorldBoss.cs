@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,7 +10,7 @@ namespace OOP_BestiaryFinal
 {
     public sealed class WorldBoss : Creature
     {
-        private List<Ability> _abilities;
+        private List<Ability> _abilities = new List<Ability>();
 
         public List<Ability> AbilityList { get { return _abilities; } set { if (value.Count > 0) _abilities = value; } }
 
@@ -30,5 +31,11 @@ namespace OOP_BestiaryFinal
 
         public override string Describe()
             => $"{Name} (WORLD BOSS!)\n{Description}\n********\nLEVEL: {Level}\n\nHP: {CurrentHealth}\nAC: {AC}\nRESISTS: {Resists}\n\nTYPE: {MonsterType.ToString()}\n********";
+
+        public static WorldBoss operator +(WorldBoss boss, Ability ability)
+        {
+            boss.AbilityList.Add(ability);
+            return boss;
+        }
     }
 }

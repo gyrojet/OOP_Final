@@ -401,11 +401,6 @@ namespace OOP_BestiaryFinal
 
             // Need to check for empty controls
 
-            if (true)
-            {
-
-            }
-
             if (monsterClass == Classification.Minion)
             {
                 int monsterMin = (int)nudCreate_MinionMin.Value;
@@ -433,6 +428,8 @@ namespace OOP_BestiaryFinal
 
                     creatureList.Add(myMinion);
                     DisplayMonsterList();
+
+
                 }
                 else
                 {
@@ -500,6 +497,7 @@ namespace OOP_BestiaryFinal
                             }
                             else
                             {
+                                // Create elite with randomized hp/ac
                                 Elite myElite = new Elite(
                                         monsterName,
                                         monsterDesc,
@@ -513,13 +511,63 @@ namespace OOP_BestiaryFinal
 
                                 creatureList.Add(myElite);
                                 DisplayMonsterList();
+
                             }
                         }
                     }
                 }
                 else if (monsterClass == Classification.WorldBoss)
                 {
+                    // Plan: Create monster, then add each ability one by one
 
+                    // Check to see if a worldboss already exists in the list!!!
+
+                    WorldBoss newWorldBoss;
+
+                    if (!isRandom)
+                    {
+                        // Get fixed hp/ac
+                        monsterHP = (int)nudCreate_HP.Value;
+                        monsterAC = (int)nudCreate_AC.Value;
+
+                        // Create boss w/ fixed hp/ac
+                        newWorldBoss = new WorldBoss(
+                                monsterName,
+                                monsterDesc,
+                                monsterLevel,
+                                new List<Ability>(),
+                                monsterAC, 
+                                monsterHP,
+                                monsterClass,
+                                monsterType,
+                                monsterResists,
+                                isRandom
+                            );
+                    }
+                    else
+                    {
+                        newWorldBoss = new WorldBoss(
+                                monsterName,
+                                monsterDesc,
+                                monsterLevel,
+                                new List<Ability>(),
+                                monsterClass, 
+                                monsterType,
+                                monsterResists,
+                                isRandom
+                            );
+                    }
+
+                    foreach (var item in lstCreateAbility_List.Items)
+                    {
+                        if (item is Ability ability)
+                        {
+                            newWorldBoss += ability;
+                        }
+                    }
+
+                    creatureList.Add(newWorldBoss);
+                    DisplayMonsterList();
                 }
             }
         }
