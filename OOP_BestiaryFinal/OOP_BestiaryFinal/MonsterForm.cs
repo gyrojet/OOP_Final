@@ -26,7 +26,10 @@ namespace OOP_BestiaryFinal
 
             // These are all tests that will be dealt with later
             if (creatureList != null)
+            {
+                ApplyRandom();
                 DisplayMonsterList();
+            }
 
             PopulateComboBoxes();
         }
@@ -37,10 +40,15 @@ namespace OOP_BestiaryFinal
 
             foreach (Creature creature in creatureList)
             {
+                lstMonsters.Items.Add(creature);
+            }
+        }
+        private void ApplyRandom()
+        {
+            foreach (Creature creature in creatureList)
+            {
                 if (creature.Randomize)
                     creature.ApplyRandomGen();
-
-                lstMonsters.Items.Add(creature);
             }
         }
 
@@ -167,6 +175,8 @@ namespace OOP_BestiaryFinal
             cboCreateAbility_DamageType.DataSource = Enum.GetValues(typeof(DamageType));
 
             cboMonsterSort.DataSource = Enum.GetValues(typeof(MonsterSortTypes));
+            cboSortLoot.DataSource = Enum.GetValues(typeof(LootSortTypes));
+            cboSortAbilities.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
         }
 
 
@@ -641,6 +651,8 @@ namespace OOP_BestiaryFinal
              *  - get collection of objects
              *  - determine sort criteria (use combobox)
              */
+            if (cboMonsterSort.SelectedItem is MonsterSortTypes mst)
+                SortCreatures(mst);
         }
 
         private void btnSortLoot_Click(object sender, EventArgs e)
@@ -653,16 +665,58 @@ namespace OOP_BestiaryFinal
 
         }
 
-        //private List<Creature> SortCreatures(MonsterSortTypes sortType)
-        //{
-        //    List<Creature> sortedList = new List<Creature>();
+        private void SortCreatures(MonsterSortTypes sortType)
+        {
+            switch (sortType)
+            {
+                case MonsterSortTypes.Class:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.MonsterClass)
+                                   .ThenBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
 
-        //    switch (sortType)
-        //    {
-        //        case MonsterSortTypes.Class:
-        //            sortedList = 
-        //    }
-        //}
+                case MonsterSortTypes.Type:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.MonsterType)
+                                   .ThenBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
+
+                case MonsterSortTypes.Level:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.Level)
+                                   .ThenBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
+
+                case MonsterSortTypes.HP:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.CurrentHealth)
+                                   .ThenBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
+
+                case MonsterSortTypes.AC:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.AC)
+                                   .ThenBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
+
+                case MonsterSortTypes.Name:
+                    creatureList = creatureList
+                                   .OrderBy(c => c.Name)
+                                   .ToList();
+                    DisplayMonsterList();
+                    break;
+            }
+        }
 
         //private List<Loot> SortLoot(MonsterSortTypes sortType)
         //{

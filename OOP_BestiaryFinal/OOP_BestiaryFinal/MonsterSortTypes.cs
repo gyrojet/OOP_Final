@@ -12,6 +12,7 @@ namespace OOP_BestiaryFinal
         Type,
         Level,
         HP,
-        AC
+        AC,
+        Name
     }
 }
