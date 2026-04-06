@@ -165,6 +165,8 @@ namespace OOP_BestiaryFinal
             cboCreate_Resists.DataSource = Enum.GetValues(typeof(DamageType));
 
             cboCreateAbility_DamageType.DataSource = Enum.GetValues(typeof(DamageType));
+
+            cboMonsterSort.DataSource = Enum.GetValues(typeof(MonsterSortTypes));
         }
 
 
@@ -375,200 +377,212 @@ namespace OOP_BestiaryFinal
              *      - Monster Class
              *      - Randomize
              *      
-             *  This is an early pass: here, we assume that 
-             *  the monster is a minion
-             *  
              *  Step by step:
              *  - get universal attributes (attributes of creature class)
              *  - keep not of Randomize (If true, use alternate constructor
              *  - get class specific attributes(minion's min-max appearing, 
              */
-
-            // Get monster's statistics
-            bool isRandom = chkGenerateACHP.Checked;
-            int monsterHP = 0;
-            int monsterAC = 0;
-
-            //Get all properties 
-            string monsterName = txtCreate_Name.Text;
-            string monsterDesc = rtbCreate_Desc.Text;
-            MonsterType monsterType = (MonsterType)cboCreate_Type.SelectedItem;
-            int monsterLevel = (int)nudCreate_Level.Value;
-            DamageType monsterResists = (DamageType)cboCreate_Resists.SelectedItem;
-            Classification monsterClass = (Classification)cboCreate_Class.SelectedItem;
-
-            // Grab class specific stuff (only minion for now)
-
-            // Need to check for empty controls
-
-            if (monsterClass == Classification.Minion)
+            try
             {
-                int monsterMin = (int)nudCreate_MinionMin.Value;
-                int monsterMax = (int)nudCreate_MinionMax.Value;
+                // Get monster's statistics
+                bool isRandom = chkGenerateACHP.Checked;
+                int monsterHP = 0;
+                int monsterAC = 0;
 
-                if (!isRandom)
+                //Get all properties 
+                string monsterName = txtCreate_Name.Text;
+                string monsterDesc = rtbCreate_Desc.Text;
+                MonsterType monsterType = (MonsterType)cboCreate_Type.SelectedItem;
+                int monsterLevel = (int)nudCreate_Level.Value;
+                DamageType monsterResists = (DamageType)cboCreate_Resists.SelectedItem;
+                Classification monsterClass = (Classification)cboCreate_Class.SelectedItem;
+
+                if (string.IsNullOrWhiteSpace(monsterName) ||
+                    string.IsNullOrWhiteSpace(monsterDesc))
                 {
-                    // Create monster with normal construstor
-                    monsterHP = (int)nudCreate_HP.Value;
-                    monsterAC = (int)nudCreate_AC.Value;
-
-                    Minion myMinion = new Minion(
-                            monsterName,
-                            monsterDesc,
-                            monsterLevel,
-                            monsterAC,
-                            monsterHP,
-                            monsterClass,
-                            monsterType,
-                            monsterResists,
-                            isRandom,
-                            monsterMin,
-                            monsterMax
-                        );
-
-                    creatureList.Add(myMinion);
-                    DisplayMonsterList();
-
-
-                }
-                else
-                {
-                    // Create minion w/o set hp/ac
-                    Minion myMinion = new Minion(
-                            monsterName,
-                            monsterDesc,
-                            monsterLevel,
-                            monsterClass,
-                            monsterType,
-                            monsterResists,
-                            isRandom,
-                            monsterMin,
-                            monsterMax
-                        );
-
-                    creatureList.Add(myMinion);
-                    DisplayMonsterList();
-                }
-            }
-            else
-            {
-                if (lstCreateAbility_List.Items.Count <= 0)
-                {
-                    MessageBox.Show("Please create 1 or more abilities.", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Name or description cannot be null!", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
 
-                if (monsterClass == Classification.Elite)
+                if (monsterClass == Classification.Minion)
                 {
-                    // Check to see if an ability is selected
-                    if (lstCreateAbility_List.SelectedIndex == -1)
-                    {
-                        MessageBox.Show("Please select an ability from the list.", "Error: No Ability selected", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        return;
-                    }
-                    else
-                    {
-                        if (lstCreateAbility_List.SelectedItem is Ability newAbility)
-                        {
-                            // Get item, create new elite
-
-                            if (!isRandom)
-                            {
-                                // Get fixed hp/ac
-                                monsterHP = (int)nudCreate_HP.Value;
-                                monsterAC = (int)nudCreate_AC.Value;
-
-                                // Create elite with fixed hp/ac
-                                Elite myElite = new Elite(
-                                        monsterName,
-                                        monsterDesc,
-                                        monsterLevel,
-                                        newAbility,
-                                        monsterAC,
-                                        monsterHP,
-                                        monsterClass,
-                                        monsterType,
-                                        monsterResists,
-                                        isRandom
-                                    );
-
-                                creatureList.Add(myElite);
-                                DisplayMonsterList();
-                            }
-                            else
-                            {
-                                // Create elite with randomized hp/ac
-                                Elite myElite = new Elite(
-                                        monsterName,
-                                        monsterDesc,
-                                        monsterLevel,
-                                        newAbility,
-                                        monsterClass,
-                                        monsterType,
-                                        monsterResists,
-                                        isRandom
-                                    );
-
-                                creatureList.Add(myElite);
-                                DisplayMonsterList();
-
-                            }
-                        }
-                    }
-                }
-                else if (monsterClass == Classification.WorldBoss)
-                {
-                    // Plan: Create monster, then add each ability one by one
-
-                    // Check to see if a worldboss already exists in the list!!!
-
-                    WorldBoss newWorldBoss;
+                    int monsterMin = (int)nudCreate_MinionMin.Value;
+                    int monsterMax = (int)nudCreate_MinionMax.Value;
 
                     if (!isRandom)
                     {
-                        // Get fixed hp/ac
+                        // Create monster with normal construstor
                         monsterHP = (int)nudCreate_HP.Value;
                         monsterAC = (int)nudCreate_AC.Value;
 
-                        // Create boss w/ fixed hp/ac
-                        newWorldBoss = new WorldBoss(
+                        Minion myMinion = new Minion(
                                 monsterName,
                                 monsterDesc,
                                 monsterLevel,
-                                new List<Ability>(),
-                                monsterAC, 
+                                monsterAC,
                                 monsterHP,
                                 monsterClass,
                                 monsterType,
                                 monsterResists,
-                                isRandom
+                                isRandom,
+                                monsterMin,
+                                monsterMax
                             );
+
+                        creatureList.Add(myMinion);
+                        DisplayMonsterList();
                     }
                     else
                     {
-                        newWorldBoss = new WorldBoss(
+                        // Create minion w/o set hp/ac
+                        Minion myMinion = new Minion(
                                 monsterName,
                                 monsterDesc,
                                 monsterLevel,
-                                new List<Ability>(),
-                                monsterClass, 
+                                monsterClass,
                                 monsterType,
                                 monsterResists,
-                                isRandom
+                                isRandom,
+                                monsterMin,
+                                monsterMax
                             );
+
+                        creatureList.Add(myMinion);
+                        DisplayMonsterList();
+                    }
+                }
+                else
+                {
+                    if (lstCreateAbility_List.Items.Count <= 0)
+                    {
+                        MessageBox.Show("Please create 1 or more abilities.", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
                     }
 
-                    foreach (var item in lstCreateAbility_List.Items)
+                    if (monsterClass == Classification.Elite)
                     {
-                        if (item is Ability ability)
+                        // Check to see if an ability is selected
+                        if (lstCreateAbility_List.SelectedIndex == -1)
                         {
-                            newWorldBoss += ability;
+                            MessageBox.Show("Please select an ability from the list.", "Error: No Ability selected", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+                        else
+                        {
+                            if (lstCreateAbility_List.SelectedItem is Ability newAbility)
+                            {
+                                // Get item, create new elite
+
+                                if (!isRandom)
+                                {
+                                    // Get fixed hp/ac
+                                    monsterHP = (int)nudCreate_HP.Value;
+                                    monsterAC = (int)nudCreate_AC.Value;
+
+                                    // Create elite with fixed hp/ac
+                                    Elite myElite = new Elite(
+                                            monsterName,
+                                            monsterDesc,
+                                            monsterLevel,
+                                            newAbility,
+                                            monsterAC,
+                                            monsterHP,
+                                            monsterClass,
+                                            monsterType,
+                                            monsterResists,
+                                            isRandom
+                                        );
+
+                                    creatureList.Add(myElite);
+                                    DisplayMonsterList();
+                                }
+                                else
+                                {
+                                    // Create elite with randomized hp/ac
+                                    Elite myElite = new Elite(
+                                            monsterName,
+                                            monsterDesc,
+                                            monsterLevel,
+                                            newAbility,
+                                            monsterClass,
+                                            monsterType,
+                                            monsterResists,
+                                            isRandom
+                                        );
+
+                                    creatureList.Add(myElite);
+                                    DisplayMonsterList();
+
+                                }
+                            }
                         }
                     }
+                    else if (monsterClass == Classification.WorldBoss)
+                    {
+                        // Plan: Create monster, then add each ability one by one
 
-                    creatureList.Add(newWorldBoss);
-                    DisplayMonsterList();
+                        var worldBoss = creatureList
+                                        .Where(c => c.MonsterClass == Classification.WorldBoss)
+                                        .FirstOrDefault();
+
+                        //if (worldBoss != null)
+                        //{
+                        //    MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        //    return;
+                        //}
+
+                        WorldBoss newWorldBoss;
+
+                        if (!isRandom)
+                        {
+                            // Get fixed hp/ac
+                            monsterHP = (int)nudCreate_HP.Value;
+                            monsterAC = (int)nudCreate_AC.Value;
+
+                            // Create boss w/ fixed hp/ac
+                            newWorldBoss = new WorldBoss(
+                                    monsterName,
+                                    monsterDesc,
+                                    monsterLevel,
+                                    new List<Ability>(),
+                                    monsterAC,
+                                    monsterHP,
+                                    monsterClass,
+                                    monsterType,
+                                    monsterResists,
+                                    isRandom
+                                );
+                        }
+                        else
+                        {
+                            newWorldBoss = new WorldBoss(
+                                    monsterName,
+                                    monsterDesc,
+                                    monsterLevel,
+                                    new List<Ability>(),
+                                    monsterClass,
+                                    monsterType,
+                                    monsterResists,
+                                    isRandom
+                                );
+                        }
+
+                        foreach (var item in lstCreateAbility_List.Items)
+                        {
+                            if (item is Ability ability)
+                            {
+                                newWorldBoss += ability;
+                            }
+                        }
+
+                        creatureList.Add(newWorldBoss);
+                        DisplayMonsterList();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -619,5 +633,45 @@ namespace OOP_BestiaryFinal
         {
             CreateAbility();
         }
+
+        private void btnMonsterSort_Click(object sender, EventArgs e)
+        {
+            // What to do...
+            /*
+             *  - get collection of objects
+             *  - determine sort criteria (use combobox)
+             */
+        }
+
+        private void btnSortLoot_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSortAbilities_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //private List<Creature> SortCreatures(MonsterSortTypes sortType)
+        //{
+        //    List<Creature> sortedList = new List<Creature>();
+
+        //    switch (sortType)
+        //    {
+        //        case MonsterSortTypes.Class:
+        //            sortedList = 
+        //    }
+        //}
+
+        //private List<Loot> SortLoot(MonsterSortTypes sortType)
+        //{
+
+        //}
+
+        //private List<Ability> SortAbilities(MonsterSortTypes sortType)
+        //{
+
+        //}
     }
 }

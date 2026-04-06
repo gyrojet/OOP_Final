@@ -14,7 +14,7 @@ namespace OOP_BestiaryFinal
         private int _maxAppearing;
 
         public int MinAppearing { get { return _minAppearing; } set { if (value > 0) _minAppearing = value; else _minAppearing = 1; } }
-        public int MaxAppearing { get { return _maxAppearing; } set { if (value > _minAppearing) _maxAppearing = value; else _maxAppearing = _minAppearing; } }
+        public int MaxAppearing { get { return _maxAppearing; } set { if (value < _minAppearing) _maxAppearing = _minAppearing; else _maxAppearing = value; } }
 
         [JsonConstructor]
         public Minion() { }

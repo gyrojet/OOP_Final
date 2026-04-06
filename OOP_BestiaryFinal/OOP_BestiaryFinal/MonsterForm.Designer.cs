@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             grpMonsterList = new GroupBox();
+            cboMonsterSort = new ComboBox();
+            btnMonsterSort = new Button();
             grpLootGen = new GroupBox();
             lblItemTitle = new Label();
             lblCoinTitle = new Label();
@@ -42,11 +44,15 @@
             nudLevel = new NumericUpDown();
             chkUseCurrentMonster = new CheckBox();
             grpLootInfo = new GroupBox();
+            cboSortLoot = new ComboBox();
+            btnSortLoot = new Button();
             lblGoldCount = new Label();
             lstMonsters = new ListBox();
             tabDisplay = new TabControl();
             tabMonsters = new TabPage();
             grpAbilities = new GroupBox();
+            cboSortAbilities = new ComboBox();
+            btnSortAbilities = new Button();
             lblAbilityType = new Label();
             lblAbilityCost = new Label();
             label10 = new Label();
@@ -56,7 +62,6 @@
             lblAbilityPower = new Label();
             label6 = new Label();
             grpMonsterDetails = new GroupBox();
-            grpCombat = new GroupBox();
             lblDesc = new Label();
             lblType = new Label();
             label9 = new Label();
@@ -133,14 +138,36 @@
             // 
             // grpMonsterList
             // 
+            grpMonsterList.Controls.Add(cboMonsterSort);
+            grpMonsterList.Controls.Add(btnMonsterSort);
             grpMonsterList.Controls.Add(grpLootGen);
             grpMonsterList.Controls.Add(lstMonsters);
             grpMonsterList.Location = new Point(3, 0);
             grpMonsterList.Name = "grpMonsterList";
-            grpMonsterList.Size = new Size(286, 539);
+            grpMonsterList.Size = new Size(286, 551);
             grpMonsterList.TabIndex = 0;
             grpMonsterList.TabStop = false;
             grpMonsterList.Text = "Select a Monster";
+            // 
+            // cboMonsterSort
+            // 
+            cboMonsterSort.FormattingEnabled = true;
+            cboMonsterSort.Items.AddRange(new object[] { "Class", "Type", "Level", "HP", "AC" });
+            cboMonsterSort.Location = new Point(10, 215);
+            cboMonsterSort.Name = "cboMonsterSort";
+            cboMonsterSort.Size = new Size(175, 23);
+            cboMonsterSort.TabIndex = 22;
+            // 
+            // btnMonsterSort
+            // 
+            btnMonsterSort.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMonsterSort.Location = new Point(194, 216);
+            btnMonsterSort.Name = "btnMonsterSort";
+            btnMonsterSort.Size = new Size(82, 23);
+            btnMonsterSort.TabIndex = 22;
+            btnMonsterSort.Text = "Sort...";
+            btnMonsterSort.UseVisualStyleBackColor = true;
+            btnMonsterSort.Click += btnMonsterSort_Click;
             // 
             // grpLootGen
             // 
@@ -157,7 +184,7 @@
             grpLootGen.Controls.Add(grpLootInfo);
             grpLootGen.Location = new Point(0, 237);
             grpLootGen.Name = "grpLootGen";
-            grpLootGen.Size = new Size(285, 303);
+            grpLootGen.Size = new Size(285, 314);
             grpLootGen.TabIndex = 1;
             grpLootGen.TabStop = false;
             grpLootGen.Text = "Loot Generator";
@@ -188,7 +215,7 @@
             lstItems.ItemHeight = 15;
             lstItems.Location = new Point(6, 142);
             lstItems.Name = "lstItems";
-            lstItems.Size = new Size(128, 154);
+            lstItems.Size = new Size(128, 139);
             lstItems.TabIndex = 18;
             lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged;
             // 
@@ -198,7 +225,7 @@
             rtbLootDescription.Location = new Point(152, 140);
             rtbLootDescription.Name = "rtbLootDescription";
             rtbLootDescription.ReadOnly = true;
-            rtbLootDescription.Size = new Size(124, 155);
+            rtbLootDescription.Size = new Size(124, 141);
             rtbLootDescription.TabIndex = 17;
             rtbLootDescription.Text = "";
             rtbLootDescription.ZoomFactor = 0.9F;
@@ -263,13 +290,35 @@
             // 
             // grpLootInfo
             // 
+            grpLootInfo.Controls.Add(cboSortLoot);
+            grpLootInfo.Controls.Add(btnSortLoot);
             grpLootInfo.Controls.Add(lblGoldCount);
             grpLootInfo.Location = new Point(0, 92);
             grpLootInfo.Name = "grpLootInfo";
-            grpLootInfo.Size = new Size(286, 210);
+            grpLootInfo.Size = new Size(286, 218);
             grpLootInfo.TabIndex = 20;
             grpLootInfo.TabStop = false;
             grpLootInfo.Text = "Loot Info";
+            // 
+            // cboSortLoot
+            // 
+            cboSortLoot.FormattingEnabled = true;
+            cboSortLoot.Items.AddRange(new object[] { "Name", "Magic/Mundane", "Value" });
+            cboSortLoot.Location = new Point(6, 192);
+            cboSortLoot.Name = "cboSortLoot";
+            cboSortLoot.Size = new Size(128, 23);
+            cboSortLoot.TabIndex = 23;
+            // 
+            // btnSortLoot
+            // 
+            btnSortLoot.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSortLoot.Location = new Point(152, 193);
+            btnSortLoot.Name = "btnSortLoot";
+            btnSortLoot.Size = new Size(124, 23);
+            btnSortLoot.TabIndex = 24;
+            btnSortLoot.Text = "Sort...";
+            btnSortLoot.UseVisualStyleBackColor = true;
+            btnSortLoot.Click += btnSortLoot_Click;
             // 
             // lblGoldCount
             // 
@@ -286,7 +335,7 @@
             lstMonsters.ItemHeight = 21;
             lstMonsters.Location = new Point(6, 17);
             lstMonsters.Name = "lstMonsters";
-            lstMonsters.Size = new Size(273, 214);
+            lstMonsters.Size = new Size(273, 193);
             lstMonsters.TabIndex = 0;
             lstMonsters.SelectedIndexChanged += lstMonsters_SelectedIndexChanged;
             // 
@@ -297,7 +346,7 @@
             tabDisplay.Location = new Point(295, 0);
             tabDisplay.Name = "tabDisplay";
             tabDisplay.SelectedIndex = 0;
-            tabDisplay.Size = new Size(525, 540);
+            tabDisplay.Size = new Size(525, 551);
             tabDisplay.TabIndex = 0;
             // 
             // tabMonsters
@@ -307,13 +356,15 @@
             tabMonsters.Location = new Point(4, 24);
             tabMonsters.Name = "tabMonsters";
             tabMonsters.Padding = new Padding(3);
-            tabMonsters.Size = new Size(517, 512);
+            tabMonsters.Size = new Size(517, 523);
             tabMonsters.TabIndex = 0;
             tabMonsters.Text = "Monster Details";
             tabMonsters.UseVisualStyleBackColor = true;
             // 
             // grpAbilities
             // 
+            grpAbilities.Controls.Add(cboSortAbilities);
+            grpAbilities.Controls.Add(btnSortAbilities);
             grpAbilities.Controls.Add(lblAbilityType);
             grpAbilities.Controls.Add(lblAbilityCost);
             grpAbilities.Controls.Add(label10);
@@ -322,12 +373,32 @@
             grpAbilities.Controls.Add(rtbAbilityDesc);
             grpAbilities.Controls.Add(lblAbilityPower);
             grpAbilities.Controls.Add(label6);
-            grpAbilities.Location = new Point(3, 280);
+            grpAbilities.Location = new Point(3, 233);
             grpAbilities.Name = "grpAbilities";
-            grpAbilities.Size = new Size(508, 226);
+            grpAbilities.Size = new Size(508, 294);
             grpAbilities.TabIndex = 2;
             grpAbilities.TabStop = false;
             grpAbilities.Text = "Abilities";
+            // 
+            // cboSortAbilities
+            // 
+            cboSortAbilities.FormattingEnabled = true;
+            cboSortAbilities.Items.AddRange(new object[] { "Power", "Cost", "Type", "Name" });
+            cboSortAbilities.Location = new Point(6, 261);
+            cboSortAbilities.Name = "cboSortAbilities";
+            cboSortAbilities.Size = new Size(143, 23);
+            cboSortAbilities.TabIndex = 23;
+            // 
+            // btnSortAbilities
+            // 
+            btnSortAbilities.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSortAbilities.Location = new Point(155, 261);
+            btnSortAbilities.Name = "btnSortAbilities";
+            btnSortAbilities.Size = new Size(72, 23);
+            btnSortAbilities.TabIndex = 24;
+            btnSortAbilities.Text = "Sort...";
+            btnSortAbilities.UseVisualStyleBackColor = true;
+            btnSortAbilities.Click += btnSortAbilities_Click;
             // 
             // lblAbilityType
             // 
@@ -365,7 +436,7 @@
             lstAbilities.ItemHeight = 15;
             lstAbilities.Location = new Point(6, 14);
             lstAbilities.Name = "lstAbilities";
-            lstAbilities.Size = new Size(143, 199);
+            lstAbilities.Size = new Size(143, 244);
             lstAbilities.TabIndex = 1;
             lstAbilities.SelectedIndexChanged += lstAbilities_SelectedIndexChanged;
             // 
@@ -385,7 +456,7 @@
             rtbAbilityDesc.Location = new Point(300, 14);
             rtbAbilityDesc.Name = "rtbAbilityDesc";
             rtbAbilityDesc.ReadOnly = true;
-            rtbAbilityDesc.Size = new Size(202, 199);
+            rtbAbilityDesc.Size = new Size(202, 244);
             rtbAbilityDesc.TabIndex = 0;
             rtbAbilityDesc.Text = "Hello\nHello\nHelloHello\n\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello";
             rtbAbilityDesc.ZoomFactor = 0.9F;
@@ -412,7 +483,6 @@
             // 
             // grpMonsterDetails
             // 
-            grpMonsterDetails.Controls.Add(grpCombat);
             grpMonsterDetails.Controls.Add(lblDesc);
             grpMonsterDetails.Controls.Add(lblType);
             grpMonsterDetails.Controls.Add(label9);
@@ -427,19 +497,10 @@
             grpMonsterDetails.Controls.Add(lblNameTitle);
             grpMonsterDetails.Location = new Point(3, 0);
             grpMonsterDetails.Name = "grpMonsterDetails";
-            grpMonsterDetails.Size = new Size(508, 274);
+            grpMonsterDetails.Size = new Size(508, 227);
             grpMonsterDetails.TabIndex = 1;
             grpMonsterDetails.TabStop = false;
             grpMonsterDetails.Text = "Details";
-            // 
-            // grpCombat
-            // 
-            grpCombat.Location = new Point(6, 169);
-            grpCombat.Name = "grpCombat";
-            grpCombat.Size = new Size(496, 100);
-            grpCombat.TabIndex = 12;
-            grpCombat.TabStop = false;
-            grpCombat.Text = "Combat";
             // 
             // lblDesc
             // 
@@ -564,7 +625,7 @@
             tabCreate.Location = new Point(4, 24);
             tabCreate.Name = "tabCreate";
             tabCreate.Padding = new Padding(3);
-            tabCreate.Size = new Size(517, 512);
+            tabCreate.Size = new Size(517, 511);
             tabCreate.TabIndex = 1;
             tabCreate.Text = "Create Monster";
             tabCreate.UseVisualStyleBackColor = true;
@@ -983,7 +1044,7 @@
             // 
             lblMessenger.BorderStyle = BorderStyle.Fixed3D;
             lblMessenger.FlatStyle = FlatStyle.Popup;
-            lblMessenger.Location = new Point(12, 543);
+            lblMessenger.Location = new Point(6, 554);
             lblMessenger.Name = "lblMessenger";
             lblMessenger.Size = new Size(804, 17);
             lblMessenger.TabIndex = 1;
@@ -993,7 +1054,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(832, 569);
+            ClientSize = new Size(832, 576);
             Controls.Add(lblMessenger);
             Controls.Add(tabDisplay);
             Controls.Add(grpMonsterList);
@@ -1052,7 +1113,6 @@
         private Label label9;
         private RichTextBox rtbDescArea;
         private Label lblDesc;
-        private GroupBox grpCombat;
         private Label lblAbilityType;
         private Label lblAbilityCost;
         private Label label10;
@@ -1112,5 +1172,11 @@
         private Button btnCreateAbility_Create;
         private Button btnCreateAbility_ClearBottom;
         private Button btnCreateControls_ClearList;
+        private ComboBox cboMonsterSort;
+        private Button btnMonsterSort;
+        private ComboBox cboSortLoot;
+        private Button btnSortLoot;
+        private ComboBox cboSortAbilities;
+        private Button btnSortAbilities;
     }
 }

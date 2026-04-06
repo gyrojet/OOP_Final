@@ -34,6 +34,12 @@ namespace OOP_BestiaryFinal
             {
                 if (value >= 1 && value <= 20)
                     _level = value;
+                else if (value < 1)
+                    _level = 1;
+                else if (value > 20)
+                {
+                    _level = 20;
+                }
             }
         }
         public int AC 
@@ -58,7 +64,7 @@ namespace OOP_BestiaryFinal
                 if (value > 0) 
                     _maxHealth = value;
                 else
-                    _maxHealth = 0;
+                    _maxHealth = 1;
             } 
         }
 
