@@ -125,16 +125,15 @@ namespace OOP_BestiaryFinal
 
             if (monster is Elite e)
             {
-                lstAbilities.Items.Add(e.Ability);
+                List<Ability> abilities = new List<Ability>() { e.Ability };
+
+                DisplayAbilityData(abilities);
             }
             else if (monster is WorldBoss wb)
             {
                 List<Ability> abilities = wb.AbilityList;
 
-                foreach (Ability ability in abilities)
-                {
-                    lstAbilities.Items.Add(ability);
-                }
+                DisplayAbilityData(abilities);
             }
 
             lstAbilities.SelectedIndex = 0;
@@ -153,6 +152,16 @@ namespace OOP_BestiaryFinal
             lblAbilityCost.Text = string.Empty;
             lblAbilityType.Text = string.Empty;
             lblAbilityPower.Text = string.Empty;
+        }
+
+        private void DisplayAbilityData(List<Ability> abilities)
+        {
+            lstAbilities.Items.Clear();
+
+            foreach (Ability ability in abilities)
+            {
+                lstAbilities.Items.Add(ability);
+            }
         }
 
         private void DisplayAbilityStats(Ability ab)
@@ -777,7 +786,7 @@ namespace OOP_BestiaryFinal
 
         //private List<Ability> SortAbilities(MonsterSortTypes sortType)
         //{
-
+                //Do this later yo
         //}
     }
 }
