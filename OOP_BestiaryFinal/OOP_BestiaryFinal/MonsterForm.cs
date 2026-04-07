@@ -127,13 +127,13 @@ namespace OOP_BestiaryFinal
             {
                 List<Ability> abilities = new List<Ability>() { e.Ability };
 
-                DisplayAbilityData(abilities);
+                DisplayAbilityList(abilities);
             }
             else if (monster is WorldBoss wb)
             {
                 List<Ability> abilities = wb.AbilityList;
 
-                DisplayAbilityData(abilities);
+                DisplayAbilityList(abilities);
             }
 
             lstAbilities.SelectedIndex = 0;
@@ -154,7 +154,7 @@ namespace OOP_BestiaryFinal
             lblAbilityPower.Text = string.Empty;
         }
 
-        private void DisplayAbilityData(List<Ability> abilities)
+        private void DisplayAbilityList(List<Ability> abilities)
         {
             lstAbilities.Items.Clear();
 
@@ -553,11 +553,11 @@ namespace OOP_BestiaryFinal
                                         .Where(c => c.MonsterClass == Classification.WorldBoss)
                                         .FirstOrDefault();
 
-                        //if (worldBoss != null)
-                        //{
-                        //    MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        //    return;
-                        //}
+                        if (worldBoss != null)
+                        {
+                            MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
 
                         WorldBoss newWorldBoss;
 
@@ -681,7 +681,8 @@ namespace OOP_BestiaryFinal
 
         private void btnSortAbilities_Click(object sender, EventArgs e)
         {
-
+            if (cboSortAbilities.SelectedItem is AbilitySortTypes ast)
+                SortAbilities(ast);
         }
 
         private void SortCreatures(MonsterSortTypes sortType)
@@ -740,7 +741,7 @@ namespace OOP_BestiaryFinal
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ERROR: Loot Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(ex.Message, "ERROR: Monster Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -784,9 +785,53 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        //private List<Ability> SortAbilities(MonsterSortTypes sortType)
-        //{
-                //Do this later yo
-        //}
+        private void SortAbilities(AbilitySortTypes sortType)
+        {
+            List<Ability> abilityList;
+            try
+            {
+                switch (sortType)
+                {
+                    case AbilitySortTypes.Power:
+                        abilityList = lstAbilities.Items.OfType<Ability>()
+                                      .OrderBy(a => a.Power)
+                                      .ThenBy(a => a.Name)
+                                      .ToList();
+
+                        DisplayAbilityList(abilityList);
+                        break;
+
+                    case AbilitySortTypes.Cost:
+                        abilityList = lstAbilities.Items.OfType<Ability>()
+                                      .OrderBy(a => a.Cost)
+                                      .ThenBy(a => a.Name)
+                                      .ToList();
+
+                        DisplayAbilityList(abilityList);
+                        break;
+
+                    case AbilitySortTypes.Type:
+                        abilityList = lstAbilities.Items.OfType<Ability>()
+                                      .OrderBy(a => a.DamageType)
+                                      .ThenBy(a => a.Name)
+                                      .ToList();
+
+                        DisplayAbilityList(abilityList);
+                        break;
+
+                    case AbilitySortTypes.Name:
+                        abilityList = lstAbilities.Items.OfType<Ability>()
+                                      .OrderBy(a => a.Name)
+                                      .ToList();
+
+                        DisplayAbilityList(abilityList);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR: Creature Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
     }
 }
