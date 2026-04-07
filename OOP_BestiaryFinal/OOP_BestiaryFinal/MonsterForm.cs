@@ -286,8 +286,9 @@ namespace OOP_BestiaryFinal
                 {
                     monsterLoot = LootManager.GetLootList(c.Level, c.MonsterType);
 
-                    foreach (Loot l in monsterLoot)
-                        lstItems.Items.Add(l);
+                    DisplayLootList(monsterLoot);
+                    //foreach (Loot l in monsterLoot)
+                    //    lstItems.Items.Add(l);
                 }
 
             }
@@ -301,6 +302,14 @@ namespace OOP_BestiaryFinal
                 foreach (Loot l in monsterLoot)
                     lstItems.Items.Add(l);
             }
+        }
+
+        private void DisplayLootList(List<Loot> list)
+        {
+            ClearLootList();
+
+            foreach (Loot l in list)
+                lstItems.Items.Add(l);
         }
 
         private void DisplayLootDetails()
@@ -657,7 +666,8 @@ namespace OOP_BestiaryFinal
 
         private void btnSortLoot_Click(object sender, EventArgs e)
         {
-
+            if (cboSortLoot.SelectedItem is LootSortTypes lst)
+                SortLoot(lst);
         }
 
         private void btnSortAbilities_Click(object sender, EventArgs e)
@@ -667,61 +677,103 @@ namespace OOP_BestiaryFinal
 
         private void SortCreatures(MonsterSortTypes sortType)
         {
-            switch (sortType)
+            try
             {
-                case MonsterSortTypes.Class:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.MonsterClass)
-                                   .ThenBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                switch (sortType)
+                {
+                    case MonsterSortTypes.Class:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.MonsterClass)
+                                       .ThenBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
 
-                case MonsterSortTypes.Type:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.MonsterType)
-                                   .ThenBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                    case MonsterSortTypes.Type:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.MonsterType)
+                                       .ThenBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
 
-                case MonsterSortTypes.Level:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.Level)
-                                   .ThenBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                    case MonsterSortTypes.Level:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.Level)
+                                       .ThenBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
 
-                case MonsterSortTypes.HP:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.CurrentHealth)
-                                   .ThenBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                    case MonsterSortTypes.HP:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.CurrentHealth)
+                                       .ThenBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
 
-                case MonsterSortTypes.AC:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.AC)
-                                   .ThenBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                    case MonsterSortTypes.AC:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.AC)
+                                       .ThenBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
 
-                case MonsterSortTypes.Name:
-                    creatureList = creatureList
-                                   .OrderBy(c => c.Name)
-                                   .ToList();
-                    DisplayMonsterList();
-                    break;
+                    case MonsterSortTypes.Name:
+                        creatureList = creatureList
+                                       .OrderBy(c => c.Name)
+                                       .ToList();
+                        DisplayMonsterList();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR: Loot Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
-        //private List<Loot> SortLoot(MonsterSortTypes sortType)
-        //{
+        private void SortLoot(LootSortTypes sortType)
+        {
+            List<Loot> lootList;
+            try
+            { 
+                switch (sortType)
+                {
+                    case LootSortTypes.Name:
+                        lootList = lstItems.Items.OfType<Loot>()
+                                   .OrderBy(l => l.Name)
+                                   .ToList();
 
-        //}
+                        DisplayLootList(lootList);
+                        break;
+
+                    case LootSortTypes.IsMagic:
+                        lootList = lstItems.Items.OfType<Loot>()
+                                   .OrderByDescending(l => l.IsMagical)
+                                   .ThenBy(l => l.Name)
+                                   .ToList();
+
+                        DisplayLootList(lootList);
+                        break;
+
+                    case LootSortTypes.Value:
+                        lootList = lstItems.Items.OfType<Loot>()
+                                   .OrderBy(l => l.Value)
+                                   .ThenBy(l => l.Name)
+                                   .ToList();
+
+                        DisplayLootList(lootList);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR: Loot Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
 
         //private List<Ability> SortAbilities(MonsterSortTypes sortType)
         //{
