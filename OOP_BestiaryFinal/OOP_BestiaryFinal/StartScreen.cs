@@ -15,6 +15,7 @@ namespace OOP_BestiaryFinal
     public partial class StartScreen : Form
     {
         List<Creature> creatureList = new List<Creature>();
+        List<Ability> abilityList = new List<Ability>();
 
         public StartScreen()
         {
@@ -40,6 +41,13 @@ namespace OOP_BestiaryFinal
              }
              else
                 return false;
+
+             if (DataManager.LoadAbilities())
+             {
+                abilityList = DataManager.GetAbilityList();
+             }
+             else
+                return false;
              
              // Lists were loaded without issue
             return true;
@@ -54,7 +62,7 @@ namespace OOP_BestiaryFinal
         {
             if (PopulateLists())
             {
-                MonsterForm frm = new MonsterForm(creatureList);
+                MonsterForm frm = new MonsterForm(creatureList, abilityList);
                 frm.Show();
                 this.Visible = false;
             }

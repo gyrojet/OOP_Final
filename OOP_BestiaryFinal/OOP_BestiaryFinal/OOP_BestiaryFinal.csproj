@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DataFiles\abilities.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="DataFiles\magicItems.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

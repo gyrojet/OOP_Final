@@ -77,7 +77,7 @@
             tabCreate = new TabPage();
             btnCreate_CreateMonster = new Button();
             grpCreateMonsterAbilities = new GroupBox();
-            btnCreateControls_ClearList = new Button();
+            btnCreateAbility_SaveAbility = new Button();
             btnCreateAbility_Create = new Button();
             btnCreateAbility_ClearBottom = new Button();
             cboCreateAbility_DamageType = new ComboBox();
@@ -642,7 +642,7 @@
             // 
             // grpCreateMonsterAbilities
             // 
-            grpCreateMonsterAbilities.Controls.Add(btnCreateControls_ClearList);
+            grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_SaveAbility);
             grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_Create);
             grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_ClearBottom);
             grpCreateMonsterAbilities.Controls.Add(cboCreateAbility_DamageType);
@@ -663,15 +663,16 @@
             grpCreateMonsterAbilities.TabStop = false;
             grpCreateMonsterAbilities.Text = "Monster Abilities";
             // 
-            // btnCreateControls_ClearList
+            // btnCreateAbility_SaveAbility
             // 
-            btnCreateControls_ClearList.Location = new Point(6, 194);
-            btnCreateControls_ClearList.Name = "btnCreateControls_ClearList";
-            btnCreateControls_ClearList.Size = new Size(144, 23);
-            btnCreateControls_ClearList.TabIndex = 42;
-            btnCreateControls_ClearList.Text = "Clear List";
-            btnCreateControls_ClearList.UseVisualStyleBackColor = true;
-            btnCreateControls_ClearList.Click += btnCreateControls_ClearList_Click;
+            btnCreateAbility_SaveAbility.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreateAbility_SaveAbility.Location = new Point(229, 195);
+            btnCreateAbility_SaveAbility.Name = "btnCreateAbility_SaveAbility";
+            btnCreateAbility_SaveAbility.Size = new Size(90, 23);
+            btnCreateAbility_SaveAbility.TabIndex = 42;
+            btnCreateAbility_SaveAbility.Text = "Save Ability";
+            btnCreateAbility_SaveAbility.UseVisualStyleBackColor = true;
+            btnCreateAbility_SaveAbility.Click += btnCreateAbility_SaveAbility_Click;
             // 
             // btnCreateAbility_Create
             // 
@@ -783,6 +784,7 @@
             lstCreateAbility_List.Name = "lstCreateAbility_List";
             lstCreateAbility_List.Size = new Size(143, 169);
             lstCreateAbility_List.TabIndex = 2;
+            lstCreateAbility_List.SelectedIndexChanged += lstCreateAbility_List_SelectedIndexChanged;
             // 
             // lblCreateAbilityTitle_Name
             // 
@@ -1061,7 +1063,7 @@
             Name = "MonsterForm";
             Text = "View a Monster";
             FormClosing += MonsterForm_FormClosing;
-            //Load += Form1_Load;
+            Load += MonsterForm_Load;
             grpMonsterList.ResumeLayout(false);
             grpLootGen.ResumeLayout(false);
             grpLootGen.PerformLayout();
@@ -1171,12 +1173,12 @@
         private Label lblCreateAbilityTitle_DamageType;
         private Button btnCreateAbility_Create;
         private Button btnCreateAbility_ClearBottom;
-        private Button btnCreateControls_ClearList;
         private ComboBox cboMonsterSort;
         private Button btnMonsterSort;
         private ComboBox cboSortLoot;
         private Button btnSortLoot;
         private ComboBox cboSortAbilities;
         private Button btnSortAbilities;
+        private Button btnCreateAbility_SaveAbility;
     }
 }

@@ -8,12 +8,14 @@ namespace OOP_BestiaryFinal
     {
         // Global creature list
         List<Creature> creatureList;
-        public MonsterForm(List<Creature> chrLst)
+        List<Ability> abilityList;
+        public MonsterForm(List<Creature> chrLst, List<Ability> ablList)
         {
             InitializeComponent();
 
             // Initialize creature list with values from splash screen
             creatureList = new List<Creature>(chrLst);
+            abilityList = new List<Ability>(ablList);
             // Clear any existing data and fill the list
             ClearMonsterData();
             PopulateList();
@@ -35,6 +37,11 @@ namespace OOP_BestiaryFinal
                 DisplayMonsterList();
             }
 
+            if (abilityList != null)
+            {
+                DisplayCustomAbilityList();
+            }
+
             // Set comboboxes to values of enums
             PopulateComboBoxes();
         }
@@ -49,6 +56,16 @@ namespace OOP_BestiaryFinal
             foreach (Creature creature in creatureList)
             {
                 lstMonsters.Items.Add(creature);
+            }
+        }
+
+        private void DisplayCustomAbilityList()
+        {
+            lstCreateAbility_List.Items.Clear();
+
+            foreach (Ability ability in abilityList)
+            {
+                lstCreateAbility_List.Items.Add(ability);
             }
         }
 
@@ -177,6 +194,30 @@ namespace OOP_BestiaryFinal
             lblAbilityCost.Text = string.Empty;
             lblAbilityType.Text = string.Empty;
             lblAbilityPower.Text = string.Empty;
+        }
+
+        private void ClearCustomAbilityStats()
+        {
+            txtCreateAbility_Name.Text = string.Empty;
+
+            nudCreateAbility_Power.Value = nudCreateAbility_Power.Minimum;
+            nudCreateAbility_Cost.Value = nudCreateAbility_Cost.Minimum;
+
+            rtbCreateAbility_Desc.Text = string.Empty;
+
+            cboCreateAbility_DamageType.SelectedIndex = 0;
+        }
+
+        private void DisplayCustomAbilityStats(Ability ab)
+        {
+            txtCreateAbility_Name.Text = ab.Name;
+
+            nudCreateAbility_Power.Value = ab.Power;
+            nudCreateAbility_Cost.Value = ab.Cost;
+
+            cboCreateAbility_DamageType.SelectedIndex = (int)ab.DamageType;
+
+            rtbCreateAbility_Desc.Text = ab.Description;
         }
 
         private void DisplayAbilityList(List<Ability> abilities)
@@ -384,7 +425,7 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        
+
         private void lstItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Clear loot list
@@ -438,13 +479,13 @@ namespace OOP_BestiaryFinal
                 // If monster is a minion, disable ability group
                 if (c == Classification.Minion)
                 {
-                    grpCreateMonsterAbilities.Enabled = false;
+                    //grpCreateMonsterAbilities.Enabled = false;
                     nudCreate_MinionMin.Enabled = true;
                     nudCreate_MinionMax.Enabled = true;
                 }
                 else // Otherwise, enable the ability group
                 {
-                    grpCreateMonsterAbilities.Enabled = true;
+                    //grpCreateMonsterAbilities.Enabled = true;
                     nudCreate_MinionMin.Enabled = false;
                     nudCreate_MinionMax.Enabled = false;
                 }
@@ -628,7 +669,7 @@ namespace OOP_BestiaryFinal
                         /* 
                             DEMO TIME!!!!!
                          */
-                        
+
                         //// If a world boss already exists
                         //if (worldBoss != null)
                         //{
@@ -702,7 +743,7 @@ namespace OOP_BestiaryFinal
 
         private void CreateAbility()
         {
-            
+
             // Get ability details
             string abilityName = txtCreateAbility_Name.Text;
             int abilityCost = (int)nudCreateAbility_Cost.Value;
@@ -724,19 +765,14 @@ namespace OOP_BestiaryFinal
                     );
 
                 // Add ability to list
-                lstCreateAbility_List.Items.Add(newAbility);
+                abilityList.Add(newAbility);
+                DisplayCustomAbilityList();
             }
             else
             {
                 // error!!!
                 MessageBox.Show("One or more properties of your ability are invalid.", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-        }
-
-        private void btnCreateControls_ClearList_Click(object sender, EventArgs e)
-        {
-            // Clear the ability Creation list
-            lstCreateAbility_List.Items.Clear();
         }
 
         private void btnCreateAbility_ClearBottom_Click(object sender, EventArgs e)
@@ -856,7 +892,7 @@ namespace OOP_BestiaryFinal
         {
             List<Loot> lootList;
             try
-            { 
+            {
                 switch (sortType)
                 {
                     case LootSortTypes.Name:
@@ -939,6 +975,59 @@ namespace OOP_BestiaryFinal
             {
                 MessageBox.Show(ex.Message, "ERROR: Creature Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void btnCreateAbility_SaveAbility_Click(object sender, EventArgs e)
+        {
+            if (lstCreateAbility_List.SelectedIndex != -1)
+            {
+                DialogResult save = MessageBox.Show("Would you like to overwrite the values of the currently selected ability?", "Overwrite", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (save == DialogResult.Yes)
+                    SaveCustomAbilityChanges();
+            }
+            else
+                MessageBox.Show("You need to select an item before saving!", "ERROR: Editing Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
+
+        private void lstCreateAbility_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (lstCreateAbility_List.SelectedItem is Ability ab)
+            {
+                ClearCustomAbilityStats();
+                DisplayCustomAbilityStats(ab);
+            }
+        }
+
+        private void SaveCustomAbilityChanges()
+        {
+            try
+            {
+                if (lstCreateAbility_List.SelectedItem is Ability && cboCreateAbility_DamageType.SelectedItem is DamageType damageType)
+                {
+                    // Access ability in list
+                    abilityList[lstCreateAbility_List.SelectedIndex].Name = txtCreateAbility_Name.Text;
+                    abilityList[lstCreateAbility_List.SelectedIndex].Description = rtbCreateAbility_Desc.Text;
+
+                    abilityList[lstCreateAbility_List.SelectedIndex].Power = (int)nudCreateAbility_Power.Value;
+                    abilityList[lstCreateAbility_List.SelectedIndex].Cost = (int)nudCreateAbility_Cost.Value;
+
+                    abilityList[lstCreateAbility_List.SelectedIndex].DamageType = damageType;
+
+                    DisplayCustomAbilityList();
+                    MessageBox.Show($"Ability successfuly overwritten!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR: Saving Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void MonsterForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

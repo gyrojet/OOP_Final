@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "Pokin\u0027 Stick",
+    "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
+    "Power": 5,
+    "Cost": 2,
+    "DamageType": "Physical"
+  },
+  {
+    "Name": "Scream",
+    "Description": "Unleash a horrible screech that bleeds the eardrums.",
+    "Power": 10,
+    "Cost": 2,
+    "DamageType": "Sonic"
+  },
+  {
+    "Name": "Fireball",
+    "Description": "Fling an orb of roiling flame.",
+    "Power": 20,
+    "Cost": 10,
+    "DamageType": "Fire"
+  }
+]

@@ -29,11 +29,13 @@ namespace OOP_BestiaryFinal
         public static string MonsterSavePath { get; } = @"DataFiles\monsters.json";
         public static string MundaneItemSavePath { get; } = @"DataFiles\mundaneItems.json";
         public static string MagicItemSavePath { get; } = @"DataFiles\magicItems.json";
+        public static string AbilityListSavePath { get; } = @"DataFiles\abilities.json";
 
         // Properties to storelists: If load functions are successful, data can be pulled from here
         private static List<Loot> mundaneItems = new List<Loot>();
         private static List<Loot> magicItems = new List<Loot>();
         private static List<Creature> creatures = new List<Creature>();
+        private static List<Ability> abilities = new List<Ability>();
 
         
         public static void SaveMonsterData(List<Creature> creatureList)
@@ -111,6 +113,27 @@ namespace OOP_BestiaryFinal
             return wasLoadSuccessful;
         }
 
+        public static bool LoadAbilities()
+        {
+            bool wasLoadSuccessful;
+
+            try
+            {
+                string jsonFile = File.ReadAllText(AbilityListSavePath);
+
+                abilities = JsonSerializer.Deserialize<List<Ability>>(jsonFile);
+
+                wasLoadSuccessful = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error: Loading Ability File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                wasLoadSuccessful = false;
+            }
+
+            return wasLoadSuccessful;
+        }
+
         // Return converted creature list
         public static List<Creature> GetCreatureList()
         {
@@ -125,6 +148,11 @@ namespace OOP_BestiaryFinal
         public static List<Loot> GetMagicList()
         {
             return magicItems;
+        }
+
+        public static List<Ability> GetAbilityList()
+        {
+            return abilities;
         }
     }
 }
