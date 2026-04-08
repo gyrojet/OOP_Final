@@ -761,23 +761,38 @@ namespace OOP_BestiaryFinal
 
         private void btnMonsterSort_Click(object sender, EventArgs e)
         {
-            // Sort list of creatures
-            if (cboMonsterSort.SelectedItem is MonsterSortTypes mst)
-                SortCreatures(mst);
+            if (creatureList.Count > 0)
+            {
+                // Sort list of creatures
+                if (cboMonsterSort.SelectedItem is MonsterSortTypes mst)
+                    SortCreatures(mst);
+            }
+            else
+                MessageBox.Show("Collection is empty.", "Error: Sorting Creatures", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void btnSortLoot_Click(object sender, EventArgs e)
         {
-            // Sort list of loot
-            if (cboSortLoot.SelectedItem is LootSortTypes lst)
-                SortLoot(lst);
+            if (lstItems.Items.Count > 0)
+            {
+                // Sort list of loot
+                if (cboSortLoot.SelectedItem is LootSortTypes lst)
+                    SortLoot(lst);
+            }
+            else
+                MessageBox.Show("Collection is empty.", "Error: Sorting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void btnSortAbilities_Click(object sender, EventArgs e)
         {
-            // Sort list of abilities
-            if (cboSortAbilities.SelectedItem is AbilitySortTypes ast)
-                SortAbilities(ast);
+            if (lstAbilities.Items.Count > 0)
+            {
+                // Sort list of abilities
+                if (cboSortAbilities.SelectedItem is AbilitySortTypes ast)
+                    SortAbilities(ast);
+            }
+            else
+                MessageBox.Show("Collection is empty.", "Error: Sorting Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void SortCreatures(MonsterSortTypes sortType)
@@ -792,6 +807,7 @@ namespace OOP_BestiaryFinal
                                        .ThenBy(c => c.Name)
                                        .ToList();
                         DisplayMonsterList();
+
                         break;
 
                     case MonsterSortTypes.Type:

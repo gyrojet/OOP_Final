@@ -40,7 +40,7 @@
             btnGetLoot = new Button();
             cboType = new ComboBox();
             label4 = new Label();
-            label1 = new Label();
+            lblLootLevel = new Label();
             nudLevel = new NumericUpDown();
             chkUseCurrentMonster = new CheckBox();
             grpLootInfo = new GroupBox();
@@ -55,23 +55,23 @@
             btnSortAbilities = new Button();
             lblAbilityType = new Label();
             lblAbilityCost = new Label();
-            label10 = new Label();
+            lblAbility_TitleType = new Label();
             lstAbilities = new ListBox();
-            label2 = new Label();
+            lblAbility_CostTitle = new Label();
             rtbAbilityDesc = new RichTextBox();
             lblAbilityPower = new Label();
-            label6 = new Label();
+            lblAbility_PowerTitle = new Label();
             grpMonsterDetails = new GroupBox();
             lblDesc = new Label();
             lblType = new Label();
-            label9 = new Label();
+            lblTypeTitle = new Label();
             rtbDescArea = new RichTextBox();
             lblHP = new Label();
-            label7 = new Label();
+            lblHPTitle = new Label();
             lblAC = new Label();
-            label5 = new Label();
+            lblACTitle = new Label();
             lblLevel = new Label();
-            label3 = new Label();
+            lblLevelTitle = new Label();
             lblName = new Label();
             lblNameTitle = new Label();
             tabCreate = new TabPage();
@@ -98,17 +98,17 @@
             lblCreateTitle_Max = new Label();
             nudCreate_MinionMin = new NumericUpDown();
             lblCreateTitle_Min = new Label();
-            label12 = new Label();
+            lblCreateTitle_Resists = new Label();
             rtbCreate_Desc = new RichTextBox();
-            Description = new Label();
+            lblCreateTitle_Description = new Label();
             nudCreate_HP = new NumericUpDown();
             nudCreate_AC = new NumericUpDown();
             lblCreateTitle_HP = new Label();
             lblCreateTitle_AC = new Label();
             cboCreate_Type = new ComboBox();
             cboCreate_Class = new ComboBox();
-            label11 = new Label();
-            label8 = new Label();
+            lblCreateTitle_Type = new Label();
+            lblCreateTitle_Class = new Label();
             chkGenerateACHP = new CheckBox();
             nudCreate_Level = new NumericUpDown();
             txtCreate_Name = new TextBox();
@@ -178,7 +178,7 @@
             grpLootGen.Controls.Add(btnGetLoot);
             grpLootGen.Controls.Add(cboType);
             grpLootGen.Controls.Add(label4);
-            grpLootGen.Controls.Add(label1);
+            grpLootGen.Controls.Add(lblLootLevel);
             grpLootGen.Controls.Add(nudLevel);
             grpLootGen.Controls.Add(chkUseCurrentMonster);
             grpLootGen.Controls.Add(grpLootInfo);
@@ -258,14 +258,14 @@
             label4.TabIndex = 3;
             label4.Text = "Type:";
             // 
-            // label1
+            // lblLootLevel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(6, 44);
-            label1.Name = "label1";
-            label1.Size = new Size(37, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Level:";
+            lblLootLevel.AutoSize = true;
+            lblLootLevel.Location = new Point(6, 44);
+            lblLootLevel.Name = "lblLootLevel";
+            lblLootLevel.Size = new Size(37, 15);
+            lblLootLevel.TabIndex = 2;
+            lblLootLevel.Text = "Level:";
             // 
             // nudLevel
             // 
@@ -367,12 +367,12 @@
             grpAbilities.Controls.Add(btnSortAbilities);
             grpAbilities.Controls.Add(lblAbilityType);
             grpAbilities.Controls.Add(lblAbilityCost);
-            grpAbilities.Controls.Add(label10);
+            grpAbilities.Controls.Add(lblAbility_TitleType);
             grpAbilities.Controls.Add(lstAbilities);
-            grpAbilities.Controls.Add(label2);
+            grpAbilities.Controls.Add(lblAbility_CostTitle);
             grpAbilities.Controls.Add(rtbAbilityDesc);
             grpAbilities.Controls.Add(lblAbilityPower);
-            grpAbilities.Controls.Add(label6);
+            grpAbilities.Controls.Add(lblAbility_PowerTitle);
             grpAbilities.Location = new Point(3, 233);
             grpAbilities.Name = "grpAbilities";
             grpAbilities.Size = new Size(508, 294);
@@ -420,15 +420,15 @@
             lblAbilityCost.Size = new Size(2, 23);
             lblAbilityCost.TabIndex = 16;
             // 
-            // label10
+            // lblAbility_TitleType
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(155, 76);
-            label10.Name = "label10";
-            label10.Size = new Size(41, 17);
-            label10.TabIndex = 13;
-            label10.Text = "Type:";
+            lblAbility_TitleType.AutoSize = true;
+            lblAbility_TitleType.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAbility_TitleType.Location = new Point(155, 76);
+            lblAbility_TitleType.Name = "lblAbility_TitleType";
+            lblAbility_TitleType.Size = new Size(41, 17);
+            lblAbility_TitleType.TabIndex = 13;
+            lblAbility_TitleType.Text = "Type:";
             // 
             // lstAbilities
             // 
@@ -440,15 +440,15 @@
             lstAbilities.TabIndex = 1;
             lstAbilities.SelectedIndexChanged += lstAbilities_SelectedIndexChanged;
             // 
-            // label2
+            // lblAbility_CostTitle
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(155, 47);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 17);
-            label2.TabIndex = 15;
-            label2.Text = "Cost:";
+            lblAbility_CostTitle.AutoSize = true;
+            lblAbility_CostTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAbility_CostTitle.Location = new Point(155, 47);
+            lblAbility_CostTitle.Name = "lblAbility_CostTitle";
+            lblAbility_CostTitle.Size = new Size(39, 17);
+            lblAbility_CostTitle.TabIndex = 15;
+            lblAbility_CostTitle.Text = "Cost:";
             // 
             // rtbAbilityDesc
             // 
@@ -471,28 +471,28 @@
             lblAbilityPower.Size = new Size(2, 23);
             lblAbilityPower.TabIndex = 14;
             // 
-            // label6
+            // lblAbility_PowerTitle
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(155, 15);
-            label6.Name = "label6";
-            label6.Size = new Size(51, 17);
-            label6.TabIndex = 13;
-            label6.Text = "Power:";
+            lblAbility_PowerTitle.AutoSize = true;
+            lblAbility_PowerTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAbility_PowerTitle.Location = new Point(155, 15);
+            lblAbility_PowerTitle.Name = "lblAbility_PowerTitle";
+            lblAbility_PowerTitle.Size = new Size(51, 17);
+            lblAbility_PowerTitle.TabIndex = 13;
+            lblAbility_PowerTitle.Text = "Power:";
             // 
             // grpMonsterDetails
             // 
             grpMonsterDetails.Controls.Add(lblDesc);
             grpMonsterDetails.Controls.Add(lblType);
-            grpMonsterDetails.Controls.Add(label9);
+            grpMonsterDetails.Controls.Add(lblTypeTitle);
             grpMonsterDetails.Controls.Add(rtbDescArea);
             grpMonsterDetails.Controls.Add(lblHP);
-            grpMonsterDetails.Controls.Add(label7);
+            grpMonsterDetails.Controls.Add(lblHPTitle);
             grpMonsterDetails.Controls.Add(lblAC);
-            grpMonsterDetails.Controls.Add(label5);
+            grpMonsterDetails.Controls.Add(lblACTitle);
             grpMonsterDetails.Controls.Add(lblLevel);
-            grpMonsterDetails.Controls.Add(label3);
+            grpMonsterDetails.Controls.Add(lblLevelTitle);
             grpMonsterDetails.Controls.Add(lblName);
             grpMonsterDetails.Controls.Add(lblNameTitle);
             grpMonsterDetails.Location = new Point(3, 0);
@@ -520,15 +520,15 @@
             lblType.Size = new Size(2, 17);
             lblType.TabIndex = 10;
             // 
-            // label9
+            // lblTypeTitle
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(6, 146);
-            label9.Name = "label9";
-            label9.Size = new Size(41, 17);
-            label9.TabIndex = 9;
-            label9.Text = "Type:";
+            lblTypeTitle.AutoSize = true;
+            lblTypeTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTypeTitle.Location = new Point(6, 146);
+            lblTypeTitle.Name = "lblTypeTitle";
+            lblTypeTitle.Size = new Size(41, 17);
+            lblTypeTitle.TabIndex = 9;
+            lblTypeTitle.Text = "Type:";
             // 
             // rtbDescArea
             // 
@@ -550,15 +550,15 @@
             lblHP.Size = new Size(2, 17);
             lblHP.TabIndex = 7;
             // 
-            // label7
+            // lblHPTitle
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(6, 119);
-            label7.Name = "label7";
-            label7.Size = new Size(30, 17);
-            label7.TabIndex = 6;
-            label7.Text = "HP:";
+            lblHPTitle.AutoSize = true;
+            lblHPTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHPTitle.Location = new Point(6, 119);
+            lblHPTitle.Name = "lblHPTitle";
+            lblHPTitle.Size = new Size(30, 17);
+            lblHPTitle.TabIndex = 6;
+            lblHPTitle.Text = "HP:";
             // 
             // lblAC
             // 
@@ -569,15 +569,15 @@
             lblAC.Size = new Size(2, 17);
             lblAC.TabIndex = 5;
             // 
-            // label5
+            // lblACTitle
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(6, 87);
-            label5.Name = "label5";
-            label5.Size = new Size(29, 17);
-            label5.TabIndex = 4;
-            label5.Text = "AC:";
+            lblACTitle.AutoSize = true;
+            lblACTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblACTitle.Location = new Point(6, 87);
+            lblACTitle.Name = "lblACTitle";
+            lblACTitle.Size = new Size(29, 17);
+            lblACTitle.TabIndex = 4;
+            lblACTitle.Text = "AC:";
             // 
             // lblLevel
             // 
@@ -588,15 +588,15 @@
             lblLevel.Size = new Size(2, 17);
             lblLevel.TabIndex = 3;
             // 
-            // label3
+            // lblLevelTitle
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(6, 56);
-            label3.Name = "label3";
-            label3.Size = new Size(44, 17);
-            label3.TabIndex = 2;
-            label3.Text = "Level:";
+            lblLevelTitle.AutoSize = true;
+            lblLevelTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLevelTitle.Location = new Point(6, 56);
+            lblLevelTitle.Name = "lblLevelTitle";
+            lblLevelTitle.Size = new Size(44, 17);
+            lblLevelTitle.TabIndex = 2;
+            lblLevelTitle.Text = "Level:";
             // 
             // lblName
             // 
@@ -625,7 +625,7 @@
             tabCreate.Location = new Point(4, 24);
             tabCreate.Name = "tabCreate";
             tabCreate.Padding = new Padding(3);
-            tabCreate.Size = new Size(517, 511);
+            tabCreate.Size = new Size(517, 523);
             tabCreate.TabIndex = 1;
             tabCreate.Text = "Create Monster";
             tabCreate.UseVisualStyleBackColor = true;
@@ -802,17 +802,17 @@
             grpCreateMonsterStats.Controls.Add(lblCreateTitle_Max);
             grpCreateMonsterStats.Controls.Add(nudCreate_MinionMin);
             grpCreateMonsterStats.Controls.Add(lblCreateTitle_Min);
-            grpCreateMonsterStats.Controls.Add(label12);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Resists);
             grpCreateMonsterStats.Controls.Add(rtbCreate_Desc);
-            grpCreateMonsterStats.Controls.Add(Description);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Description);
             grpCreateMonsterStats.Controls.Add(nudCreate_HP);
             grpCreateMonsterStats.Controls.Add(nudCreate_AC);
             grpCreateMonsterStats.Controls.Add(lblCreateTitle_HP);
             grpCreateMonsterStats.Controls.Add(lblCreateTitle_AC);
             grpCreateMonsterStats.Controls.Add(cboCreate_Type);
             grpCreateMonsterStats.Controls.Add(cboCreate_Class);
-            grpCreateMonsterStats.Controls.Add(label11);
-            grpCreateMonsterStats.Controls.Add(label8);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Type);
+            grpCreateMonsterStats.Controls.Add(lblCreateTitle_Class);
             grpCreateMonsterStats.Controls.Add(chkGenerateACHP);
             grpCreateMonsterStats.Controls.Add(nudCreate_Level);
             grpCreateMonsterStats.Controls.Add(txtCreate_Name);
@@ -883,15 +883,15 @@
             lblCreateTitle_Min.TabIndex = 33;
             lblCreateTitle_Min.Text = "Min:";
             // 
-            // label12
+            // lblCreateTitle_Resists
             // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(161, 158);
-            label12.Name = "label12";
-            label12.Size = new Size(54, 17);
-            label12.TabIndex = 32;
-            label12.Text = "Resists:";
+            lblCreateTitle_Resists.AutoSize = true;
+            lblCreateTitle_Resists.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Resists.Location = new Point(161, 158);
+            lblCreateTitle_Resists.Name = "lblCreateTitle_Resists";
+            lblCreateTitle_Resists.Size = new Size(54, 17);
+            lblCreateTitle_Resists.TabIndex = 32;
+            lblCreateTitle_Resists.Text = "Resists:";
             // 
             // rtbCreate_Desc
             // 
@@ -901,15 +901,15 @@
             rtbCreate_Desc.TabIndex = 31;
             rtbCreate_Desc.Text = "";
             // 
-            // Description
+            // lblCreateTitle_Description
             // 
-            Description.AutoSize = true;
-            Description.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Description.Location = new Point(221, 18);
-            Description.Name = "Description";
-            Description.Size = new Size(83, 17);
-            Description.TabIndex = 30;
-            Description.Text = "Description:";
+            lblCreateTitle_Description.AutoSize = true;
+            lblCreateTitle_Description.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Description.Location = new Point(221, 18);
+            lblCreateTitle_Description.Name = "lblCreateTitle_Description";
+            lblCreateTitle_Description.Size = new Size(83, 17);
+            lblCreateTitle_Description.TabIndex = 30;
+            lblCreateTitle_Description.Text = "Description:";
             // 
             // nudCreate_HP
             // 
@@ -967,25 +967,25 @@
             cboCreate_Class.TabIndex = 22;
             cboCreate_Class.SelectedIndexChanged += cboCreate_Class_SelectedIndexChanged;
             // 
-            // label11
+            // lblCreateTitle_Type
             // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(6, 109);
-            label11.Name = "label11";
-            label11.Size = new Size(41, 17);
-            label11.TabIndex = 24;
-            label11.Text = "Type:";
+            lblCreateTitle_Type.AutoSize = true;
+            lblCreateTitle_Type.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Type.Location = new Point(6, 109);
+            lblCreateTitle_Type.Name = "lblCreateTitle_Type";
+            lblCreateTitle_Type.Size = new Size(41, 17);
+            lblCreateTitle_Type.TabIndex = 24;
+            lblCreateTitle_Type.Text = "Type:";
             // 
-            // label8
+            // lblCreateTitle_Class
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(6, 80);
-            label8.Name = "label8";
-            label8.Size = new Size(43, 17);
-            label8.TabIndex = 23;
-            label8.Text = "Class:";
+            lblCreateTitle_Class.AutoSize = true;
+            lblCreateTitle_Class.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCreateTitle_Class.Location = new Point(6, 80);
+            lblCreateTitle_Class.Name = "lblCreateTitle_Class";
+            lblCreateTitle_Class.Size = new Size(43, 17);
+            lblCreateTitle_Class.TabIndex = 23;
+            lblCreateTitle_Class.Text = "Class:";
             // 
             // chkGenerateACHP
             // 
@@ -1102,23 +1102,23 @@
         private RichTextBox rtbAbilityDesc;
         private ContextMenuStrip contextMenuStrip1;
         private Label lblHP;
-        private Label label7;
+        private Label lblHPTitle;
         private Label lblAC;
-        private Label label5;
+        private Label lblACTitle;
         private Label lblLevel;
-        private Label label3;
+        private Label lblLevelTitle;
         private Label lblName;
         private Label lblNameTitle;
         private Label lblType;
-        private Label label9;
+        private Label lblTypeTitle;
         private RichTextBox rtbDescArea;
         private Label lblDesc;
         private Label lblAbilityType;
         private Label lblAbilityCost;
-        private Label label10;
-        private Label label2;
+        private Label lblAbility_TitleType;
+        private Label lblAbility_CostTitle;
         private Label lblAbilityPower;
-        private Label label6;
+        private Label lblAbility_PowerTitle;
         private GroupBox grpLootGen;
         private CheckBox chkUseCurrentMonster;
         private ListBox lstItems;
@@ -1126,7 +1126,7 @@
         private Button btnGetLoot;
         private ComboBox cboType;
         private Label label4;
-        private Label label1;
+        private Label lblLootLevel;
         private NumericUpDown nudLevel;
         private Label lblCoinTitle;
         private GroupBox grpLootInfo;
@@ -1144,13 +1144,13 @@
         private Label lblCreateTitle_AC;
         private ComboBox cboCreate_Type;
         private ComboBox cboCreate_Class;
-        private Label label11;
-        private Label label8;
+        private Label lblCreateTitle_Type;
+        private Label lblCreateTitle_Class;
         private NumericUpDown nudCreate_HP;
         private NumericUpDown nudCreate_AC;
-        private Label Description;
+        private Label lblCreateTitle_Description;
         private RichTextBox rtbCreate_Desc;
-        private Label label12;
+        private Label lblCreateTitle_Resists;
         private NumericUpDown nudCreate_MinionMin;
         private Label lblCreateTitle_Min;
         private Button btnCreate_ClearTop;
