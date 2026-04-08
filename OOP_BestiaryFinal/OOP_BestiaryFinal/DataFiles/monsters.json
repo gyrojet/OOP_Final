@@ -28,6 +28,34 @@
     "Randomize": false
   },
   {
+    "$type": "minion",
+    "MinAppearing": 10,
+    "MaxAppearing": 100,
+    "Name": "Spiderling",
+    "Description": "A small construct spawned from the Gear-Spider.\n Weak on its own, but attacks in swarms of up to a hundred.",
+    "Level": 1,
+    "AC": 10,
+    "CurrentHealth": 1,
+    "MonsterType": "Construct",
+    "Resists": "None",
+    "MonsterClass": "Minion",
+    "Randomize": false
+  },
+  {
+    "$type": "minion",
+    "MinAppearing": 4,
+    "MaxAppearing": 16,
+    "Name": "Space Mite",
+    "Description": "Tiny bugs that live on asteroids.\nAlways covered in a thin layer of dust...from the moon.",
+    "Level": 5,
+    "AC": 10,
+    "CurrentHealth": 3,
+    "MonsterType": "Animal",
+    "Resists": "None",
+    "MonsterClass": "Minion",
+    "Randomize": true
+  },
+  {
     "$type": "elite",
     "Ability": {
       "Name": "Pokin\u0027 Stick",
@@ -47,6 +75,44 @@
     "Randomize": true
   },
   {
+    "$type": "elite",
+    "Ability": {
+      "Name": "Steamgun",
+      "Description": "Fire a concussive blast of steam.\nHas a chance of immobilizing a target completely.",
+      "Power": 25,
+      "Cost": 15,
+      "DamageType": "Physical"
+    },
+    "Name": "Gear-Spider",
+    "Description": "A hulking brass beast in the shape of a spider.\nCan\u0027t spin webs, but does posess a powerful ranged attack.",
+    "Level": 10,
+    "AC": 15,
+    "CurrentHealth": 65,
+    "MonsterType": "Construct",
+    "Resists": "Lightning",
+    "MonsterClass": "Elite",
+    "Randomize": false
+  },
+  {
+    "$type": "elite",
+    "Ability": {
+      "Name": "Split",
+      "Description": "Splits self into two smaller copies.",
+      "Power": 0,
+      "Cost": 20,
+      "DamageType": "None"
+    },
+    "Name": "Giant Ooze",
+    "Description": "A massive glob of protoplasm, content to devour anything that crosses its path.",
+    "Level": 6,
+    "AC": 10,
+    "CurrentHealth": 40,
+    "MonsterType": "Ooze",
+    "Resists": "Physical",
+    "MonsterClass": "Elite",
+    "Randomize": false
+  },
+  {
     "$type": "worldBoss",
     "AbilityList": [
       {
@@ -62,10 +128,17 @@
         "Power": 75,
         "Cost": 25,
         "DamageType": "Fire"
+      },
+      {
+        "Name": "Sky Cutter",
+        "Description": "A fearsome attak that slices the fabric of reality in two.",
+        "Power": 200,
+        "Cost": 100,
+        "DamageType": "Sonic"
       }
     ],
-    "Name": "Test Boss",
-    "Description": "What do you want me to say? It\u0027s a test.",
+    "Name": "Star-beast",
+    "Description": "A horrible beast that lurks on the threshold of reality.",
     "Level": 17,
     "AC": 18,
     "CurrentHealth": 67,

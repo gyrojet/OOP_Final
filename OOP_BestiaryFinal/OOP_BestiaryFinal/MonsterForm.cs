@@ -633,12 +633,12 @@ namespace OOP_BestiaryFinal
                             DEMO TIME!!!!!
                          */
                         
-                        // If a world boss already exists
-                        if (worldBoss != null)
-                        {
-                            MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
+                        //// If a world boss already exists
+                        //if (worldBoss != null)
+                        //{
+                        //    MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        //    return;
+                        //}
 
                         // Declare a boss
                         WorldBoss newWorldBoss;
@@ -694,6 +694,9 @@ namespace OOP_BestiaryFinal
                         DisplayMonsterList();
                     }
                 }
+
+                // If this runs, then you are successful!
+                MessageBox.Show("Monster Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
