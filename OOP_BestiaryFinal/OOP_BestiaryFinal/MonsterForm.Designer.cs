@@ -1061,7 +1061,7 @@
             Name = "MonsterForm";
             Text = "View a Monster";
             FormClosing += MonsterForm_FormClosing;
-            Load += Form1_Load;
+            //Load += Form1_Load;
             grpMonsterList.ResumeLayout(false);
             grpLootGen.ResumeLayout(false);
             grpLootGen.PerformLayout();

@@ -19,10 +19,6 @@ namespace OOP_BestiaryFinal
             PopulateList();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
         // Initial load: populate monster list and apply random values
         private void PopulateList()
         {
