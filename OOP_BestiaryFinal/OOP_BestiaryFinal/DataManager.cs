@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -38,9 +39,65 @@ namespace OOP_BestiaryFinal
         private static List<Ability> abilities = new List<Ability>();
 
         
-        public static void SaveMonsterData(List<Creature> creatureList)
+        public static bool SaveMonsterData(List<Creature> creatureList)
         {
-            throw new NotImplementedException();
+            //MessageBox.Show("Saving Monster Data...");
+            bool wasSaveSuccessful = true;
+
+            try
+            {
+                // Serialize Object
+                string serializedList = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
+
+                if (File.Exists(MonsterSavePath))
+                {
+                    File.WriteAllText(MonsterSavePath, serializedList);
+
+                    Debug.WriteLine(File.ReadAllText(MonsterSavePath));
+                }
+                else
+                {
+                    MessageBox.Show("The file you are attempting to save to does not exist.", "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    wasSaveSuccessful = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return wasSaveSuccessful;
+        }
+
+        public static bool SaveCustomAbilityData(List<Ability> abilityList)
+        {
+            //MessageBox.Show("Saving Ability Data...");
+            bool wasSaveSuccessful = true;
+
+            try
+            {
+                // Serialize Object
+                string serializedList = JsonSerializer.Serialize(abilityList, new JsonSerializerOptions { WriteIndented = true });
+
+                if (File.Exists(AbilityListSavePath))
+                {
+                    File.WriteAllText(AbilityListSavePath, serializedList);
+
+                    Debug.WriteLine(File.ReadAllText(AbilityListSavePath));
+                }
+                else
+                {
+                    MessageBox.Show("The file you are attempting to save to does not exist.", "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    wasSaveSuccessful = false;
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, "Error: Saving Ability List", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                wasSaveSuccessful = false;
+            }
+
+            return wasSaveSuccessful;
         }
 
         public static bool LoadMonsterData()

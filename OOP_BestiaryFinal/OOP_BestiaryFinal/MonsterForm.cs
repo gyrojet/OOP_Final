@@ -9,6 +9,10 @@ namespace OOP_BestiaryFinal
         // Global creature list
         List<Creature> creatureList;
         List<Ability> abilityList;
+
+        bool madeChanges = false;
+        bool closed = false;
+
         public MonsterForm(List<Creature> chrLst, List<Ability> ablList)
         {
             InitializeComponent();
@@ -279,9 +283,36 @@ namespace OOP_BestiaryFinal
 
         private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Save Json one last time before closing
-            // DataManager.SaveData(creatureList);
-            Application.Exit();
+            // If a new monster was made, a new ability was made, or an existing ability was changed: prompt user to save!
+            if (madeChanges && !closed)
+            {
+                string msg = "You have made changes.\n\nWould you like to save your data?";
+                // Display choice to user
+                DialogResult willUserSave = MessageBox.Show(msg, "Please save your data!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                if (willUserSave == DialogResult.Yes)
+                {
+                    if (DataManager.SaveMonsterData(creatureList) && DataManager.SaveCustomAbilityData(abilityList))
+                    {
+                        MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        closed = true;
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Saving canceled!", "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        e.Cancel = true;
+                    }
+                }
+
+                if (willUserSave == DialogResult.No)
+                    Application.Exit();
+
+                // If user answers no, the program will not save before exiting.
+
+                if (willUserSave == DialogResult.Cancel)
+                    e.Cancel = true;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -586,6 +617,9 @@ namespace OOP_BestiaryFinal
 
                         // Add to list and display
                         creatureList.Add(myMinion);
+
+                        madeChanges = true;
+
                         DisplayMonsterList();
                     }
                 }
@@ -653,8 +687,10 @@ namespace OOP_BestiaryFinal
 
                                     // Add to list and display
                                     creatureList.Add(myElite);
-                                    DisplayMonsterList();
 
+                                    madeChanges = true;
+
+                                    DisplayMonsterList();
                                 }
                             }
                         }
@@ -666,16 +702,12 @@ namespace OOP_BestiaryFinal
                                         .Where(c => c.MonsterClass == Classification.WorldBoss)
                                         .FirstOrDefault();
 
-                        /* 
-                            DEMO TIME!!!!!
-                         */
-
                         //// If a world boss already exists
-                        //if (worldBoss != null)
-                        //{
-                        //    MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        //    return;
-                        //}
+                        if (worldBoss != null)
+                        {
+                            MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
 
                         // Declare a boss
                         WorldBoss newWorldBoss;
@@ -728,6 +760,9 @@ namespace OOP_BestiaryFinal
 
                         // Add to list and display
                         creatureList.Add(newWorldBoss);
+
+                        madeChanges = true;
+
                         DisplayMonsterList();
                     }
                 }
@@ -766,6 +801,9 @@ namespace OOP_BestiaryFinal
 
                 // Add ability to list
                 abilityList.Add(newAbility);
+
+                madeChanges = true;
+
                 DisplayCustomAbilityList();
             }
             else
@@ -1016,6 +1054,9 @@ namespace OOP_BestiaryFinal
                     abilityList[lstCreateAbility_List.SelectedIndex].DamageType = damageType;
 
                     DisplayCustomAbilityList();
+
+                    madeChanges = true;
+
                     MessageBox.Show($"Ability successfuly overwritten!");
                 }
             }

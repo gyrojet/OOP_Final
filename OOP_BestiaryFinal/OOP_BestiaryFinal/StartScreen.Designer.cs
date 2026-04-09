@@ -84,7 +84,7 @@
             Controls.Add(button1);
             Name = "StartScreen";
             Text = "StartScreen";
-            FormClosing += StartScreen_FormClosing;
+            //FormClosing += StartScreen_FormClosing;
             Load += StartScreen_Load;
             ResumeLayout(false);
             PerformLayout();

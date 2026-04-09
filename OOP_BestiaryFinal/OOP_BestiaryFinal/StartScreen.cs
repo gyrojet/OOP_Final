@@ -70,9 +70,5 @@ namespace OOP_BestiaryFinal
                 MessageBox.Show("ERROR: One or more lists failed to load.", "Error: Loading Lists", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
-        private void StartScreen_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
     }
 }
