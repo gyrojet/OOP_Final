@@ -27,10 +27,10 @@ namespace OOP_BestiaryFinal
 
         // public static string MonsterSavePath { get; } = @"C:\Users\lisal\OneDrive\Michael's\GitHub\OOP_Final\OOP_BestiaryFinal\monsters.json";
 
-        public static string MonsterSavePath { get; } = @"DataFiles\monsters.json";
-        public static string MundaneItemSavePath { get; } = @"DataFiles\mundaneItems.json";
-        public static string MagicItemSavePath { get; } = @"DataFiles\magicItems.json";
-        public static string AbilityListSavePath { get; } = @"DataFiles\abilities.json";
+        public static string MonsterSavePath { get; } = Path.GetFullPath(@"DataFiles\monsters.json");
+        public static string MundaneItemSavePath { get; } = Path.GetFullPath(@"DataFiles\mundaneItems.json");
+        public static string MagicItemSavePath { get; } = Path.GetFullPath(@"DataFiles\magicItems.json");
+        public static string AbilityListSavePath { get; } = Path.GetFullPath(@"DataFiles\abilities.json");
 
         // Properties to storelists: If load functions are successful, data can be pulled from here
         private static List<Loot> mundaneItems = new List<Loot>();
@@ -51,7 +51,19 @@ namespace OOP_BestiaryFinal
 
                 if (File.Exists(MonsterSavePath))
                 {
-                    File.WriteAllText(MonsterSavePath, serializedList);
+                    using (StreamWriter sw = new StreamWriter(MonsterSavePath, false))
+                    {
+                        Debug.WriteLine(MonsterSavePath);
+
+                        string[] brokenContents = serializedList.Split("\n");
+
+                        foreach (string line in brokenContents)
+                            sw.WriteLine(line);
+
+                        //File.WriteAllText(MonsterSavePath, serializedList);
+
+                        sw.Close();
+                    }
 
                     Debug.WriteLine(File.ReadAllText(MonsterSavePath));
                 }
@@ -81,8 +93,19 @@ namespace OOP_BestiaryFinal
 
                 if (File.Exists(AbilityListSavePath))
                 {
-                    File.WriteAllText(AbilityListSavePath, serializedList);
+                    using (StreamWriter sw = new StreamWriter(AbilityListSavePath, false))
+                    {
+                        Debug.WriteLine(AbilityListSavePath);
 
+                        string[] brokenContents = serializedList.Split("\n");
+
+                        foreach (string line in brokenContents)
+                            sw.WriteLine(line);
+
+                        //File.WriteAllText(AbilityListSavePath, serializedList);
+
+                        sw.Close();
+                    }
                     Debug.WriteLine(File.ReadAllText(AbilityListSavePath));
                 }
                 else
