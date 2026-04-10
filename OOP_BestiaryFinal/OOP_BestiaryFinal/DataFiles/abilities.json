@@ -2,16 +2,9 @@
   {
     "Name": "Pokin\u0027 Stick",
     "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
-    "Power": 5,
+    "Power": 7,
     "Cost": 2,
     "DamageType": "Physical"
-  },
-  {
-    "Name": "Scream",
-    "Description": "Unleash a horrible screech that bleeds the eardrums.",
-    "Power": 10,
-    "Cost": 2,
-    "DamageType": "Sonic"
   },
   {
     "Name": "Fireball",
@@ -26,5 +19,12 @@
     "Power": 75,
     "Cost": 30,
     "DamageType": "Lightning"
+  },
+  {
+    "Name": "Scream",
+    "Description": "Unleash a horrible screech that bleeds the eardrums.",
+    "Power": 100,
+    "Cost": 2,
+    "DamageType": "Sonic"
   }
 ]

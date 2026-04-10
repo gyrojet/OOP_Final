@@ -263,6 +263,8 @@ namespace OOP_BestiaryFinal
             cboMonsterSort.DataSource = Enum.GetValues(typeof(MonsterSortTypes));
             cboSortLoot.DataSource = Enum.GetValues(typeof(LootSortTypes));
             cboSortAbilities.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
+
+            cboCreateAbility_SortTypes.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
         }
 
 
@@ -805,6 +807,8 @@ namespace OOP_BestiaryFinal
                 madeChanges = true;
 
                 DisplayCustomAbilityList();
+
+                MessageBox.Show($"Ability {newAbility.Name} was created successfuly.", "New Ability Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -1015,6 +1019,54 @@ namespace OOP_BestiaryFinal
             }
         }
 
+        private void SortCustomAbilities(AbilitySortTypes sortType)
+        {
+            try
+            {
+                switch (sortType)
+                {
+                    case AbilitySortTypes.Power:
+                        abilityList = abilityList
+                                            .OrderBy(a => a.Power)
+                                            .ThenBy(a => a.Name)
+                                            .ToList();
+
+                        DisplayCustomAbilityList();
+                        break;
+
+                    case AbilitySortTypes.Cost:
+                        abilityList = abilityList
+                                            .OrderBy(a => a.Cost)
+                                            .ThenBy(a => a.Name)
+                                            .ToList();
+
+                        DisplayCustomAbilityList();
+                        break;
+
+                    case AbilitySortTypes.Type:
+                        abilityList = abilityList
+                                            .OrderBy(a => a.DamageType)
+                                            .ThenBy(a => a.Name)
+                                            .ToList();
+
+                        DisplayCustomAbilityList();
+                        break;
+
+                    case AbilitySortTypes.Name:
+                        abilityList = abilityList
+                                            .OrderBy(a => a.Name)
+                                            .ToList();
+
+                        DisplayCustomAbilityList();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR: Creature Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private void btnCreateAbility_SaveAbility_Click(object sender, EventArgs e)
         {
             if (lstCreateAbility_List.SelectedIndex != -1)
@@ -1066,9 +1118,15 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        private void MonsterForm_Load(object sender, EventArgs e)
+        private void btnCreateAbility_SortAbilities_Click(object sender, EventArgs e)
         {
-
+            if (abilityList.Count > 0)
+            {
+                if (cboCreateAbility_SortTypes.SelectedItem is AbilitySortTypes ast)
+                    SortCustomAbilities(ast);
+            }
+            else
+                MessageBox.Show("Collection is empty.", "Error: Sorting Custom Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
     }
 }

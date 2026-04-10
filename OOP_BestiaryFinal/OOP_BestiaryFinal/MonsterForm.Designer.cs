@@ -116,6 +116,8 @@
             lblCreateTitle_Name = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
             lblMessenger = new Label();
+            cboCreateAbility_SortTypes = new ComboBox();
+            btnCreateAbility_SortAbilities = new Button();
             grpMonsterList.SuspendLayout();
             grpLootGen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudLevel).BeginInit();
@@ -642,6 +644,8 @@
             // 
             // grpCreateMonsterAbilities
             // 
+            grpCreateMonsterAbilities.Controls.Add(cboCreateAbility_SortTypes);
+            grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_SortAbilities);
             grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_SaveAbility);
             grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_Create);
             grpCreateMonsterAbilities.Controls.Add(btnCreateAbility_ClearBottom);
@@ -1052,6 +1056,26 @@
             lblMessenger.TabIndex = 1;
             lblMessenger.Text = "uh";
             // 
+            // cboCreateAbility_SortTypes
+            // 
+            cboCreateAbility_SortTypes.FormattingEnabled = true;
+            cboCreateAbility_SortTypes.Items.AddRange(new object[] { "Power", "Cost", "Type", "Name" });
+            cboCreateAbility_SortTypes.Location = new Point(7, 194);
+            cboCreateAbility_SortTypes.Name = "cboCreateAbility_SortTypes";
+            cboCreateAbility_SortTypes.Size = new Size(143, 23);
+            cboCreateAbility_SortTypes.TabIndex = 43;
+            // 
+            // btnCreateAbility_SortAbilities
+            // 
+            btnCreateAbility_SortAbilities.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreateAbility_SortAbilities.Location = new Point(156, 195);
+            btnCreateAbility_SortAbilities.Name = "btnCreateAbility_SortAbilities";
+            btnCreateAbility_SortAbilities.Size = new Size(72, 23);
+            btnCreateAbility_SortAbilities.TabIndex = 44;
+            btnCreateAbility_SortAbilities.Text = "Sort...";
+            btnCreateAbility_SortAbilities.UseVisualStyleBackColor = true;
+            btnCreateAbility_SortAbilities.Click += btnCreateAbility_SortAbilities_Click;
+            // 
             // MonsterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1063,7 +1087,7 @@
             Name = "MonsterForm";
             Text = "View a Monster";
             FormClosing += MonsterForm_FormClosing;
-            Load += MonsterForm_Load;
+            //Load += MonsterForm_Load;
             grpMonsterList.ResumeLayout(false);
             grpLootGen.ResumeLayout(false);
             grpLootGen.PerformLayout();
@@ -1180,5 +1204,7 @@
         private ComboBox cboSortAbilities;
         private Button btnSortAbilities;
         private Button btnCreateAbility_SaveAbility;
+        private ComboBox cboCreateAbility_SortTypes;
+        private Button btnCreateAbility_SortAbilities;
     }
 }
