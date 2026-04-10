@@ -288,7 +288,7 @@ namespace OOP_BestiaryFinal
         private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // If a new monster was made, a new ability was made, or an existing ability was changed: prompt user to save!
-            if (madeChanges && !closed)
+            if (madeChanges)
             {
                 string msg = "You have made changes.\n\nWould you like to save your data?";
                 // Display choice to user
@@ -299,7 +299,6 @@ namespace OOP_BestiaryFinal
                     if (DataManager.SaveMonsterData(creatureList) && DataManager.SaveCustomAbilityData(abilityList))
                     {
                         MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        closed = true;
 
                         previous.CloseMe();
                     }
@@ -312,6 +311,8 @@ namespace OOP_BestiaryFinal
                 else if (willUserSave == DialogResult.Cancel)
                     e.Cancel = true;
             }
+            else
+                previous.CloseMe();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

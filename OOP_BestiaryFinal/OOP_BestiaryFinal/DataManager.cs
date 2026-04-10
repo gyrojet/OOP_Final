@@ -27,10 +27,10 @@ namespace OOP_BestiaryFinal
 
         // public static string MonsterSavePath { get; } = @"C:\Users\lisal\OneDrive\Michael's\GitHub\OOP_Final\OOP_BestiaryFinal\monsters.json";
 
-        public static string MonsterSavePath { get; } = Path.GetFullPath(@"DataFiles\monsters.json");
-        public static string MundaneItemSavePath { get; } = Path.GetFullPath(@"DataFiles\mundaneItems.json");
-        public static string MagicItemSavePath { get; } = Path.GetFullPath(@"DataFiles\magicItems.json");
-        public static string AbilityListSavePath { get; } = Path.GetFullPath(@"DataFiles\abilities.json");
+        public static string MonsterSavePath { get; } = @"..\..\..\DataFiles\monsters.json";
+        public static string MundaneItemSavePath { get; } = @"..\..\..\DataFiles\mundaneItems.json";
+        public static string MagicItemSavePath { get; } = @"..\..\..\DataFiles\magicItems.json";
+        public static string AbilityListSavePath { get; } = @"..\..\..\DataFiles\abilities.json";
 
         // Properties to storelists: If load functions are successful, data can be pulled from here
         private static List<Loot> mundaneItems = new List<Loot>();
@@ -48,6 +48,7 @@ namespace OOP_BestiaryFinal
             {
                 // Serialize Object
                 string serializedList = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
+                Debug.WriteLine(serializedList);
 
                 if (File.Exists(MonsterSavePath))
                 {
@@ -90,6 +91,7 @@ namespace OOP_BestiaryFinal
             {
                 // Serialize Object
                 string serializedList = JsonSerializer.Serialize(abilityList, new JsonSerializerOptions { WriteIndented = true });
+                Debug.WriteLine(serializedList);
 
                 if (File.Exists(AbilityListSavePath))
                 {

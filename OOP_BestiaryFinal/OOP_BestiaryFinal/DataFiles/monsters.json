@@ -7,10 +7,10 @@
     "Description": "Small, slimy, and hard to spot.\nDon\u0027t wear any of your good shirts around it!",
     "Level": 3,
     "AC": 11,
-    "CurrentHealth": 7,
+    "CurrentHealth": 20,
+    "MonsterClass": "Minion",
     "MonsterType": "Animal",
     "Resists": "Acid",
-    "MonsterClass": "Minion",
     "Randomize": true
   },
   {
@@ -22,9 +22,9 @@
     "Level": 1,
     "AC": 10,
     "CurrentHealth": 3,
+    "MonsterClass": "Minion",
     "MonsterType": "Humanoid",
     "Resists": "None",
-    "MonsterClass": "Minion",
     "Randomize": false
   },
   {
@@ -36,9 +36,9 @@
     "Level": 1,
     "AC": 10,
     "CurrentHealth": 1,
+    "MonsterClass": "Minion",
     "MonsterType": "Construct",
     "Resists": "None",
-    "MonsterClass": "Minion",
     "Randomize": false
   },
   {
@@ -48,11 +48,11 @@
     "Name": "Space Mite",
     "Description": "Tiny bugs that live on asteroids.\nAlways covered in a thin layer of dust...from the moon.",
     "Level": 5,
-    "AC": 10,
-    "CurrentHealth": 3,
+    "AC": 12,
+    "CurrentHealth": 53,
+    "MonsterClass": "Minion",
     "MonsterType": "Animal",
     "Resists": "None",
-    "MonsterClass": "Minion",
     "Randomize": true
   },
   {
@@ -68,10 +68,10 @@
     "Description": "Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!",
     "Level": 4,
     "AC": 12,
-    "CurrentHealth": 17,
+    "CurrentHealth": 61,
+    "MonsterClass": "Elite",
     "MonsterType": "Humanoid",
     "Resists": "Physical",
-    "MonsterClass": "Elite",
     "Randomize": true
   },
   {
@@ -88,9 +88,9 @@
     "Level": 10,
     "AC": 15,
     "CurrentHealth": 65,
+    "MonsterClass": "Elite",
     "MonsterType": "Construct",
     "Resists": "Lightning",
-    "MonsterClass": "Elite",
     "Randomize": false
   },
   {
@@ -107,9 +107,9 @@
     "Level": 6,
     "AC": 10,
     "CurrentHealth": 40,
+    "MonsterClass": "Elite",
     "MonsterType": "Ooze",
     "Resists": "Physical",
-    "MonsterClass": "Elite",
     "Randomize": false
   },
   {
@@ -133,7 +133,7 @@
         "Name": "Sky Cutter",
         "Description": "A fearsome attak that slices the fabric of reality in two.",
         "Power": 200,
-        "Cost": 100,
+        "Cost": 50,
         "DamageType": "Sonic"
       }
     ],
@@ -142,9 +142,28 @@
     "Level": 17,
     "AC": 18,
     "CurrentHealth": 67,
+    "MonsterClass": "WorldBoss",
     "MonsterType": "Alien",
     "Resists": "Acid",
-    "MonsterClass": "WorldBoss",
     "Randomize": false
+  },
+  {
+    "$type": "elite",
+    "Ability": {
+      "Name": "Flash Bomb",
+      "Description": "Unleash an explosion of light.",
+      "Power": 75,
+      "Cost": 30,
+      "DamageType": "Lightning"
+    },
+    "Name": "Angel",
+    "Description": "A being from a higher level of existance.\nHostile to all life.",
+    "Level": 10,
+    "AC": 15,
+    "CurrentHealth": 53,
+    "MonsterClass": "Elite",
+    "MonsterType": "Demon",
+    "Resists": "Force",
+    "Randomize": true
   }
 ]
