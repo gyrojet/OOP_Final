@@ -6,6 +6,8 @@ namespace OOP_BestiaryFinal
 {
     public partial class MonsterForm : Form
     {
+        StartScreen previous;
+
         // Global creature list
         List<Creature> creatureList;
         List<Ability> abilityList;
@@ -13,13 +15,15 @@ namespace OOP_BestiaryFinal
         bool madeChanges = false;
         bool closed = false;
 
-        public MonsterForm(List<Creature> chrLst, List<Ability> ablList)
+        public MonsterForm(List<Creature> chrLst, List<Ability> ablList, StartScreen prev)
         {
             InitializeComponent();
 
             // Initialize creature list with values from splash screen
             creatureList = new List<Creature>(chrLst);
             abilityList = new List<Ability>(ablList);
+
+            previous = prev;
             // Clear any existing data and fill the list
             ClearMonsterData();
             PopulateList();
@@ -296,7 +300,8 @@ namespace OOP_BestiaryFinal
                     {
                         MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         closed = true;
-                        Application.Exit();
+
+                        previous.CloseMe();
                     }
                     else
                     {
@@ -304,13 +309,7 @@ namespace OOP_BestiaryFinal
                         e.Cancel = true;
                     }
                 }
-
-                if (willUserSave == DialogResult.No)
-                    Application.Exit();
-
-                // If user answers no, the program will not save before exiting.
-
-                if (willUserSave == DialogResult.Cancel)
+                else if (willUserSave == DialogResult.Cancel)
                     e.Cancel = true;
             }
         }

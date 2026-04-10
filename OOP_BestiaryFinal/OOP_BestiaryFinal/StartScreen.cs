@@ -62,7 +62,7 @@ namespace OOP_BestiaryFinal
         {
             if (PopulateLists())
             {
-                MonsterForm frm = new MonsterForm(creatureList, abilityList);
+                MonsterForm frm = new MonsterForm(creatureList, abilityList, this);
                 frm.Show();
                 this.Visible = false;
             }
@@ -70,5 +70,10 @@ namespace OOP_BestiaryFinal
                 MessageBox.Show("ERROR: One or more lists failed to load.", "Error: Loading Lists", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
+
+        public void CloseMe()
+        {
+            this.Close();
+        }
     }
 }

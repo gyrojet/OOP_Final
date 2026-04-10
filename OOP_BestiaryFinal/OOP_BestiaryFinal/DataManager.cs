@@ -55,7 +55,7 @@ namespace OOP_BestiaryFinal
                     {
                         Debug.WriteLine(MonsterSavePath);
 
-                        string[] brokenContents = serializedList.Split("\n");
+                        string[] brokenContents = serializedList.Split("\r\n");
 
                         foreach (string line in brokenContents)
                             sw.WriteLine(line);
@@ -97,7 +97,7 @@ namespace OOP_BestiaryFinal
                     {
                         Debug.WriteLine(AbilityListSavePath);
 
-                        string[] brokenContents = serializedList.Split("\n");
+                        string[] brokenContents = serializedList.Split("\r\n");
 
                         foreach (string line in brokenContents)
                             sw.WriteLine(line);
