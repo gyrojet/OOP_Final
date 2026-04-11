@@ -2,8 +2,8 @@
   {
     "Name": "Pokin\u0027 Stick",
     "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
-    "Power": 7,
-    "Cost": 2,
+    "Power": 10,
+    "Cost": 3,
     "DamageType": "Physical"
   },
   {

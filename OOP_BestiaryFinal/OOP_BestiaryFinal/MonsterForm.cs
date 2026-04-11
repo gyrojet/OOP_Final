@@ -310,8 +310,14 @@ namespace OOP_BestiaryFinal
                         e.Cancel = true;
                     }
                 }
+                else if (willUserSave == DialogResult.No)
+                {
+                    previous.CloseMe();
+                }
                 else if (willUserSave == DialogResult.Cancel)
+                {
                     e.Cancel = true;
+                }
             }
             else
                 previous.CloseMe();
@@ -780,6 +786,7 @@ namespace OOP_BestiaryFinal
 
         private void CreateAbility()
         {
+            bool isDuplicate = false;
 
             // Get ability details
             string abilityName = txtCreateAbility_Name.Text;
@@ -801,14 +808,27 @@ namespace OOP_BestiaryFinal
                         abilityDT
                     );
 
-                // Add ability to list
-                abilityList.Add(newAbility);
+                // Before adding to list, we check to see if a simmilar ability already exists in the list.
+                foreach (Ability a in abilityList)
+                {
+                    if (a == newAbility)
+                        isDuplicate = true;
+                }
 
-                madeChanges = true;
+                // If ability is not a duplicate:
+                if (!isDuplicate)
+                {
+                    // Add ability to list
+                    abilityList.Add(newAbility);
 
-                DisplayCustomAbilityList();
+                    madeChanges = true;
 
-                MessageBox.Show($"Ability {newAbility.Name} was created successfuly.", "New Ability Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DisplayCustomAbilityList();
+
+                    MessageBox.Show($"Ability {newAbility.Name} was created successfuly.", "New Ability Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else // Otherwise display an error.
+                    MessageBox.Show($"Abilities must have different names, costs, powers and damage types.", "Error: Duplicate Ability", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
