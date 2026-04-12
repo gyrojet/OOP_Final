@@ -976,6 +976,8 @@ namespace OOP_BestiaryFinal
                 // Sort list of creatures
                 if (cboMonsterSort.SelectedItem is MonsterSortTypes mst)
                     SortCreatures(mst);
+                else
+                    MessageBox.Show("Sort type is invalid!", "Error: Sorting Creatures", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else // Display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Creatures", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -989,6 +991,8 @@ namespace OOP_BestiaryFinal
                 // Sort list of loot
                 if (cboSortLoot.SelectedItem is LootSortTypes lst)
                     SortLoot(lst);
+                else
+                    MessageBox.Show("Sort type is invalid!", "Error: Sorting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else // Display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -1002,6 +1006,8 @@ namespace OOP_BestiaryFinal
                 // Sort list of abilities
                 if (cboSortAbilities.SelectedItem is AbilitySortTypes ast)
                     SortAbilities(ast);
+                else
+                    MessageBox.Show("Sort type is invalid!", "Error: Sorting Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else // display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -1296,6 +1302,9 @@ namespace OOP_BestiaryFinal
                 // Sort by ability types
                 if (cboCreateAbility_SortTypes.SelectedItem is AbilitySortTypes ast)
                     SortCustomAbilities(ast);
+                else
+                    MessageBox.Show("Sort type is invalid!", "Error: Sorting Custom Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
             }
             else // Display error message
                 MessageBox.Show("Collection is empty.", "Error: Sorting Custom Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
