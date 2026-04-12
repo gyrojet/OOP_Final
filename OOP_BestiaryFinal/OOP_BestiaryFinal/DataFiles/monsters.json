@@ -160,7 +160,7 @@
     "Description": "A being from a higher level of existance.\nHostile to all life.",
     "Level": 10,
     "AC": 15,
-    "CurrentHealth": 457,
+    "CurrentHealth": 57,
     "MonsterClass": "Elite",
     "MonsterType": "Demon",
     "Resists": "Force",

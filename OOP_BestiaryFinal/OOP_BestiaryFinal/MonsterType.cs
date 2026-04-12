@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // A monster's species or type: used to determine things like item chance and hp/ac
     public enum MonsterType
     {
         Animal,

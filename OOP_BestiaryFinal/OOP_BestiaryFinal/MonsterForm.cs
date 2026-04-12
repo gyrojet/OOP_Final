@@ -404,35 +404,46 @@ namespace OOP_BestiaryFinal
             // Declare a list to store the loot
             List<Loot> monsterLoot = new List<Loot>();
 
-            // If we decide to use the currently selected monster
-            if (chkUseCurrentMonster.Checked)
+            try
             {
-                // If nothing is selected, return
-                if (lstMonsters.SelectedIndex == -1)
-                    return;
-
-                // If the creature is a Creature: ( :0 ) display its data
-                if (lstMonsters.SelectedItem is Creature c)
+                // If we decide to use the currently selected monster
+                if (chkUseCurrentMonster.Checked)
                 {
-                    //Get loot list using monster's level and type
-                    monsterLoot = LootManager.GetLootList(c.Level, c.MonsterType);
+                    // If nothing is selected, return
+                    if (lstMonsters.SelectedIndex == -1)
+                        return;
 
-                    // Display list of loot
-                    DisplayLootList(monsterLoot);
+                    // If the creature is a Creature: ( :0 ) display its data
+                    if (lstMonsters.SelectedItem is Creature c)
+                    {
+                        //Get loot list using monster's level and type
+                        monsterLoot = LootManager.GetLootList(c.Level, c.MonsterType);
+
+                        // Display list of loot
+                        DisplayLootList(monsterLoot);
+                    }
+                }
+                else // Use custom stats
+                {
+                    if (cboType.SelectedItem is MonsterType type)
+                    {
+                        // Get manual level/type
+                        int level = (int)nudLevel.Value;
+                      
+                        // Generate a list of loot using level/type
+                        monsterLoot = LootManager.GetLootList(level, type);
+
+                        // Display loot list
+                        DisplayLootList(monsterLoot);
+                    }
+                    else
+                        MessageBox.Show("The Monster Type you have selected is invalid!", "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
-            else // Use custom stats
+            catch (Exception ex)
             {
-                // Get manual level/type
-                int level = (int)nudLevel.Value;
-                MonsterType type = (MonsterType)cboType.SelectedItem;
-
-                
-                // Generate a list of loot using level/type
-                monsterLoot = LootManager.GetLootList(level, type);
-
-                // Display loot list
-                DisplayLootList(monsterLoot);
+                // There was an error:
+                MessageBox.Show(ex.Message, "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OOP_BestiaryFinal
 {
@@ -17,38 +18,49 @@ namespace OOP_BestiaryFinal
     public abstract class Creature : IDescribable
     {
         // Private members to store values
+        // Name of monster
         private string _name;
+        // Description of monster
         private string _description;
+        // Monster's level
         private int _level;
+        // Monster's AC
         private int _armorClass;
 
+        // Monster's HP
         private int _maxHealth;
+        // Monster's type
         private MonsterType _monsterType;
+        // Monster's resistance
         private DamageType _resists;
+        // The Monster's classification
         private Classification _class;
 
+        // Get/set name
         public string Name { get { return _name; } set { _name = value; } }
+        // Get/set description
         public string Description { get { return _description; } set { _description = value; } }
         public int Level
-        { 
+        {   // Get level
             get { return _level; } 
             set 
-            {
+            {   // Level must always be between levels 1 and 20
                 if (value >= 1 && value <= 20)
                     _level = value;
-                else if (value < 1)
+                else if (value < 1) // if less than 1:
                     _level = 1;
-                else if (value > 20)
+                else if (value > 20) // if greater than 20:
                 {
                     _level = 20;
                 }
             }
         }
         public int AC 
-        {  
+        {   // Get AC
             get { return _armorClass; }
             set 
-            {
+            {   
+                // AC must always be greater than 10
                 if (value >= 10)
                     _armorClass = value;
                 else
@@ -58,11 +70,11 @@ namespace OOP_BestiaryFinal
         public int CurrentHealth 
         { 
             get 
-            { 
+            {   // Get health
                 return _maxHealth; 
             } 
             set 
-            { 
+            {   // HP must never be below 1
                 if (value > 0) 
                     _maxHealth = value;
                 else
@@ -70,24 +82,29 @@ namespace OOP_BestiaryFinal
             } 
         }
 
-
+        // A monster's classification
         [JsonConverter(typeof(JsonStringEnumConverter<Classification>))]
         public Classification MonsterClass { get { return _class; } set { _class = value; } }
 
+        // The monster's type (alien, dragon, etc)
         [JsonConverter(typeof(JsonStringEnumConverter<MonsterType>))]
         public MonsterType MonsterType { get { return _monsterType; } set { _monsterType = value; } }
 
+        // The damage type the monster resists
         [JsonConverter(typeof(JsonStringEnumConverter<DamageType>))]
         public DamageType Resists { get { return _resists; } set { _resists = value; } }
 
+        // Whether or not the monster's hp/ac were randomly generated; used to reroll these values at runtime
         public bool Randomize { get; set; }
 
+        // Constructor used to deserialize json object
         [JsonConstructor]
         public Creature()
         {
             
         }
 
+        // Constructor that uses random generation
         public Creature(string inName, string inDesc, int inLevel, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
         {
             Name = inName;
@@ -102,6 +119,7 @@ namespace OOP_BestiaryFinal
             
         }
         
+        // COnstructor that uses fixed ac/hp values
         public Creature(string inName, string inDesc, int inLevel, int inAC, int inHP, Classification inClass, MonsterType inType, DamageType inResists, bool inRand)
         {
             Name = inName;
@@ -117,8 +135,11 @@ namespace OOP_BestiaryFinal
 
         }
 
+        // Grabs monster's health using its level and type
         private void GetHealthByTypeAndLevel()
         {
+            // Reset health to prevent discrepancies
+            CurrentHealth = 0;
             // Hit dice; used to determine health
             int hd = 0;
             
@@ -165,6 +186,7 @@ namespace OOP_BestiaryFinal
             _armorClass = 10 + (Level / 2);
         }
 
+        //Implemented in child classes: provides a description feature
         public abstract string Describe();
 
         //  Display the creature's name
@@ -173,10 +195,10 @@ namespace OOP_BestiaryFinal
             return $"{Name}";
         }
 
-        // An attempt to maintain randomness when loading
         
         public void ApplyRandomGen()
         {
+            // Apply auto implemented ac and health using level + type
             GetACByLevel();
             GetHealthByTypeAndLevel();
         }
@@ -244,6 +266,22 @@ namespace OOP_BestiaryFinal
 
             // Return name in uppercase
             return trimmedName.ToUpper();
+        }
+
+        public override int GetHashCode()
+        {
+            // Get hash string
+            string hashStr = this.Name +
+                this.Description +
+                this.Level +
+                this.MonsterType +
+                this.Resists +
+                this.MonsterClass +
+                this.Randomize +
+                this.CurrentHealth +
+                this.AC;
+            // Grt hash code based on properties
+            return hashStr.GetHashCode();
         }
     }
 }

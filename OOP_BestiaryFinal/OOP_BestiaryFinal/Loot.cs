@@ -53,6 +53,7 @@ namespace OOP_BestiaryFinal
             };
         }
 
+        // Returns name. 
         public override string ToString()
             => Name;
     }

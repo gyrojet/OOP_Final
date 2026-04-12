@@ -10,7 +10,7 @@ namespace OOP_BestiaryFinal
     // Class representing an elite monster with an ability
     public class Elite : Creature
     {
-        // Stores ability
+        // Stores monster's ability
         public Ability Ability { get; set; }
 
         // Used for json de-serialization

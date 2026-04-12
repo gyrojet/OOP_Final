@@ -63,13 +63,13 @@ namespace OOP_BestiaryFinal
 
         public static void LoadMundaneItemList(List<Loot> list)
         {
-            // Set value of list
+            // Set value of mundane item list
             mundaneItems = list;
         }
 
         public static void LoadMagicItemList(List<Loot> list)
         {
-            // Set value of list
+            // Set value of magic item list
             magicItems = list;
         }
 
@@ -134,12 +134,13 @@ namespace OOP_BestiaryFinal
 
                 // Sort list by magical state, then by name
                 sortedList = lootList
-                                        .OrderByDescending(l => l.IsMagical)
-                                        .ThenBy(l => l.Name)
-                                        .ToList();
+                             .OrderByDescending(l => l.IsMagical)
+                             .ThenBy(l => l.Name)
+                             .ToList();
             }
             catch (Exception ex)
             {
+                // There was an error: display a message
                 MessageBox.Show(ex.Message, "Error: Generating Loot List", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
@@ -198,6 +199,7 @@ namespace OOP_BestiaryFinal
                     break;
             }
 
+            // Return the item percentage
             return itemChance;
         }
     }

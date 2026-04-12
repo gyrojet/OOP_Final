@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // Used to sort the monster list
     public enum MonsterSortTypes
     {
         Class,

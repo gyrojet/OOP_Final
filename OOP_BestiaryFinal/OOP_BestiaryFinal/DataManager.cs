@@ -37,7 +37,6 @@ namespace OOP_BestiaryFinal
             {
                 // Serialize Object
                 string serializedList = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
-                Debug.WriteLine(serializedList);
 
                 // If the monster file exists
                 if (File.Exists(MonsterSavePath))
@@ -58,49 +57,49 @@ namespace OOP_BestiaryFinal
                 }
                 else
                 {
-                    // Display error message
+                    // If the file does not exist
                     MessageBox.Show("The file you are attempting to save to does not exist.", "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     wasSaveSuccessful = false;
                 }
             }
             catch (Exception ex)
-            {
+            {   // Error message
                 MessageBox.Show(ex.Message, "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            // Return status of loading
             return wasSaveSuccessful;
         }
 
         public static bool SaveCustomAbilityData(List<Ability> abilityList)
         {
-            //MessageBox.Show("Saving Ability Data...");
+            // Were we successful?
             bool wasSaveSuccessful = true;
 
             try
             {
                 // Serialize Object
                 string serializedList = JsonSerializer.Serialize(abilityList, new JsonSerializerOptions { WriteIndented = true });
-                Debug.WriteLine(serializedList);
 
+                // If the ability file exists
                 if (File.Exists(AbilityListSavePath))
                 {
+                    //Use stream writer to write to file
                     using (StreamWriter sw = new StreamWriter(AbilityListSavePath, false))
                     {
-                        Debug.WriteLine(AbilityListSavePath);
-
+                        // Break serialized object into a string array
                         string[] brokenContents = serializedList.Split("\r\n");
 
+                        // Write each line to the file
                         foreach (string line in brokenContents)
                             sw.WriteLine(line);
 
-                        //File.WriteAllText(AbilityListSavePath, serializedList);
-
+                        // Close SW
                         sw.Close();
                     }
-                    Debug.WriteLine(File.ReadAllText(AbilityListSavePath));
                 }
                 else
-                {
+                {   // If the file does not exist
                     MessageBox.Show("The file you are attempting to save to does not exist.", "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     wasSaveSuccessful = false;
                 }
@@ -111,13 +110,13 @@ namespace OOP_BestiaryFinal
                 wasSaveSuccessful = false;
             }
 
+            // Return loading status
             return wasSaveSuccessful;
         }
 
         public static bool LoadMonsterData()
         {
-            // Current Idea: Load data and check for errors
-            // If no errors occur, load
+           
             bool wasLoadSuccessful;   // Check if load was successful
 
             try
@@ -144,85 +143,109 @@ namespace OOP_BestiaryFinal
 
         public static bool LoadMundaneItems()
         {
+            // Was the load successful?
             bool wasLoadSuccessful;
 
             try
             {
+                // Load the contents of the item file
                 string jsonFile = File.ReadAllText(MundaneItemSavePath);
 
+                // Deserialize it
                 mundaneItems = JsonSerializer.Deserialize<List<Loot>>(jsonFile);
 
+                // Load was successful
                 wasLoadSuccessful = true;
             }
             catch (Exception e)
             {
+                // Display an error messsage, set as false
                 MessageBox.Show(e.Message, "Error: Loading Mundane Item File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 wasLoadSuccessful = false;
             }
-
+            
+            // Return results
             return wasLoadSuccessful;
         }
 
         public static bool LoadMagicItems()
         {
+            // Were we successful?
             bool wasLoadSuccessful;
 
             try
             {
+                // Load data from file
                 string jsonFile = File.ReadAllText(MagicItemSavePath);
 
+                // Deserialize it
                 magicItems = JsonSerializer.Deserialize<List<Loot>>(jsonFile);
 
+                // Success!
                 wasLoadSuccessful = true;
             }
             catch (Exception e)
             {
+                // There was an error: set as false
                 MessageBox.Show(e.Message, "Error: Loading Mundane Item File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 wasLoadSuccessful = false;
             }
 
+            // Return results
             return wasLoadSuccessful;
         }
 
         public static bool LoadAbilities()
         {
+            // Were we successful?
             bool wasLoadSuccessful;
 
             try
             {
+                // Load data from file
                 string jsonFile = File.ReadAllText(AbilityListSavePath);
 
+                // Deserialize it
                 abilities = JsonSerializer.Deserialize<List<Ability>>(jsonFile);
 
+                // Success!
                 wasLoadSuccessful = true;
             }
             catch (Exception e)
             {
+                // There was an error: set as false
                 MessageBox.Show(e.Message, "Error: Loading Ability File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 wasLoadSuccessful = false;
             }
 
+            // Return results
             return wasLoadSuccessful;
         }
 
         // Return converted creature list
         public static List<Creature> GetCreatureList()
         {
+            // Return creature list
            return creatures;
         }
 
+        // Return converted mundane item list
         public static List<Loot> GetMundaneList()
         {
+            // Return mundane item list
             return mundaneItems;
         }
 
+        // Return converted magic item list
         public static List<Loot> GetMagicList()
         {
+            // Return magic item list
             return magicItems;
         }
-
+        // Return converted Ability list
         public static List<Ability> GetAbilityList()
         {
+            // Return ability list
             return abilities;
         }
     }

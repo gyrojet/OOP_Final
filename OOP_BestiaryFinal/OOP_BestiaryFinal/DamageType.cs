@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
-    // Damage type for abilities
+    // Damage type for abilities and resistances
     public enum DamageType
     {
         Acid,
