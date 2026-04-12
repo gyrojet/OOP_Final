@@ -17,14 +17,19 @@ namespace OOP_BestiaryFinal
         // Seed a new rng
         static Random rng = new Random();
 
+        // Lists of mundane and magical items
         static List<Loot> mundaneItems = new List<Loot>();
         static List<Loot> magicItems = new List<Loot>();
 
         public static int GetGold(int level, MonsterType type)
         {
+            //Store total amount
             int total = 0;
+
+            // Base amount of gold
             int baseAmt = 0;
 
+            // Get base amount based on monster type
             switch (type)
             {
                 case MonsterType.Animal:
@@ -48,93 +53,95 @@ namespace OOP_BestiaryFinal
                     break;
             }
 
+            // Generate gold
+            // Gold amount = ((random, from 1 to base amount) * level) + (random, from 1 to level)
             total = ((rng.Next(1, baseAmt + 1)) * level) + rng.Next(1, level + 1);
-            Debug.WriteLine($"level: {level} type: {type.ToString()} total: {total} base amt: {baseAmt}");
+            
+            // Return the generated total
             return total;
         }
 
         public static void LoadMundaneItemList(List<Loot> list)
         {
+            // Set value of list
             mundaneItems = list;
         }
 
         public static void LoadMagicItemList(List<Loot> list)
         {
+            // Set value of list
             magicItems = list;
         }
 
-        // Gets a list of items based on level
-        // In an early stage
         public static List<Loot> GetLootList(int level, MonsterType type)
         {
-            /*
-             *  Loot gen plans:
-             *  
-             *  - Make a deep copy of the mundane and magic item lists
-             *  - Get the number of items a monster has (1 + [level/4])
-             *  - Get monster's magic item chance using their type
-             *  
-             *  - run through a for loop for all needed items
-             *      - Roll a number from 1-100
-             *      - If the number is equal to or less than the magic item chance, add a random magic item to the list
-             *      - Otherwise, add a mundane item to the list
-             *      - Remove the added item from the temporary mundane/magic list to avoid duplicates
-             *      
-             *  - Once everything has been added, return the list
-             */
-
-            // Create temp lootlist
-            List<Loot> lootList = new List<Loot>();
-
-            // Create temp lists for mundane, magic items
-            List<Loot> tempMundaneList = new List<Loot>();
-            List<Loot> tempMagicList = new List<Loot>();
-
-            // Get number of items to retrieve
-            int itemCount = GetItemCount(level);
-
-            // Get percentage of a magic item appearing
-            int magicItemChance = GetMagicItemChance(type);
-
-            // Populate temporary lists with cloned items from mundane, magic lists
-            foreach (Loot item in mundaneItems)
-                tempMundaneList.Add((Loot)item.Clone());
-
-            foreach (Loot item in magicItems)
-                tempMagicList.Add((Loot)item.Clone());
-
-            // For each item that is required:
-            for (int i = 0; i < itemCount; i++)
+            // Sorted list
+            List<Loot> sortedList = new List<Loot>();
+            try
             {
-                // Roll a chance for a magic item
-                int result = rng.Next(0, 101);
+                // Create temp lootlist
+                List<Loot> lootList = new List<Loot>();
 
-                // If result is less than or equal to percentage:
-                if (result <= magicItemChance)
+                // Create temp lists for mundane, magic items
+                List<Loot> tempMundaneList = new List<Loot>();
+                List<Loot> tempMagicList = new List<Loot>();
+
+                // Get number of items to retrieve
+                int itemCount = GetItemCount(level);
+
+                // Get percentage of a magic item appearing
+                int magicItemChance = GetMagicItemChance(type);
+
+                // Populate temporary lists with cloned items from mundane, magic lists
+                foreach (Loot item in mundaneItems)
+                    tempMundaneList.Add((Loot)item.Clone());
+
+                foreach (Loot item in magicItems)
+                    tempMagicList.Add((Loot)item.Clone());
+
+                // For each item that is required:
+                for (int i = 0; i < itemCount; i++)
                 {
-                    // Get magic item from temp list
-                    int length = tempMagicList.Count;
-                    Loot newItem = tempMagicList[rng.Next(0, length)];
+                    // Roll a chance for a magic item
+                    int result = rng.Next(0, 101);
 
-                    // Add item to list
-                    lootList.Add(newItem);
-                    tempMagicList.Remove(newItem);
-                }
-                else
-                {
-                    int length = tempMundaneList.Count;
-                    Loot newItem = tempMundaneList[rng.Next(0, length)];
+                    // If result is less than or equal to percentage:
+                    if (result <= magicItemChance)
+                    {
+                        // If item is magic: get magic list length
+                        int length = tempMagicList.Count;
 
-                    lootList.Add(newItem);
-                    tempMundaneList.Remove(newItem);
+                        // Grab an item randomly
+                        Loot newItem = tempMagicList[rng.Next(0, length)];
+
+                        // Add item to list, remove from temp list
+                        lootList.Add(newItem);
+                        tempMagicList.Remove(newItem);
+                    }
+                    else
+                    {
+                        // If item is not magic: get mundane list length
+                        int length = tempMundaneList.Count;
+
+                        // Grab an item randomly
+                        Loot newItem = tempMundaneList[rng.Next(0, length)];
+
+                        // Add item to list, remove from temp list
+                        lootList.Add(newItem);
+                        tempMundaneList.Remove(newItem);
+                    }
                 }
+
+                // Sort list by magical state, then by name
+                sortedList = lootList
+                                        .OrderByDescending(l => l.IsMagical)
+                                        .ThenBy(l => l.Name)
+                                        .ToList();
             }
-            
-            // Sort list by magical state, then by name
-            List<Loot> sortedList = lootList
-                                    .OrderByDescending(l => l.IsMagical)
-                                    .ThenBy(l => l.Name)
-                                    .ToList();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error: Generating Loot List", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
 
             // Send back sorted list of loot
             return sortedList;
@@ -149,6 +156,7 @@ namespace OOP_BestiaryFinal
 
         public static int GetMagicItemChance(MonsterType type)
         {
+            // Stores magic item chance
             int itemChance = 0;
 
             switch (type)
@@ -163,6 +171,8 @@ namespace OOP_BestiaryFinal
                  * Ooze: 5%
                  * Undead: 10%
                  */
+
+                // Get magic item chance by type
 
                 case MonsterType.Dragon:
                     itemChance = 25;
@@ -186,9 +196,6 @@ namespace OOP_BestiaryFinal
                 case MonsterType.Ooze:
                     itemChance = 5;
                     break;
-
-                default:
-                    throw new Exception("Invalid Monster Type");
             }
 
             return itemChance;

@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // Used to help JSON serializer determine monster class when deserializing
     [JsonDerivedType(typeof(Minion), typeDiscriminator: "minion")]
     [JsonDerivedType(typeof(Elite), typeDiscriminator: "elite")]
     [JsonDerivedType(typeof(WorldBoss), typeDiscriminator: "worldBoss")]
     public abstract class Creature : IDescribable
     {
+        // Private members to store values
         private string _name;
         private string _description;
         private int _level;
@@ -205,6 +207,7 @@ namespace OOP_BestiaryFinal
             }
             catch (Exception e)
             {
+                // Error message
                 MessageBox.Show($"Error while comparing monsters.\n{e.Message}", "ERROR: Comparing Monsters");
                 return false;
             }
@@ -230,6 +233,7 @@ namespace OOP_BestiaryFinal
         // Check to see if the creatures are not equal
         public static bool operator !=(Creature c1, Creature c2)
         {
+            // If objects are not equal
             return !(c1 == c2);
         }
 

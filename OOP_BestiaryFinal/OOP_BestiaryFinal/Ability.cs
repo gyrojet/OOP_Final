@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // Describes a move or ability
     public class Ability : IDescribable
     {
         private string _name;

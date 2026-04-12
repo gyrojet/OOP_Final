@@ -45,22 +45,20 @@ namespace OOP_BestiaryFinal
                     // Use stream writer to write data
                     using (StreamWriter sw = new StreamWriter(MonsterSavePath, false))
                     {
-                        Debug.WriteLine(MonsterSavePath);
-
+                        // Split contents into array
                         string[] brokenContents = serializedList.Split("\r\n");
 
+                        // Write each line to path
                         foreach (string line in brokenContents)
                             sw.WriteLine(line);
 
-                        //File.WriteAllText(MonsterSavePath, serializedList);
-
+                        // Close stream writter
                         sw.Close();
                     }
-
-                    Debug.WriteLine(File.ReadAllText(MonsterSavePath));
                 }
                 else
                 {
+                    // Display error message
                     MessageBox.Show("The file you are attempting to save to does not exist.", "Error: Saving Monster List", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     wasSaveSuccessful = false;
                 }

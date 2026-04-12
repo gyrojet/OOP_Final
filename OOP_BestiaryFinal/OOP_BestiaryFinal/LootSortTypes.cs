@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // Sort loot by these types
     public enum LootSortTypes
     {
         Name,
