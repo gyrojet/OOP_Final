@@ -8,6 +8,7 @@ namespace BestiaryTest
         [TestMethod]
         public void TestHP()
         {
+            // Check hp validation
             Minion myMinion = new Minion();
             myMinion.CurrentHealth = -67;
 
@@ -19,6 +20,7 @@ namespace BestiaryTest
         [TestMethod]
         public void TestAC()
         {
+            // Check AC validation
             Minion m = new Minion();
             m.AC = 5;
 
@@ -31,6 +33,7 @@ namespace BestiaryTest
         [TestMethod]
         public void TestLevelLow()
         {
+            // Check level validation
             Minion m = new Minion();
 
             m.Level = -20;
@@ -44,6 +47,7 @@ namespace BestiaryTest
         [TestMethod]
         public void TestLevelHigh()
         {
+            // Test high level validation
             Minion m = new Minion();
 
             m.Level = 50;
@@ -57,6 +61,7 @@ namespace BestiaryTest
         [TestMethod]
         public void TestMinionMinAppear()
         {
+            // Test validation for MinAppear
             Minion m = new Minion();
 
             m.MinAppearing = -22;

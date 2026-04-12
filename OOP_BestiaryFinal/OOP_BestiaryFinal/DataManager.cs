@@ -14,25 +14,14 @@ namespace OOP_BestiaryFinal
     public static class DataManager
     {
         // Manages the loading and saving of data in JSON format
-        /*
-         * Things I will need:
-         * - A path to the monster file
-         * - A path to the treasure file
-         * If there's only the two files, it's easier to just have them be seperate properties
-         * 
-         * Methods:
-         *      - Save monster data: takes in monster list, serializes and saves
-         *      - Load monster data: reads data from file, deserializes it and sends it back
-         */
-
-        // public static string MonsterSavePath { get; } = @"C:\Users\lisal\OneDrive\Michael's\GitHub\OOP_Final\OOP_BestiaryFinal\monsters.json";
-
+        
+        // Paths to monster, item and ability lists
         public static string MonsterSavePath { get; } = @"..\..\..\DataFiles\monsters.json";
         public static string MundaneItemSavePath { get; } = @"..\..\..\DataFiles\mundaneItems.json";
         public static string MagicItemSavePath { get; } = @"..\..\..\DataFiles\magicItems.json";
         public static string AbilityListSavePath { get; } = @"..\..\..\DataFiles\abilities.json";
 
-        // Properties to storelists: If load functions are successful, data can be pulled from here
+        // Properties to store lists: If load functions are successful, data can be pulled from here
         private static List<Loot> mundaneItems = new List<Loot>();
         private static List<Loot> magicItems = new List<Loot>();
         private static List<Creature> creatures = new List<Creature>();
@@ -41,7 +30,7 @@ namespace OOP_BestiaryFinal
         
         public static bool SaveMonsterData(List<Creature> creatureList)
         {
-            //MessageBox.Show("Saving Monster Data...");
+            // Check if save was successful
             bool wasSaveSuccessful = true;
 
             try
@@ -50,8 +39,10 @@ namespace OOP_BestiaryFinal
                 string serializedList = JsonSerializer.Serialize(creatureList, new JsonSerializerOptions { WriteIndented = true });
                 Debug.WriteLine(serializedList);
 
+                // If the monster file exists
                 if (File.Exists(MonsterSavePath))
                 {
+                    // Use stream writer to write data
                     using (StreamWriter sw = new StreamWriter(MonsterSavePath, false))
                     {
                         Debug.WriteLine(MonsterSavePath);

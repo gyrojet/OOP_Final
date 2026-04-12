@@ -77,6 +77,8 @@
             tabCreate = new TabPage();
             btnCreate_CreateMonster = new Button();
             grpCreateMonsterAbilities = new GroupBox();
+            cboCreateAbility_SortTypes = new ComboBox();
+            btnCreateAbility_SortAbilities = new Button();
             btnCreateAbility_SaveAbility = new Button();
             btnCreateAbility_Create = new Button();
             btnCreateAbility_ClearBottom = new Button();
@@ -115,9 +117,6 @@
             lblCreateTitle_Level = new Label();
             lblCreateTitle_Name = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            lblMessenger = new Label();
-            cboCreateAbility_SortTypes = new ComboBox();
-            btnCreateAbility_SortAbilities = new Button();
             grpMonsterList.SuspendLayout();
             grpLootGen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudLevel).BeginInit();
@@ -460,8 +459,7 @@
             rtbAbilityDesc.ReadOnly = true;
             rtbAbilityDesc.Size = new Size(202, 244);
             rtbAbilityDesc.TabIndex = 0;
-            rtbAbilityDesc.Text = "Hello\nHello\nHelloHello\n\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello\nHello";
-            rtbAbilityDesc.ZoomFactor = 0.9F;
+            rtbAbilityDesc.Text = "";
             // 
             // lblAbilityPower
             // 
@@ -666,6 +664,26 @@
             grpCreateMonsterAbilities.TabIndex = 1;
             grpCreateMonsterAbilities.TabStop = false;
             grpCreateMonsterAbilities.Text = "Monster Abilities";
+            // 
+            // cboCreateAbility_SortTypes
+            // 
+            cboCreateAbility_SortTypes.FormattingEnabled = true;
+            cboCreateAbility_SortTypes.Items.AddRange(new object[] { "Power", "Cost", "Type", "Name" });
+            cboCreateAbility_SortTypes.Location = new Point(7, 194);
+            cboCreateAbility_SortTypes.Name = "cboCreateAbility_SortTypes";
+            cboCreateAbility_SortTypes.Size = new Size(143, 23);
+            cboCreateAbility_SortTypes.TabIndex = 43;
+            // 
+            // btnCreateAbility_SortAbilities
+            // 
+            btnCreateAbility_SortAbilities.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreateAbility_SortAbilities.Location = new Point(156, 195);
+            btnCreateAbility_SortAbilities.Name = "btnCreateAbility_SortAbilities";
+            btnCreateAbility_SortAbilities.Size = new Size(72, 23);
+            btnCreateAbility_SortAbilities.TabIndex = 44;
+            btnCreateAbility_SortAbilities.Text = "Sort...";
+            btnCreateAbility_SortAbilities.UseVisualStyleBackColor = true;
+            btnCreateAbility_SortAbilities.Click += btnCreateAbility_SortAbilities_Click;
             // 
             // btnCreateAbility_SaveAbility
             // 
@@ -1046,48 +1064,16 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // lblMessenger
-            // 
-            lblMessenger.BorderStyle = BorderStyle.Fixed3D;
-            lblMessenger.FlatStyle = FlatStyle.Popup;
-            lblMessenger.Location = new Point(6, 554);
-            lblMessenger.Name = "lblMessenger";
-            lblMessenger.Size = new Size(804, 17);
-            lblMessenger.TabIndex = 1;
-            lblMessenger.Text = "uh";
-            // 
-            // cboCreateAbility_SortTypes
-            // 
-            cboCreateAbility_SortTypes.FormattingEnabled = true;
-            cboCreateAbility_SortTypes.Items.AddRange(new object[] { "Power", "Cost", "Type", "Name" });
-            cboCreateAbility_SortTypes.Location = new Point(7, 194);
-            cboCreateAbility_SortTypes.Name = "cboCreateAbility_SortTypes";
-            cboCreateAbility_SortTypes.Size = new Size(143, 23);
-            cboCreateAbility_SortTypes.TabIndex = 43;
-            // 
-            // btnCreateAbility_SortAbilities
-            // 
-            btnCreateAbility_SortAbilities.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCreateAbility_SortAbilities.Location = new Point(156, 195);
-            btnCreateAbility_SortAbilities.Name = "btnCreateAbility_SortAbilities";
-            btnCreateAbility_SortAbilities.Size = new Size(72, 23);
-            btnCreateAbility_SortAbilities.TabIndex = 44;
-            btnCreateAbility_SortAbilities.Text = "Sort...";
-            btnCreateAbility_SortAbilities.UseVisualStyleBackColor = true;
-            btnCreateAbility_SortAbilities.Click += btnCreateAbility_SortAbilities_Click;
-            // 
             // MonsterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(832, 576);
-            Controls.Add(lblMessenger);
+            ClientSize = new Size(832, 552);
             Controls.Add(tabDisplay);
             Controls.Add(grpMonsterList);
             Name = "MonsterForm";
             Text = "View a Monster";
             FormClosing += MonsterForm_FormClosing;
-            //Load += MonsterForm_Load;
             grpMonsterList.ResumeLayout(false);
             grpLootGen.ResumeLayout(false);
             grpLootGen.PerformLayout();
@@ -1160,7 +1146,6 @@
         private Label lblGoldCount;
         private GroupBox grpCreateMonsterAbilities;
         private GroupBox grpCreateMonsterStats;
-        private Label lblMessenger;
         private NumericUpDown nudCreate_Level;
         private TextBox txtCreate_Name;
         private Label lblCreateTitle_Level;

@@ -197,10 +197,10 @@ namespace OOP_BestiaryFinal
                         this.Resists == c.Resists &&
                         this.MonsterClass == c.MonsterClass)
                         return true;
-                    else
+                    else // Return false
                         return false;
                 }
-                else
+                else  // Return false
                     return false;
             }
             catch (Exception e)
@@ -238,6 +238,7 @@ namespace OOP_BestiaryFinal
             // Trim all whitespace from the name
             string trimmedName = string.Concat(Name.Where(c => !char.IsWhiteSpace(c)));
 
+            // Return name in uppercase
             return trimmedName.ToUpper();
         }
     }

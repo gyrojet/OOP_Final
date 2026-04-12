@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_BestiaryFinal
 {
+    // Sort ability by these types
     public enum AbilitySortTypes
     {
         Power,

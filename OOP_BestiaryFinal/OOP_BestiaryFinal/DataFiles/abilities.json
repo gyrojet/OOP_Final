@@ -16,7 +16,7 @@
   {
     "Name": "Flash Bomb",
     "Description": "Unleash an explosion of light.",
-    "Power": 75,
+    "Power": 70,
     "Cost": 30,
     "DamageType": "Lightning"
   },

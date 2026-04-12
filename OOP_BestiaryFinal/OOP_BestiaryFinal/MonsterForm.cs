@@ -6,6 +6,7 @@ namespace OOP_BestiaryFinal
 {
     public partial class MonsterForm : Form
     {
+        // Reference to the previous screen
         StartScreen previous;
 
         // Global creature list
@@ -23,6 +24,7 @@ namespace OOP_BestiaryFinal
             creatureList = new List<Creature>(chrLst);
             abilityList = new List<Ability>(ablList);
 
+            // Set previous reference
             previous = prev;
             // Clear any existing data and fill the list
             ClearMonsterData();
@@ -32,9 +34,6 @@ namespace OOP_BestiaryFinal
         // Initial load: populate monster list and apply random values
         private void PopulateList()
         {
-            // Display a banner message (MAY BE REMOVED?)
-            DisplayBannerMessage("Welcome!");
-
             // If the creature list has values:
             if (creatureList != null)
             {
@@ -45,8 +44,10 @@ namespace OOP_BestiaryFinal
                 DisplayMonsterList();
             }
 
+            // If ability list is not null
             if (abilityList != null)
             {
+                // Display the custom ability list
                 DisplayCustomAbilityList();
             }
 
@@ -69,8 +70,10 @@ namespace OOP_BestiaryFinal
 
         private void DisplayCustomAbilityList()
         {
+            // Clear the list of custom abilities
             lstCreateAbility_List.Items.Clear();
 
+            // Add each ability to the list
             foreach (Ability ability in abilityList)
             {
                 lstCreateAbility_List.Items.Add(ability);
@@ -83,6 +86,7 @@ namespace OOP_BestiaryFinal
             // Apply random ac/hp to monsters with random flagged
             foreach (Creature creature in creatureList)
             {
+                // apply random hp/ac to each randomly flagged monster
                 if (creature.Randomize)
                     creature.ApplyRandomGen();
             }
@@ -101,9 +105,6 @@ namespace OOP_BestiaryFinal
             // If the creature is a Creature: display its data
             if (lstMonsters.SelectedItem is Creature c)
                 DisplayMonsterData(c);
-            else
-                Debug.WriteLine("Wrong datatype");
-
         }
 
         // Grab the monster's data, display data based on type
@@ -160,9 +161,6 @@ namespace OOP_BestiaryFinal
         // Fill the ability list with a monster's abilities
         private void FillAbilityList(object monster)
         {
-            // Empty the ability list and empty the stat labels
-            //ClearAbilityData();
-
             // If monster is an Elite
             if (monster is Elite e)
             {
@@ -206,6 +204,7 @@ namespace OOP_BestiaryFinal
 
         private void ClearCustomAbilityStats()
         {
+            // Empty all labels for custom ability creation
             txtCreateAbility_Name.Text = string.Empty;
 
             nudCreateAbility_Power.Value = nudCreateAbility_Power.Minimum;
@@ -218,6 +217,7 @@ namespace OOP_BestiaryFinal
 
         private void DisplayCustomAbilityStats(Ability ab)
         {
+            // Display all custom ability info
             txtCreateAbility_Name.Text = ab.Name;
 
             nudCreateAbility_Power.Value = ab.Power;
@@ -258,19 +258,14 @@ namespace OOP_BestiaryFinal
             cboCreate_Class.DataSource = Enum.GetValues(typeof(Classification));
             cboCreate_Resists.DataSource = Enum.GetValues(typeof(DamageType));
 
+            // Fill ability damage type cbo
             cboCreateAbility_DamageType.DataSource = Enum.GetValues(typeof(DamageType));
 
+            // Fill sorting cbos
             cboMonsterSort.DataSource = Enum.GetValues(typeof(MonsterSortTypes));
             cboSortLoot.DataSource = Enum.GetValues(typeof(LootSortTypes));
             cboSortAbilities.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
-
             cboCreateAbility_SortTypes.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
-        }
-
-
-        private void DisplayBannerMessage(string msg)
-        {   // Display a message at the bottom of the screen
-            lblMessenger.Text = msg;
         }
 
         private void lstAbilities_SelectedIndexChanged(object sender, EventArgs e)
@@ -292,19 +287,23 @@ namespace OOP_BestiaryFinal
             // If a new monster was made, a new ability was made, or an existing ability was changed: prompt user to save!
             if (madeChanges)
             {
+                // Message for messagebox
                 string msg = "You have made changes.\n\nWould you like to save your data?";
                 // Display choice to user
                 DialogResult willUserSave = MessageBox.Show(msg, "Please save your data!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 
+                // If user choses to save
                 if (willUserSave == DialogResult.Yes)
                 {
+                    // Attempt to save data
                     if (DataManager.SaveMonsterData(creatureList) && DataManager.SaveCustomAbilityData(abilityList))
                     {
+                        // If successful, display a message and exit
                         MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         previous.CloseMe();
                     }
-                    else
+                    else // If saving fails, cancel closing
                     {
                         MessageBox.Show("Saving canceled!", "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         e.Cancel = true;
@@ -312,14 +311,16 @@ namespace OOP_BestiaryFinal
                 }
                 else if (willUserSave == DialogResult.No)
                 {
+                    // Close the previous form
                     previous.CloseMe();
                 }
                 else if (willUserSave == DialogResult.Cancel)
                 {
+                    // Cancel the closing sequence
                     e.Cancel = true;
                 }
             }
-            else
+            else // If no changes were made, no need to save!
                 previous.CloseMe();
         }
 
@@ -340,12 +341,6 @@ namespace OOP_BestiaryFinal
 
         private void btnGetLoot_Click(object sender, EventArgs e)
         {
-            /*
-             *  PROCESS:
-             *  If checked, get data from selected monster, if one is selected
-             *  otherwise, use NUD and combo box
-             */
-
             // Empty the loot list and loot labels
             ClearLootList();
             ClearLootData();
@@ -432,6 +427,7 @@ namespace OOP_BestiaryFinal
                 int level = (int)nudLevel.Value;
                 MonsterType type = (MonsterType)cboType.SelectedItem;
 
+                
                 // Generate a list of loot using level/type
                 monsterLoot = LootManager.GetLootList(level, type);
 
@@ -537,274 +533,308 @@ namespace OOP_BestiaryFinal
         {
             try
             {
-                bool wasError = false;
-
-                // Get monster's statistics
-                bool isRandom = chkGenerateACHP.Checked;
-                int monsterHP = 0;
-                int monsterAC = 0;
-
-                //Get all properties 
-                string monsterName = txtCreate_Name.Text;
-                string monsterDesc = rtbCreate_Desc.Text;
-                MonsterType monsterType = (MonsterType)cboCreate_Type.SelectedItem;
-                int monsterLevel = (int)nudCreate_Level.Value;
-                DamageType monsterResists = (DamageType)cboCreate_Resists.SelectedItem;
-                Classification monsterClass = (Classification)cboCreate_Class.SelectedItem;
-
-                // If name or description are null:
-                if (string.IsNullOrWhiteSpace(monsterName) ||
-                    string.IsNullOrWhiteSpace(monsterDesc))
+                // Get enums from cbos
+                if (cboCreate_Type.SelectedItem is MonsterType monsterType &&
+                    cboCreate_Resists.SelectedItem is DamageType monsterResists &&
+                    cboCreate_Class.SelectedItem is Classification monsterClass)
                 {
-                    // Display an error and return
-                    MessageBox.Show("Name or description cannot be null!", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return;
-                }
+                    // Check if there was an error
+                    bool wasError = false;
 
-                // If monster is a minion:
-                if (monsterClass == Classification.Minion)
-                {
-                    // Get max/min number of monsters
-                    int monsterMin = (int)nudCreate_MinionMin.Value;
-                    int monsterMax = (int)nudCreate_MinionMax.Value;
+                    // Get monster's statistics
+                    bool isRandom = chkGenerateACHP.Checked;
+                    int monsterHP = 0;
+                    int monsterAC = 0;
 
-                    // If monster's hp/ac is not random
-                    if (!isRandom)
+                    //Get all properties 
+                    string monsterName = txtCreate_Name.Text;
+                    string monsterDesc = rtbCreate_Desc.Text;
+                    int monsterLevel = (int)nudCreate_Level.Value;
+
+                    // If name or description are null:
+                    if (string.IsNullOrWhiteSpace(monsterName) ||
+                        string.IsNullOrWhiteSpace(monsterDesc))
                     {
-                        // Get fixed values
-                        monsterHP = (int)nudCreate_HP.Value;
-                        monsterAC = (int)nudCreate_AC.Value;
-
-                        // Create a minion with fixed values
-                        Minion myMinion = new Minion(
-                                monsterName,
-                                monsterDesc,
-                                monsterLevel,
-                                monsterAC,
-                                monsterHP,
-                                monsterClass,
-                                monsterType,
-                                monsterResists,
-                                isRandom,
-                                monsterMin,
-                                monsterMax
-                            );
-
-                        // Add to list and display
-                        creatureList.Add(myMinion);
-                        DisplayMonsterList();
-                    }
-                    else
-                    {
-                        // Create minion w/o set hp/ac
-                        Minion myMinion = new Minion(
-                                monsterName,
-                                monsterDesc,
-                                monsterLevel,
-                                monsterClass,
-                                monsterType,
-                                monsterResists,
-                                isRandom,
-                                monsterMin,
-                                monsterMax
-                            );
-
-                        if (!CheckMonsterListForDuplicates(myMinion))
-                        {
-                            // Add to list and display
-                            creatureList.Add(myMinion);
-
-                            madeChanges = true;
-
-                            DisplayMonsterList();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            wasError = true;
-                        }
-                    }
-                }
-                else// Create a monster with ABILITIES
-                {
-                    // Ability list must have at least one ability!
-                    if (lstCreateAbility_List.Items.Count <= 0)
-                    {
-                        MessageBox.Show("Please create 1 or more abilities.", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        // Display an error and return
+                        MessageBox.Show("Name or description cannot be null!", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return;
                     }
 
-                    // If monster is an elite
-                    if (monsterClass == Classification.Elite)
+                    // If monster is a minion:
+                    if (monsterClass == Classification.Minion)
                     {
-                        // Check to see if an ability is selected
-                        if (lstCreateAbility_List.SelectedIndex == -1)
-                        {
-                            MessageBox.Show("Please select an ability from the list.", "Error: No Ability selected", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-                        else
-                        {
-                            // If the selected ability is valid
-                            if (lstCreateAbility_List.SelectedItem is Ability newAbility)
-                            {
-                                // If monster's hp/ac is not random
-                                if (!isRandom)
-                                {
-                                    // Get fixed hp/ac
-                                    monsterHP = (int)nudCreate_HP.Value;
-                                    monsterAC = (int)nudCreate_AC.Value;
-
-                                    // Create elite with fixed hp/ac
-                                    Elite myElite = new Elite(
-                                            monsterName,
-                                            monsterDesc,
-                                            monsterLevel,
-                                            newAbility,
-                                            monsterAC,
-                                            monsterHP,
-                                            monsterClass,
-                                            monsterType,
-                                            monsterResists,
-                                            isRandom
-                                        );
-
-                                    // Add to list and display
-                                    if (!CheckMonsterListForDuplicates(myElite))
-                                    {
-                                        // Add to list and display
-                                        creatureList.Add(myElite);
-
-                                        madeChanges = true;
-
-                                        DisplayMonsterList();
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        wasError = true;
-                                    }
-                                }
-                                else
-                                {
-                                    // Create elite with randomized hp/ac
-                                    Elite myElite = new Elite(
-                                            monsterName,
-                                            monsterDesc,
-                                            monsterLevel,
-                                            newAbility,
-                                            monsterClass,
-                                            monsterType,
-                                            monsterResists,
-                                            isRandom
-                                        );
-
-                                    // Add to list and display
-                                    if (!CheckMonsterListForDuplicates(myElite))
-                                    {
-                                        // Add to list and display
-                                        creatureList.Add(myElite);
-
-                                        madeChanges = true;
-
-                                        DisplayMonsterList();
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        wasError = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (monsterClass == Classification.WorldBoss) // If you're making a world boss:
-                    {
-                        // Get world boss from list, if one exists
-                        var worldBoss = creatureList
-                                        .Where(c => c.MonsterClass == Classification.WorldBoss)
-                                        .FirstOrDefault();
-
-                        //// If a world boss already exists
-                        if (worldBoss != null)
-                        {
-                            MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return;
-                        }
-
-                        // Declare a boss
-                        WorldBoss newWorldBoss;
+                        // Get max/min number of monsters
+                        int monsterMin = (int)nudCreate_MinionMin.Value;
+                        int monsterMax = (int)nudCreate_MinionMax.Value;
 
                         // If monster's hp/ac is not random
                         if (!isRandom)
                         {
-                            // Get fixed hp/ac
+                            // Get fixed values
                             monsterHP = (int)nudCreate_HP.Value;
                             monsterAC = (int)nudCreate_AC.Value;
 
-                            // Create boss w/ fixed hp/ac
-                            newWorldBoss = new WorldBoss(
+                            // Create a minion with fixed values
+                            Minion myMinion = new Minion(
                                     monsterName,
                                     monsterDesc,
                                     monsterLevel,
-                                    new List<Ability>(),
                                     monsterAC,
                                     monsterHP,
                                     monsterClass,
                                     monsterType,
                                     monsterResists,
-                                    isRandom
+                                    isRandom,
+                                    monsterMin,
+                                    monsterMax
                                 );
+
+                            // If there are no duplicates
+                            if (!CheckMonsterListForDuplicates(myMinion))
+                            {
+                                // Add to list and display
+                                creatureList.Add(myMinion);
+
+                                // Changes were made
+                                madeChanges = true;
+
+                                // Display monster list
+                                DisplayMonsterList();
+                            }
+                            else
+                            {
+                                // Display message
+                                MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                wasError = true;
+                            }
                         }
                         else
                         {
-                            // Create boss with random values
-                            newWorldBoss = new WorldBoss(
+                            // Create minion w/o set hp/ac
+                            Minion myMinion = new Minion(
                                     monsterName,
                                     monsterDesc,
                                     monsterLevel,
-                                    new List<Ability>(),
                                     monsterClass,
                                     monsterType,
                                     monsterResists,
-                                    isRandom
+                                    isRandom,
+                                    monsterMin,
+                                    monsterMax
                                 );
-                        }
 
-                        // For each ability in the list, add it to the boss!
-                        foreach (var item in lstCreateAbility_List.Items)
-                        {
-                            // If the ability is valid: add it!
-                            if (item is Ability ability)
+                            // If there are no duplicates
+                            if (!CheckMonsterListForDuplicates(myMinion))
                             {
-                                newWorldBoss += ability;
+                                // Add to list and display
+                                creatureList.Add(myMinion);
+
+                                // Changes were made
+                                madeChanges = true;
+
+                                // Display monster list
+                                DisplayMonsterList();
+                            }
+                            else
+                            {
+                                // Display message
+                                MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                wasError = true;
                             }
                         }
-
-                        // Add to list and display
-                        if (!CheckMonsterListForDuplicates(newWorldBoss))
+                    }
+                    else// Create a monster with ABILITIES
+                    {
+                        // Ability list must have at least one ability!
+                        if (lstCreateAbility_List.Items.Count <= 0)
                         {
-                            // Add to list and display
-                            creatureList.Add(newWorldBoss);
-
-                            madeChanges = true;
-
-                            DisplayMonsterList();
+                            MessageBox.Show("Please create 1 or more abilities.", "Error: Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
                         }
-                        else
+
+                        // If monster is an elite
+                        if (monsterClass == Classification.Elite)
                         {
-                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            wasError = true;
+                            // Check to see if an ability is selected
+                            if (lstCreateAbility_List.SelectedIndex == -1)
+                            {
+                                MessageBox.Show("Please select an ability from the list.", "Error: No Ability selected", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                            else
+                            {
+                                // If the selected ability is valid
+                                if (lstCreateAbility_List.SelectedItem is Ability newAbility)
+                                {
+                                    // If monster's hp/ac is not random
+                                    if (!isRandom)
+                                    {
+                                        // Get fixed hp/ac
+                                        monsterHP = (int)nudCreate_HP.Value;
+                                        monsterAC = (int)nudCreate_AC.Value;
+
+                                        // Create elite with fixed hp/ac
+                                        Elite myElite = new Elite(
+                                                monsterName,
+                                                monsterDesc,
+                                                monsterLevel,
+                                                newAbility,
+                                                monsterAC,
+                                                monsterHP,
+                                                monsterClass,
+                                                monsterType,
+                                                monsterResists,
+                                                isRandom
+                                            );
+
+                                        // Check for duplicates
+                                        if (!CheckMonsterListForDuplicates(myElite))
+                                        {
+                                            // Add to list and display
+                                            creatureList.Add(myElite);
+
+                                            // Changes were made...
+                                            madeChanges = true;
+                                            // Display list
+                                            DisplayMonsterList();
+                                        }
+                                        else
+                                        {
+                                            // Display Error
+                                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            wasError = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Create elite with randomized hp/ac
+                                        Elite myElite = new Elite(
+                                                monsterName,
+                                                monsterDesc,
+                                                monsterLevel,
+                                                newAbility,
+                                                monsterClass,
+                                                monsterType,
+                                                monsterResists,
+                                                isRandom
+                                            );
+
+                                        // Check for duplicates
+                                        if (!CheckMonsterListForDuplicates(myElite))
+                                        {
+                                            // Add to list and display
+                                            creatureList.Add(myElite);
+                                            // Changes were made
+                                            madeChanges = true;
+                                            // Display list
+                                            DisplayMonsterList();
+                                        }
+                                        else
+                                        {
+                                            // Display error
+                                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            wasError = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (monsterClass == Classification.WorldBoss) // If you're making a world boss:
+                        {
+                            // Get world boss from list, if one exists
+                            var worldBoss = creatureList
+                                            .Where(c => c.MonsterClass == Classification.WorldBoss)
+                                            .FirstOrDefault();
+
+                            //// If a world boss already exists
+                            if (worldBoss is not null)
+                            {
+                                // Display error
+                                MessageBox.Show("There may only be one world boss!", "Error: World Boss Already Exists!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+
+                            // Declare a boss
+                            WorldBoss newWorldBoss;
+
+                            // If monster's hp/ac is not random
+                            if (!isRandom)
+                            {
+                                // Get fixed hp/ac
+                                monsterHP = (int)nudCreate_HP.Value;
+                                monsterAC = (int)nudCreate_AC.Value;
+
+                                // Create boss w/ fixed hp/ac
+                                newWorldBoss = new WorldBoss(
+                                        monsterName,
+                                        monsterDesc,
+                                        monsterLevel,
+                                        new List<Ability>(),
+                                        monsterAC,
+                                        monsterHP,
+                                        monsterClass,
+                                        monsterType,
+                                        monsterResists,
+                                        isRandom
+                                    );
+                            }
+                            else
+                            {
+                                // Create boss with random values
+                                newWorldBoss = new WorldBoss(
+                                        monsterName,
+                                        monsterDesc,
+                                        monsterLevel,
+                                        new List<Ability>(),
+                                        monsterClass,
+                                        monsterType,
+                                        monsterResists,
+                                        isRandom
+                                    );
+                            }
+
+                            // For each ability in the list, add it to the boss!
+                            foreach (var item in lstCreateAbility_List.Items)
+                            {
+                                // If the ability is valid: add it!
+                                if (item is Ability ability)
+                                {
+                                    newWorldBoss += ability;
+                                }
+                            }
+
+                            // Check for duplicates
+                            if (!CheckMonsterListForDuplicates(newWorldBoss))
+                            {
+                                // Add to list and display
+                                creatureList.Add(newWorldBoss);
+
+                                // Confirm changes were made
+                                madeChanges = true;
+
+                                // Display list of monsters
+                                DisplayMonsterList();
+                            }
+                            else
+                            {
+                                // Display error message
+                                MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                wasError = true;
+                            }
                         }
                     }
+                    if (!wasError) // Display success message
+                        MessageBox.Show("Monster Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else // One or more enums were invalid!
+                    MessageBox.Show("Type, Classification or Resistance is invalid!", "Error: Creating monster", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // If this runs, then you are successful!
-                if (!wasError)
-                    MessageBox.Show("Monster Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
+
             }
             catch (Exception ex)
             {
+                // Display an error
                 MessageBox.Show(ex.Message, "Error: Creating Monster", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
@@ -828,47 +858,69 @@ namespace OOP_BestiaryFinal
 
         private void CreateAbility()
         {
-            // Get ability details
-            string abilityName = txtCreateAbility_Name.Text;
-            int abilityCost = (int)nudCreateAbility_Cost.Value;
-            int abilityPower = (int)nudCreateAbility_Power.Value;
-            DamageType abilityDT = (DamageType)cboCreateAbility_DamageType.SelectedItem;
-            string abilityDesc = rtbCreateAbility_Desc.Text;
-
-            // If name and description are NOT null
-            if (!string.IsNullOrEmpty(abilityName) &&
-                !string.IsNullOrEmpty(abilityDesc))
-            {
-                // Create a new ability
-                Ability newAbility = new Ability(
-                        abilityName,
-                        abilityDesc,
-                        abilityPower,
-                        abilityCost,
-                        abilityDT
-                    );
-
-                // Before adding to list, we check to see if a simmilar ability already exists in the list.
-               
-                // If ability is not a duplicate:
-                if (!CheckAbilityListForDuplicates(newAbility))
+            try
+            {   
+                //if the enum is valid
+                if (cboCreateAbility_DamageType.SelectedItem is DamageType abilityDT)
                 {
-                    // Add ability to list
-                    abilityList.Add(newAbility);
+                    // Check if an error ocurrs
+                    bool wasError = false;
 
-                    madeChanges = true;
+                    // Get ability details
+                    string abilityName = txtCreateAbility_Name.Text;
+                    int abilityCost = (int)nudCreateAbility_Cost.Value;
+                    int abilityPower = (int)nudCreateAbility_Power.Value;
+                    string abilityDesc = rtbCreateAbility_Desc.Text;
 
-                    DisplayCustomAbilityList();
+                    // If name and description are NOT null
+                    if (!string.IsNullOrEmpty(abilityName) &&
+                        !string.IsNullOrEmpty(abilityDesc))
+                    {
+                        // Create a new ability
+                        Ability newAbility = new Ability(
+                                abilityName,
+                                abilityDesc,
+                                abilityPower,
+                                abilityCost,
+                                abilityDT
+                            );
 
-                    MessageBox.Show($"Ability {newAbility.Name} was created successfuly.", "New Ability Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Before adding to list, we check to see if a simmilar ability already exists in the list.
+
+                        // If ability is not a duplicate:
+                        if (!CheckAbilityListForDuplicates(newAbility))
+                        {
+                            // Add ability to list
+                            abilityList.Add(newAbility);
+                            // Changes were made
+                            madeChanges = true;
+
+                            //Display list
+                            DisplayCustomAbilityList();
+                        }
+                        else
+                        {// Otherwise display an error.
+                            MessageBox.Show($"Abilities must have different names, costs, powers and damage types.", "Error: Duplicate Ability", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            wasError = true;
+                        }
+
+                        // Display success message
+                        if (!wasError)
+                            MessageBox.Show($"Ability {newAbility.Name} was created successfuly.", "New Ability Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        // error!!!
+                        MessageBox.Show("One or more properties of your ability are invalid.", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
                 }
-                else // Otherwise display an error.
-                    MessageBox.Show($"Abilities must have different names, costs, powers and damage types.", "Error: Duplicate Ability", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else // If cbo has invlaid input
+                    MessageBox.Show("Damage Type is Invalid!", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
             }
-            else
+            catch (Exception ex)
             {
-                // error!!!
-                MessageBox.Show("One or more properties of your ability are invalid.", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(ex.Message, "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -907,46 +959,50 @@ namespace OOP_BestiaryFinal
 
         private void btnMonsterSort_Click(object sender, EventArgs e)
         {
+            // If list is not empty
             if (creatureList.Count > 0)
             {
                 // Sort list of creatures
                 if (cboMonsterSort.SelectedItem is MonsterSortTypes mst)
                     SortCreatures(mst);
             }
-            else
+            else // Display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Creatures", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void btnSortLoot_Click(object sender, EventArgs e)
         {
+            // If list is not empty
             if (lstItems.Items.Count > 0)
             {
                 // Sort list of loot
                 if (cboSortLoot.SelectedItem is LootSortTypes lst)
                     SortLoot(lst);
             }
-            else
+            else // Display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void btnSortAbilities_Click(object sender, EventArgs e)
         {
+            // If list is not empty
             if (lstAbilities.Items.Count > 0)
             {
                 // Sort list of abilities
                 if (cboSortAbilities.SelectedItem is AbilitySortTypes ast)
                     SortAbilities(ast);
             }
-            else
+            else // display error
                 MessageBox.Show("Collection is empty.", "Error: Sorting Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void SortCreatures(MonsterSortTypes sortType)
         {
             try
-            {
+            {   // Sort based on sort type
                 switch (sortType)
                 {
+                    // Sort by class (minion, elite, world boss)
                     case MonsterSortTypes.Class:
                         creatureList = creatureList
                                        .OrderBy(c => c.MonsterClass)
@@ -955,7 +1011,7 @@ namespace OOP_BestiaryFinal
                         DisplayMonsterList();
 
                         break;
-
+                    // Sort by monster type (animal, alien, etc)
                     case MonsterSortTypes.Type:
                         creatureList = creatureList
                                        .OrderBy(c => c.MonsterType)
@@ -963,7 +1019,7 @@ namespace OOP_BestiaryFinal
                                        .ToList();
                         DisplayMonsterList();
                         break;
-
+                    // Sort by  level
                     case MonsterSortTypes.Level:
                         creatureList = creatureList
                                        .OrderBy(c => c.Level)
@@ -971,7 +1027,7 @@ namespace OOP_BestiaryFinal
                                        .ToList();
                         DisplayMonsterList();
                         break;
-
+                    // Sort by hp
                     case MonsterSortTypes.HP:
                         creatureList = creatureList
                                        .OrderBy(c => c.CurrentHealth)
@@ -979,7 +1035,7 @@ namespace OOP_BestiaryFinal
                                        .ToList();
                         DisplayMonsterList();
                         break;
-
+                    // Sort by AC
                     case MonsterSortTypes.AC:
                         creatureList = creatureList
                                        .OrderBy(c => c.AC)
@@ -987,7 +1043,7 @@ namespace OOP_BestiaryFinal
                                        .ToList();
                         DisplayMonsterList();
                         break;
-
+                    // Sort by name
                     case MonsterSortTypes.Name:
                         creatureList = creatureList
                                        .OrderBy(c => c.Name)
@@ -998,17 +1054,21 @@ namespace OOP_BestiaryFinal
             }
             catch (Exception ex)
             {
+                // Display error message
                 MessageBox.Show(ex.Message, "ERROR: Monster Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
         private void SortLoot(LootSortTypes sortType)
         {
+            // Store a sorted list of loot
             List<Loot> lootList;
             try
             {
+                // Sort based on sort type
                 switch (sortType)
                 {
+                    // Sort by item name
                     case LootSortTypes.Name:
                         lootList = lstItems.Items.OfType<Loot>()
                                    .OrderBy(l => l.Name)
@@ -1017,6 +1077,7 @@ namespace OOP_BestiaryFinal
                         DisplayLootList(lootList);
                         break;
 
+                    // Sort by whether or not an item is magic
                     case LootSortTypes.IsMagic:
                         lootList = lstItems.Items.OfType<Loot>()
                                    .OrderByDescending(l => l.IsMagical)
@@ -1025,7 +1086,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayLootList(lootList);
                         break;
-
+                    // Sort by item value
                     case LootSortTypes.Value:
                         lootList = lstItems.Items.OfType<Loot>()
                                    .OrderBy(l => l.Value)
@@ -1037,18 +1098,21 @@ namespace OOP_BestiaryFinal
                 }
             }
             catch (Exception ex)
-            {
+            {   // Display error
                 MessageBox.Show(ex.Message, "ERROR: Loot Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
         private void SortAbilities(AbilitySortTypes sortType)
         {
+            // Store a list of sorted abilities
             List<Ability> abilityList;
             try
             {
+                // Sort based on sort type
                 switch (sortType)
                 {
+                    // Sort by power
                     case AbilitySortTypes.Power:
                         abilityList = lstAbilities.Items.OfType<Ability>()
                                       .OrderBy(a => a.Power)
@@ -1057,7 +1121,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayAbilityList(abilityList);
                         break;
-
+                    // Sort by cost
                     case AbilitySortTypes.Cost:
                         abilityList = lstAbilities.Items.OfType<Ability>()
                                       .OrderBy(a => a.Cost)
@@ -1066,7 +1130,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayAbilityList(abilityList);
                         break;
-
+                    // Sort by ability damage type
                     case AbilitySortTypes.Type:
                         abilityList = lstAbilities.Items.OfType<Ability>()
                                       .OrderBy(a => a.DamageType)
@@ -1075,7 +1139,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayAbilityList(abilityList);
                         break;
-
+                    // Sort by item name
                     case AbilitySortTypes.Name:
                         abilityList = lstAbilities.Items.OfType<Ability>()
                                       .OrderBy(a => a.Name)
@@ -1086,7 +1150,7 @@ namespace OOP_BestiaryFinal
                 }
             }
             catch (Exception ex)
-            {
+            {   // Display error
                 MessageBox.Show(ex.Message, "ERROR: Creature Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
@@ -1094,9 +1158,10 @@ namespace OOP_BestiaryFinal
         private void SortCustomAbilities(AbilitySortTypes sortType)
         {
             try
-            {
+            {   // Sort based on sort type
                 switch (sortType)
                 {
+                    // Sort by power level
                     case AbilitySortTypes.Power:
                         abilityList = abilityList
                                             .OrderBy(a => a.Power)
@@ -1105,7 +1170,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayCustomAbilityList();
                         break;
-
+                    // Sort by ability cost
                     case AbilitySortTypes.Cost:
                         abilityList = abilityList
                                             .OrderBy(a => a.Cost)
@@ -1114,7 +1179,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayCustomAbilityList();
                         break;
-
+                    // Sort by damage type
                     case AbilitySortTypes.Type:
                         abilityList = abilityList
                                             .OrderBy(a => a.DamageType)
@@ -1123,7 +1188,7 @@ namespace OOP_BestiaryFinal
 
                         DisplayCustomAbilityList();
                         break;
-
+                    // Sort by name
                     case AbilitySortTypes.Name:
                         abilityList = abilityList
                                             .OrderBy(a => a.Name)
@@ -1134,29 +1199,43 @@ namespace OOP_BestiaryFinal
                 }
             }
             catch (Exception ex)
-            {
+            {   // Display error
                 MessageBox.Show(ex.Message, "ERROR: Creature Sorting", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
         private void btnCreateAbility_SaveAbility_Click(object sender, EventArgs e)
         {
+            // If an ability is selected
             if (lstCreateAbility_List.SelectedIndex != -1)
             {
+                // Prompt user to save
                 DialogResult save = MessageBox.Show("Would you like to overwrite the values of the currently selected ability?", "Overwrite", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                // Overwrite ability
                 if (save == DialogResult.Yes)
+                {
+                    // Check to see if description and name are not null
+                    if (string.IsNullOrWhiteSpace(txtCreateAbility_Name.Text) || string.IsNullOrWhiteSpace(rtbCreateAbility_Desc.Text))
+                    {
+                        MessageBox.Show("Name and Description cannot be empty!", "ERROR: Editing Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    // If the name and description are valid save your changes
                     SaveCustomAbilityChanges();
+                }
             }
-            else
+            else // Display message
                 MessageBox.Show("You need to select an item before saving!", "ERROR: Editing Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         private void lstCreateAbility_List_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // If selected item is an ability
             if (lstCreateAbility_List.SelectedItem is Ability ab)
             {
+                // Clear the ability stats and display new abilities
                 ClearCustomAbilityStats();
                 DisplayCustomAbilityStats(ab);
             }
@@ -1166,38 +1245,48 @@ namespace OOP_BestiaryFinal
         {
             try
             {
+                // If the selected ability and damage type is valid
                 if (lstCreateAbility_List.SelectedItem is Ability && cboCreateAbility_DamageType.SelectedItem is DamageType damageType)
                 {
-                    // Access ability in list
+                    // Access ability in list, change properties using controls
+                    // Name and description are checked before fucntion call...
                     abilityList[lstCreateAbility_List.SelectedIndex].Name = txtCreateAbility_Name.Text;
                     abilityList[lstCreateAbility_List.SelectedIndex].Description = rtbCreateAbility_Desc.Text;
 
+                    // Set cost/power
                     abilityList[lstCreateAbility_List.SelectedIndex].Power = (int)nudCreateAbility_Power.Value;
                     abilityList[lstCreateAbility_List.SelectedIndex].Cost = (int)nudCreateAbility_Cost.Value;
 
+                    // Set damage type
                     abilityList[lstCreateAbility_List.SelectedIndex].DamageType = damageType;
 
+                    // Update custom ability list to reflect changes
                     DisplayCustomAbilityList();
 
+                    // Changes were made...
                     madeChanges = true;
 
-                    MessageBox.Show($"Ability successfuly overwritten!");
+                    MessageBox.Show("Ability successfuly overwritten!", "Successfuly Updated Ability", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
             }
             catch (Exception ex)
             {
+                // Display error
                 MessageBox.Show(ex.Message, "ERROR: Saving Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
         private void btnCreateAbility_SortAbilities_Click(object sender, EventArgs e)
         {
+            // If list is not empty
             if (abilityList.Count > 0)
             {
+                // Sort by ability types
                 if (cboCreateAbility_SortTypes.SelectedItem is AbilitySortTypes ast)
                     SortCustomAbilities(ast);
             }
-            else
+            else // Display error message
                 MessageBox.Show("Collection is empty.", "Error: Sorting Custom Abilities", MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
     }
