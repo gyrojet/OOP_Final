@@ -178,5 +178,67 @@ namespace OOP_BestiaryFinal
             GetACByLevel();
             GetHealthByTypeAndLevel();
         }
+
+        public override bool Equals(object obj)
+        {
+            try
+            {
+                // If object is null, return false
+                if (obj == null)
+                    return false;
+
+                // Get obj as a creature
+                if (obj is Creature c)
+                {
+                    // Compare Values
+                    if (this.GetNameUpperCase() == c.GetNameUpperCase() &&
+                        this.Level == c.Level &&
+                        this.MonsterType == c.MonsterType &&
+                        this.Resists == c.Resists &&
+                        this.MonsterClass == c.MonsterClass)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error while comparing monsters.\n{e.Message}", "ERROR: Comparing Monsters");
+                return false;
+            }
+        }
+
+        public static bool operator ==(Creature c1, Creature c2)
+        {
+            // Check for null values
+            if (Object.Equals(c1, null))
+            {
+                if (Object.Equals(c2, null))
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                // If not null, then evaluate normally
+                return c1.Equals(c2);
+            }
+        }
+
+        // Check to see if the creatures are not equal
+        public static bool operator !=(Creature c1, Creature c2)
+        {
+            return !(c1 == c2);
+        }
+
+        private string GetNameUpperCase()
+        {
+            // Trim all whitespace from the name
+            string trimmedName = string.Concat(Name.Where(c => !char.IsWhiteSpace(c)));
+
+            return trimmedName.ToUpper();
+        }
     }
 }

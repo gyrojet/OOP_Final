@@ -535,24 +535,10 @@ namespace OOP_BestiaryFinal
 
         private void btnCreate_CreateMonster_Click(object sender, EventArgs e)
         {
-            /*
-             * Create Monsters,Pass One:
-             * - Get all required information:
-             *      - Name
-             *      - Description
-             *      - Type
-             *      - Level
-             *      - Resistances
-             *      - Monster Class
-             *      - Randomize
-             *      
-             *  Step by step:
-             *  - get universal attributes (attributes of creature class)
-             *  - keep not of Randomize (If true, use alternate constructor
-             *  - get class specific attributes(minion's min-max appearing, 
-             */
             try
             {
+                bool wasError = false;
+
                 // Get monster's statistics
                 bool isRandom = chkGenerateACHP.Checked;
                 int monsterHP = 0;
@@ -623,12 +609,20 @@ namespace OOP_BestiaryFinal
                                 monsterMax
                             );
 
-                        // Add to list and display
-                        creatureList.Add(myMinion);
+                        if (!CheckMonsterListForDuplicates(myMinion))
+                        {
+                            // Add to list and display
+                            creatureList.Add(myMinion);
 
-                        madeChanges = true;
+                            madeChanges = true;
 
-                        DisplayMonsterList();
+                            DisplayMonsterList();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            wasError = true;
+                        }
                     }
                 }
                 else// Create a monster with ABILITIES
@@ -676,8 +670,20 @@ namespace OOP_BestiaryFinal
                                         );
 
                                     // Add to list and display
-                                    creatureList.Add(myElite);
-                                    DisplayMonsterList();
+                                    if (!CheckMonsterListForDuplicates(myElite))
+                                    {
+                                        // Add to list and display
+                                        creatureList.Add(myElite);
+
+                                        madeChanges = true;
+
+                                        DisplayMonsterList();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        wasError = true;
+                                    }
                                 }
                                 else
                                 {
@@ -694,11 +700,20 @@ namespace OOP_BestiaryFinal
                                         );
 
                                     // Add to list and display
-                                    creatureList.Add(myElite);
+                                    if (!CheckMonsterListForDuplicates(myElite))
+                                    {
+                                        // Add to list and display
+                                        creatureList.Add(myElite);
 
-                                    madeChanges = true;
+                                        madeChanges = true;
 
-                                    DisplayMonsterList();
+                                        DisplayMonsterList();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        wasError = true;
+                                    }
                                 }
                             }
                         }
@@ -767,16 +782,26 @@ namespace OOP_BestiaryFinal
                         }
 
                         // Add to list and display
-                        creatureList.Add(newWorldBoss);
+                        if (!CheckMonsterListForDuplicates(newWorldBoss))
+                        {
+                            // Add to list and display
+                            creatureList.Add(newWorldBoss);
 
-                        madeChanges = true;
+                            madeChanges = true;
 
-                        DisplayMonsterList();
+                            DisplayMonsterList();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Monsters must have different names, levels, types, resistances and classes!", "Error: Duplicate Monster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            wasError = true;
+                        }
                     }
                 }
 
                 // If this runs, then you are successful!
-                MessageBox.Show("Monster Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!wasError)
+                    MessageBox.Show("Monster Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -784,10 +809,25 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        private void CreateAbility()
+        private bool CheckMonsterListForDuplicates(Creature creatureToCheck)
         {
+            // Tells us if creature is a duplicate
             bool isDuplicate = false;
 
+            // Check each creature in list
+            foreach (Creature c in creatureList)
+            {
+                // If creatures match, it is a duplicate!
+                if (c == creatureToCheck)
+                    isDuplicate = true;
+            }
+
+            // Return status
+            return isDuplicate;
+        }
+
+        private void CreateAbility()
+        {
             // Get ability details
             string abilityName = txtCreateAbility_Name.Text;
             int abilityCost = (int)nudCreateAbility_Cost.Value;
@@ -809,14 +849,9 @@ namespace OOP_BestiaryFinal
                     );
 
                 // Before adding to list, we check to see if a simmilar ability already exists in the list.
-                foreach (Ability a in abilityList)
-                {
-                    if (a == newAbility)
-                        isDuplicate = true;
-                }
-
+               
                 // If ability is not a duplicate:
-                if (!isDuplicate)
+                if (!CheckAbilityListForDuplicates(newAbility))
                 {
                     // Add ability to list
                     abilityList.Add(newAbility);
@@ -835,6 +870,23 @@ namespace OOP_BestiaryFinal
                 // error!!!
                 MessageBox.Show("One or more properties of your ability are invalid.", "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private bool CheckAbilityListForDuplicates(Ability abilityToCheck)
+        {
+            // Tells us if an item is a duplicte
+            bool isDuplicate = false;
+
+            // Check each ability in the list:
+            foreach (Ability a in abilityList)
+            {
+                // If the abilities match, there is a duplicate!
+                if (a == abilityToCheck)
+                    isDuplicate = true;
+            }
+
+            // Return status
+            return isDuplicate;
         }
 
         private void btnCreateAbility_ClearBottom_Click(object sender, EventArgs e)

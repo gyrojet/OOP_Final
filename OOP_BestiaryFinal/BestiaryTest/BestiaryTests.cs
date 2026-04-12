@@ -128,7 +128,7 @@ namespace BestiaryTest
         }
 
         [TestMethod]
-        public void TestItemGeneration()
+        public void TestGoldGeneration()
         {
             Loot l = new Loot();
             l.Value = -255;

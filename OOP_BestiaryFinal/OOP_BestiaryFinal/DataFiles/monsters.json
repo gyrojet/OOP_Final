@@ -7,7 +7,7 @@
     "Description": "Small, slimy, and hard to spot.\nDon\u0027t wear any of your good shirts around it!",
     "Level": 3,
     "AC": 11,
-    "CurrentHealth": 62,
+    "CurrentHealth": 81,
     "MonsterClass": "Minion",
     "MonsterType": "Animal",
     "Resists": "Acid",
@@ -49,7 +49,7 @@
     "Description": "Tiny bugs that live on asteroids.\nAlways covered in a thin layer of dust...from the moon.",
     "Level": 5,
     "AC": 12,
-    "CurrentHealth": 106,
+    "CurrentHealth": 125,
     "MonsterClass": "Minion",
     "MonsterType": "Animal",
     "Resists": "None",
@@ -68,7 +68,7 @@
     "Description": "Bigger and tougher than his underlings, this goblin is particuarily cantankerous.\nDon\u0027t let him poke you!",
     "Level": 4,
     "AC": 12,
-    "CurrentHealth": 107,
+    "CurrentHealth": 129,
     "MonsterClass": "Elite",
     "MonsterType": "Humanoid",
     "Resists": "Physical",
@@ -160,7 +160,7 @@
     "Description": "A being from a higher level of existance.\nHostile to all life.",
     "Level": 10,
     "AC": 15,
-    "CurrentHealth": 232,
+    "CurrentHealth": 286,
     "MonsterClass": "Elite",
     "MonsterType": "Demon",
     "Resists": "Force",
@@ -179,5 +179,24 @@
     "MonsterType": "Animal",
     "Resists": "None",
     "Randomize": false
+  },
+  {
+    "$type": "elite",
+    "Ability": {
+      "Name": "Pokin\u0027 Stick",
+      "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
+      "Power": 10,
+      "Cost": 3,
+      "DamageType": "Physical"
+    },
+    "Name": "Sand Eater",
+    "Description": "Talk about a bad habit.",
+    "Level": 1,
+    "AC": 10,
+    "CurrentHealth": 6,
+    "MonsterClass": "Elite",
+    "MonsterType": "Animal",
+    "Resists": "Fire",
+    "Randomize": true
   }
 ]
