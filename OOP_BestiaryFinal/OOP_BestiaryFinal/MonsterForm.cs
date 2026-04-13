@@ -4,6 +4,7 @@ using System.Text.Json;
 
 namespace OOP_BestiaryFinal
 {
+    // The main form: Users will create and view their monsters here
     public partial class MonsterForm : Form
     {
         // Reference to the previous screen
@@ -13,8 +14,8 @@ namespace OOP_BestiaryFinal
         List<Creature> creatureList;
         List<Ability> abilityList;
 
+        // tracks whether or not changes are made
         bool madeChanges = false;
-        bool closed = false;
 
         public MonsterForm(List<Creature> chrLst, List<Ability> ablList, StartScreen prev)
         {
@@ -68,6 +69,7 @@ namespace OOP_BestiaryFinal
             }
         }
 
+        // Display all custom abilities
         private void DisplayCustomAbilityList()
         {
             // Clear the list of custom abilities
@@ -92,10 +94,7 @@ namespace OOP_BestiaryFinal
             }
         }
 
-        // How to display user data:
-        // Get monster
-        // Determine type
-        // Set controls acordingly
+        // Display monster's data
         private void lstMonsters_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check to see if something is selected; if not, return
@@ -183,6 +182,7 @@ namespace OOP_BestiaryFinal
             lstAbilities.SelectedIndex = 0;
         }
 
+        // Clear ability list and stats
         private void ClearAbilityData()
         {
             // Clear list
@@ -192,6 +192,7 @@ namespace OOP_BestiaryFinal
             ClearAbilityStats();
         }
 
+        // Clear all ability display labels
         private void ClearAbilityStats()
         {
             // Empty all ability info labels
@@ -202,6 +203,7 @@ namespace OOP_BestiaryFinal
             lblAbilityPower.Text = string.Empty;
         }
 
+        // Clear custom ability labels
         private void ClearCustomAbilityStats()
         {
             // Empty all labels for custom ability creation
@@ -215,6 +217,7 @@ namespace OOP_BestiaryFinal
             cboCreateAbility_DamageType.SelectedIndex = 0;
         }
 
+        // Display custom ability info
         private void DisplayCustomAbilityStats(Ability ab)
         {
             // Display all custom ability info
@@ -228,6 +231,7 @@ namespace OOP_BestiaryFinal
             rtbCreateAbility_Desc.Text = ab.Description;
         }
 
+        // display monster's abilities in list
         private void DisplayAbilityList(List<Ability> abilities)
         {
             // Clear ability list, NOT labels!
@@ -240,6 +244,7 @@ namespace OOP_BestiaryFinal
             }
         }
 
+        //Display ability stats
         private void DisplayAbilityStats(Ability ab)
         {
             // Set values of labels
@@ -250,6 +255,8 @@ namespace OOP_BestiaryFinal
             rtbAbilityDesc.Text = ab.Describe();
         }
 
+        
+        // Fill comboboxes with enum values
         private void PopulateComboBoxes()
         {
             // Fill the combo box with the monster type enum
@@ -267,7 +274,8 @@ namespace OOP_BestiaryFinal
             cboSortAbilities.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
             cboCreateAbility_SortTypes.DataSource = Enum.GetValues(typeof(AbilitySortTypes));
         }
-
+        
+        // Grab new ability
         private void lstAbilities_SelectedIndexChanged(object sender, EventArgs e)
         {
             // If nothing is selected,
@@ -281,49 +289,59 @@ namespace OOP_BestiaryFinal
         }
 
 
-
+        // Shut down program
         private void MonsterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // If a new monster was made, a new ability was made, or an existing ability was changed: prompt user to save!
-            if (madeChanges)
+            try
             {
-                // Message for messagebox
-                string msg = "You have made changes.\n\nWould you like to save your data?";
-                // Display choice to user
-                DialogResult willUserSave = MessageBox.Show(msg, "Please save your data!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-
-                // If user choses to save
-                if (willUserSave == DialogResult.Yes)
+                // If a new monster was made, a new ability was made, or an existing ability was changed: prompt user to save!
+                if (madeChanges)
                 {
-                    // Attempt to save data
-                    if (DataManager.SaveMonsterData(creatureList) && DataManager.SaveCustomAbilityData(abilityList))
-                    {
-                        // If successful, display a message and exit
-                        MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Message for messagebox
+                    string msg = "You have made changes.\n\nWould you like to save your data?";
+                    // Display choice to user
+                    DialogResult willUserSave = MessageBox.Show(msg, "Please save your data!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 
+                    // If user choses to save
+                    if (willUserSave == DialogResult.Yes)
+                    {
+                        // Attempt to save data
+                        if (DataManager.SaveMonsterData(creatureList) && DataManager.SaveCustomAbilityData(abilityList))
+                        {
+                            // If successful, display a message and exit
+                            MessageBox.Show("Data saved successfuly. Have a nice day! :D", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            previous.CloseMe();
+                        }
+                        else // If saving fails, cancel closing
+                        {
+                            MessageBox.Show("Saving canceled!", "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            e.Cancel = true;
+                        }
+                    }
+                    else if (willUserSave == DialogResult.No)
+                    {
+                        // Close the previous form
                         previous.CloseMe();
                     }
-                    else // If saving fails, cancel closing
+                    else if (willUserSave == DialogResult.Cancel)
                     {
-                        MessageBox.Show("Saving canceled!", "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // Cancel the closing sequence
                         e.Cancel = true;
                     }
                 }
-                else if (willUserSave == DialogResult.No)
-                {
-                    // Close the previous form
+                else // If no changes were made, no need to save!
                     previous.CloseMe();
-                }
-                else if (willUserSave == DialogResult.Cancel)
-                {
-                    // Cancel the closing sequence
-                    e.Cancel = true;
-                }
             }
-            else // If no changes were made, no need to save!
-                previous.CloseMe();
+            catch (Exception ex)
+            {
+                // In an error occurs, stop shutdown
+                MessageBox.Show(ex.Message, "Error: Closing Program", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                e.Cancel = true;
+            }
         }
 
+        // Disable on enable loot controls on form
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             // Enable or disable loot gen grouping
@@ -422,9 +440,12 @@ namespace OOP_BestiaryFinal
                         // Display list of loot
                         DisplayLootList(monsterLoot);
                     }
+                    else // Display error
+                        MessageBox.Show("The Creature you have selected is invalid!", "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else // Use custom stats
                 {
+                    // If type is valid
                     if (cboType.SelectedItem is MonsterType type)
                     {
                         // Get manual level/type
@@ -436,7 +457,7 @@ namespace OOP_BestiaryFinal
                         // Display loot list
                         DisplayLootList(monsterLoot);
                     }
-                    else
+                    else // Display an error
                         MessageBox.Show("The Monster Type you have selected is invalid!", "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
@@ -525,13 +546,11 @@ namespace OOP_BestiaryFinal
                 // If monster is a minion, disable ability group
                 if (c == Classification.Minion)
                 {
-                    //grpCreateMonsterAbilities.Enabled = false;
                     nudCreate_MinionMin.Enabled = true;
                     nudCreate_MinionMax.Enabled = true;
                 }
                 else // Otherwise, enable the ability group
                 {
-                    //grpCreateMonsterAbilities.Enabled = true;
                     nudCreate_MinionMin.Enabled = false;
                     nudCreate_MinionMax.Enabled = false;
                 }
@@ -930,7 +949,7 @@ namespace OOP_BestiaryFinal
 
             }
             catch (Exception ex)
-            {
+            {   // An error occured while making the ability
                 MessageBox.Show(ex.Message, "Error: Creating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
@@ -1285,6 +1304,8 @@ namespace OOP_BestiaryFinal
 
                     MessageBox.Show("Ability successfuly overwritten!", "Successfuly Updated Ability", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else // If datatype or ability is invalid
+                    MessageBox.Show("Your selected data type is invalid!", "Error: Updating Ability", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
             catch (Exception ex)

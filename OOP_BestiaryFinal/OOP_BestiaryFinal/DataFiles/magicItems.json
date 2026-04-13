@@ -70,5 +70,29 @@
     "Description": "A long, flat playing card depicting a wandering minstrel.\nSomething about this is magical, but you can\u0027t put your finger on it.",
     "Value": 600,
     "IsMagical": true
+  },
+  {
+    "Name": "Wormwood Flute",
+    "Description": "The music from this flute has the ability to charm insects of all shapes and sizes.",
+    "Value": 550,
+    "IsMagical": true
+  },
+  {
+    "Name": "Mummified Head",
+    "Description": "The cursed head of a powerful goblin leader.\nAnyone who looks into its eyes is cursed for eons...",
+    "Value": 1250,
+    "IsMagical": true
+  },
+  {
+    "Name": "Helm of Telepathy",
+    "Description": "This ornate helmet lets you read the thoughts of others as if they were your own.\nSort of invasive, no?",
+    "Value": 1400,
+    "IsMagical": true
+  },
+  {
+    "Name": "Ice Boots",
+    "Description": "Water freezes at the wearer\u0027s touch, allowing them to skate across rivers and oceans.",
+    "Value": 1350,
+    "IsMagical": true
   }
 ]

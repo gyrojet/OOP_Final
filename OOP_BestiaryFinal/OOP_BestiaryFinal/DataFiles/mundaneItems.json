@@ -70,5 +70,29 @@
     "Description": "A trophy from a vicious beast.\nThere are bite marks on it.",
     "Value": 8,
     "IsMagical": false
+  },
+  {
+    "Name": "Wooden Wheel",
+    "Description": "Stolen from an abandoned wagon.",
+    "Value": 5,
+    "IsMagical": false
+  },
+  {
+    "Name": "Fine Cutlery",
+    "Description": "A set of fine silver cutlery.",
+    "Value": 25,
+    "IsMagical": false
+  },
+  {
+    "Name": "Bag of Chalk",
+    "Description": "Sticks of chalk in various colors.\nThe green chalk is missing.",
+    "Value": 3,
+    "IsMagical": false
+  },
+  {
+    "Name": "Tattered Poster",
+    "Description": "A poster advertising a semi-famous opera singer.",
+    "Value": 10,
+    "IsMagical": false
   }
 ]

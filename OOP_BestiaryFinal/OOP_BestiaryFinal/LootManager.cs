@@ -26,37 +26,43 @@ namespace OOP_BestiaryFinal
             //Store total amount
             int total = 0;
 
-            // Base amount of gold
-            int baseAmt = 0;
-
-            // Get base amount based on monster type
-            switch (type)
+            try
             {
-                case MonsterType.Animal:
-                case MonsterType.Ooze:
-                    baseAmt = 4;
-                    break;
+                // Base amount of gold
+                int baseAmt = 0;
 
-                case MonsterType.Undead:
-                case MonsterType.Humanoid:
-                    baseAmt = 6;
-                    break;
+                // Get base amount based on monster type
+                switch (type)
+                {
+                    case MonsterType.Animal:
+                    case MonsterType.Ooze:
+                        baseAmt = 4;
+                        break;
 
-                case MonsterType.Alien:
-                case MonsterType.Construct:
-                    baseAmt = 8;
-                    break;
+                    case MonsterType.Undead:
+                    case MonsterType.Humanoid:
+                        baseAmt = 6;
+                        break;
 
-                case MonsterType.Demon:
-                case MonsterType.Dragon:
-                    baseAmt = 12;
-                    break;
+                    case MonsterType.Alien:
+                    case MonsterType.Construct:
+                        baseAmt = 8;
+                        break;
+
+                    case MonsterType.Demon:
+                    case MonsterType.Dragon:
+                        baseAmt = 12;
+                        break;
+                }
+
+                // Generate gold
+                // Gold amount = ((random, from 1 to base amount) * level) + (random, from 1 to level)
+                total = ((rng.Next(1, baseAmt + 1)) * level) + rng.Next(1, level + 1);
             }
-
-            // Generate gold
-            // Gold amount = ((random, from 1 to base amount) * level) + (random, from 1 to level)
-            total = ((rng.Next(1, baseAmt + 1)) * level) + rng.Next(1, level + 1);
-            
+            catch (Exception e)
+            {   // If an error occurs
+                MessageBox.Show(e.Message, "Error: Generating Gold", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
             // Return the generated total
             return total;
         }
@@ -160,43 +166,50 @@ namespace OOP_BestiaryFinal
             // Stores magic item chance
             int itemChance = 0;
 
-            switch (type)
+            try
             {
-                /* magic item chances:
-                 * Alien: 20%
-                 * Animal: 5%
-                 * Construct: 15%
-                 * Demon: 20%
-                 * Dragon: 25%
-                 * Humanoid: 15%
-                 * Ooze: 5%
-                 * Undead: 10%
-                 */
+                switch (type)
+                {
+                    /* magic item chances:
+                     * Alien: 20%
+                     * Animal: 5%
+                     * Construct: 15%
+                     * Demon: 20%
+                     * Dragon: 25%
+                     * Humanoid: 15%
+                     * Ooze: 5%
+                     * Undead: 10%
+                     */
 
-                // Get magic item chance by type
+                    // Get magic item chance by type
 
-                case MonsterType.Dragon:
-                    itemChance = 25;
-                    break;
+                    case MonsterType.Dragon:
+                        itemChance = 25;
+                        break;
 
-                case MonsterType.Alien:
-                case MonsterType.Demon:
-                    itemChance = 20;
-                    break;
+                    case MonsterType.Alien:
+                    case MonsterType.Demon:
+                        itemChance = 20;
+                        break;
 
-                case MonsterType.Construct:
-                case MonsterType.Humanoid:
-                    itemChance = 15;
-                    break;
+                    case MonsterType.Construct:
+                    case MonsterType.Humanoid:
+                        itemChance = 15;
+                        break;
 
-                case MonsterType.Undead:
-                    itemChance = 10;
-                    break;
+                    case MonsterType.Undead:
+                        itemChance = 10;
+                        break;
 
-                case MonsterType.Animal:
-                case MonsterType.Ooze:
-                    itemChance = 5;
-                    break;
+                    case MonsterType.Animal:
+                    case MonsterType.Ooze:
+                        itemChance = 5;
+                        break;
+                }
+            }
+            catch (Exception e)
+            {   // If an error is thrown
+                MessageBox.Show(e.Message, "Error: Determining Item Chance", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
             // Return the item percentage

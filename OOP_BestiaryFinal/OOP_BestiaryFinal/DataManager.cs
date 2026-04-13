@@ -187,7 +187,7 @@ namespace OOP_BestiaryFinal
             catch (Exception e)
             {
                 // There was an error: set as false
-                MessageBox.Show(e.Message, "Error: Loading Mundane Item File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(e.Message, "Error: Loading Magic Item File", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 wasLoadSuccessful = false;
             }
 

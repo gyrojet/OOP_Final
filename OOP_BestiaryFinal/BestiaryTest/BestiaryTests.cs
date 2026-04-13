@@ -2,6 +2,7 @@
 using System;
 namespace BestiaryTest
 {
+    // A test class for checking property validation for creatures, abilities, and the loot manager
     [TestClass]
     public sealed class BestiaryTests
     {
