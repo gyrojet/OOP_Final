@@ -382,38 +382,55 @@ namespace OOP_BestiaryFinal
 
         private void GetMonsterGold()
         {
-            // Use current monster's stats
-            if (chkUseCurrentMonster.Checked)
+            try
             {
-                // Return if nothing is selected
-                if (lstMonsters.SelectedIndex == -1)
-                    return;
-
-                // If the creature is a Creature: display its data
-                if (lstMonsters.SelectedItem is Creature c)
+                // Use current monster's stats
+                if (chkUseCurrentMonster.Checked)
                 {
-                    // Get gold value w/ monster's level/type
-                    int gold = LootManager.GetGold(c.Level, c.MonsterType);
+                    // Return if nothing is selected
+                    if (lstMonsters.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Please select a monster first!", "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
 
-                    // Display
-                    lblGoldCount.Text = gold.ToString();
+                    // If the creature is a Creature: display its data
+                    if (lstMonsters.SelectedItem is Creature c)
+                    {
+                        // Get gold value w/ monster's level/type
+                        int gold = LootManager.GetGold(c.Level, c.MonsterType);
+
+                        // Display
+                        lblGoldCount.Text = gold.ToString();
+                    }
+                    else // Error message
+                        MessageBox.Show("The Creature you have selected is invalid!", "Error: Getting Gold", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else // Use custom stats
+                {
+                    // return if nothing is selected
+                    if (cboType.SelectedIndex == -1)
+                        return;
+
+                    // Get manual level and monster type
+                    int level = (int)nudLevel.Value;
+
+                    if (cboType.SelectedItem is MonsterType type)
+                    {
+                        // Get gold value with manual level/type
+                        int gold = LootManager.GetGold(level, type);
+
+                        // Display
+                        lblGoldCount.Text = gold.ToString();
+                    }
+                    else // Error Message
+                        MessageBox.Show("The Monster Type you have selected is invalid!", "Error: Getting Gold", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
-            else // Use custom stats
+            catch (Exception ex)
             {
-                // return if nothing is selected
-                if (cboType.SelectedIndex == -1)
-                    return;
-
-                // Get manual level and monster type
-                int level = (int)nudLevel.Value;
-                MonsterType type = (MonsterType)cboType.SelectedItem;
-
-                // Get gold value with manual level/type
-                int gold = LootManager.GetGold(level, type);
-
-                // Display
-                lblGoldCount.Text = gold.ToString();
+                // There was an error
+                MessageBox.Show(ex.Message, "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -429,7 +446,10 @@ namespace OOP_BestiaryFinal
                 {
                     // If nothing is selected, return
                     if (lstMonsters.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Please select a monster first!", "Error: Getting Loot", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         return;
+                    }
 
                     // If the creature is a Creature: ( :0 ) display its data
                     if (lstMonsters.SelectedItem is Creature c)

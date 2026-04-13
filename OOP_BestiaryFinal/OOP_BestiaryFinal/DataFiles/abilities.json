@@ -1,10 +1,10 @@
 [
   {
-    "Name": "Pokin\u0027 Stick",
-    "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
-    "Power": 10,
-    "Cost": 3,
-    "DamageType": "Physical"
+    "Name": "Cold Shoulder",
+    "Description": "Freeze a foe in place.",
+    "Power": 0,
+    "Cost": 5,
+    "DamageType": "Cold"
   },
   {
     "Name": "Fireball",
@@ -21,10 +21,24 @@
     "DamageType": "Lightning"
   },
   {
+    "Name": "Lunge",
+    "Description": "Launch yourself forward with both fists.",
+    "Power": 15,
+    "Cost": 10,
+    "DamageType": "Physical"
+  },
+  {
+    "Name": "Pokin\u0027 Stick",
+    "Description": "Wait. This is just a rusty nail!\nHas a chance to give you tetanus.",
+    "Power": 10,
+    "Cost": 3,
+    "DamageType": "Physical"
+  },
+  {
     "Name": "Scream",
-    "Description": "Unleash a horrible screech that bleeds the eardrums.",
+    "Description": "Unleash a horrible screech that bleeds the eardrums. Can cause deafness.",
     "Power": 100,
-    "Cost": 2,
+    "Cost": 5,
     "DamageType": "Sonic"
   }
 ]
